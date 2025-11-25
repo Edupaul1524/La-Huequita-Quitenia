@@ -724,260 +724,397 @@
       </div>
     </div>
   </div>
+<script>
+  // ==========================
+  // CONFIGURACIÓN BÁSICA
+  // ==========================
+  const WHATSAPP_NUMBER = "593982230393"; 
+  // 👆 REEMPLAZA con tu número en formato internacional: 593 + tu número sin 0
 
-  <script>
-    // ==========================
-    // CONFIGURACIÓN BÁSICA
-    // ==========================
-    const WHATSAPP_NUMBER = "593982230393";
-    // 👆 REEMPLAZA con tu número en formato internacional: 593 + tu número sin 0
+  // LOCALES DISPONIBLES
+  const LOCALES = [
+    { id: "PUSUQUI", label: "La Huequita – Pusuqui" },
+    { id: "POMASQUI", label: "La Huequita – Pomasqui" },
+    { id: "CARCELEN", label: "La Huequita – Carcelen" }
+  ];
 
-    // ==========================
-    // DATA DE PRODUCTOS
-    // ==========================
-    const products = [
-      {
-        id: 1,
-        nombre: "Aguardiente Amarillo 750ml",
-        descripcion: "Clásico para compartir con los panas.",
-        categoria: "Aguardiente",
-        precioLocal: 7.50,
-        imagen: "https://via.placeholder.com/200x260?text=Aguardiente",
-        tag: "destacado"
-      },
-      {
-        id: 2,
-        nombre: "Combo Aguardiente + Papa + 1/2 Marlboro Mentolado",
-        descripcion: "Combo A: full ahorro para la previa.",
-        categoria: "Combos",
-        precioLocal: 11.99,
-        imagen: "https://via.placeholder.com/200x260?text=Combo+A",
-        tag: "masvendido"
-      },
-      {
-        id: 3,
-        nombre: "Ron Abuelo Añejo 750ml",
-        descripcion: "Ron para cocktails o puro, tú decides.",
-        categoria: "Ron",
-        precioLocal: 18.90,
-        imagen: "https://via.placeholder.com/200x260?text=Ron",
-        tag: "destacado"
-      },
-      {
-        id: 4,
-        nombre: "Whisky Johnnie Walker Red Label 750ml",
-        descripcion: "Ideal para mezclas y shots.",
-        categoria: "Whisky",
-        precioLocal: 27.50,
-        imagen: "https://via.placeholder.com/200x260?text=Whisky",
-        tag: "nuevos"
-      },
-      {
-        id: 5,
-        nombre: "Vodka Smirnoff 700ml",
-        descripcion: "Perfecto para tragos largos y cócteles.",
-        categoria: "Vodka",
-        precioLocal: 16.20,
-        imagen: "https://via.placeholder.com/200x260?text=Vodka",
-        tag: "masvendido"
-      },
-      {
-        id: 6,
-        nombre: "Snacks surtidos (papas, maní, chifles)",
-        descripcion: "Para acompañar cualquier botella.",
-        categoria: "Snacks & Complementos",
-        precioLocal: 3.50,
-        imagen: "https://via.placeholder.com/200x260?text=Snacks",
-        tag: "destacado"
-      }
-    ];
+  // LOCAL ACTIVO (por defecto PUSUQUI o lo que haya en localStorage)
+  let activeLocal = localStorage.getItem("huequita_local") || "PUSUQUI";
 
-    const categoriesContainer = document.getElementById("categories");
-    const searchBox = document.getElementById("search-box");
-    const productsGrid = document.getElementById("products-grid");
-    const tabs = document.querySelectorAll(".section-tab");
-
-    let activeCategory = "Todos";
-    let activeTabFilter = "destacados";
-
-    function getCategories() {
-      const set = new Set(products.map(p => p.categoria));
-      return ["Todos", ...Array.from(set)];
+  // ==========================
+  // DATA DE PRODUCTOS
+  // ==========================
+  // 👉 AQUÍ PEGAS TUS PRODUCTOS, ya con precios por local
+  const products = [
+    {
+      id: 1,
+      nombre: "Aguardiente Amarillo 750ml",
+      descripcion: "Clásico para compartir con los panas.",
+      categoria: "Aguardiente",
+      // precios por local:
+      precios: {
+        PUSUQUI: 7.50,
+        POMASQUI: 7.80,
+        CARCELEN: 8.00
+      },
+      // en qué locales se vende:
+      locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
+      imagen: "https://via.placeholder.com/200x260?text=Aguardiente",
+      tag: "destacado"
+    },
+    {
+      id: 2,
+      nombre: "Combo Aguardiente + Papa + 1/2 Marlboro Mentolado",
+      descripcion: "Combo A: full ahorro para la previa.",
+      categoria: "Combos",
+      precios: {
+        PUSUQUI: 11.99,
+        POMASQUI: 10.99,
+        CARCELEN: 12.50
+      },
+      locales: ["PUSUQUI", "POMASQUI"],
+      imagen: "https://via.placeholder.com/200x260?text=Combo+A",
+      tag: "masvendido"
+    },
+    {
+      id: 3,
+      nombre: "Ron Abuelo Añejo 750ml",
+      descripcion: "Ron para cocktails o puro, tú decides.",
+      categoria: "Ron",
+      precios: {
+        PUSUQUI: 18.90,
+        POMASQUI: 19.50,
+        CARCELEN: 20.00
+      },
+      locales: ["PUSUQUI", "CARCELEN"],
+      imagen: "https://via.placeholder.com/200x260?text=Ron",
+      tag: "destacado"
+    },
+    {
+      id: 4,
+      nombre: "Whisky Johnnie Walker Red Label 750ml",
+      descripcion: "Ideal para mezclas y shots.",
+      categoria: "Whisky",
+      precios: {
+        PUSUQUI: 27.50,
+        POMASQUI: 27.90,
+        CARCELEN: 28.50
+      },
+      locales: ["POMASQUI", "CARCELEN"],
+      imagen: "https://via.placeholder.com/200x260?text=Whisky",
+      tag: "nuevos"
+    },
+    {
+      id: 5,
+      nombre: "Vodka Smirnoff 700ml",
+      descripcion: "Perfecto para tragos largos y cócteles.",
+      categoria: "Vodka",
+      precios: {
+        PUSUQUI: 16.20,
+        POMASQUI: 16.20,
+        CARCELEN: 16.20
+      },
+      locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
+      imagen: "https://via.placeholder.com/200x260?text=Vodka",
+      tag: "masvendido"
+    },
+    {
+      id: 6,
+      nombre: "Snacks surtidos (papas, maní, chifles)",
+      descripcion: "Para acompañar cualquier botella.",
+      categoria: "Snacks & Complementos",
+      precios: {
+        PUSUQUI: 3.50,
+        POMASQUI: 3.50,
+        CARCELEN: 3.50
+      },
+      locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
+      imagen: "https://via.placeholder.com/200x260?text=Snacks",
+      tag: "destacado"
     }
+  ];
 
-    function renderCategories() {
-      categoriesContainer.innerHTML = "";
-      getCategories().forEach(cat => {
-        const btn = document.createElement("button");
-        btn.className = "category-chip" + (cat === activeCategory ? " active" : "");
-        btn.textContent = cat;
-        btn.dataset.category = cat;
-        btn.addEventListener("click", () => {
-          activeCategory = cat;
-          document.querySelectorAll(".category-chip").forEach(c => c.classList.remove("active"));
-          btn.classList.add("active");
-          renderProducts();
-        });
-        categoriesContainer.appendChild(btn);
-      });
-    }
+  // ==========================
+  // REFERENCIAS DOM
+  // ==========================
+  const categoriesContainer = document.getElementById("categories");
+  const searchBox = document.getElementById("search-box");
+  const productsGrid = document.getElementById("products-grid");
+  const tabs = document.querySelectorAll(".section-tab");
+  const yearSpan = document.getElementById("year");
+  const cartPill = document.getElementById("cart-pill");
+  const localSelectToolbar = document.getElementById("local-select");
+  const storeSelectPopup = document.getElementById("store-select");
 
-    function renderProducts() {
-      const search = searchBox.value.trim().toLowerCase();
-      productsGrid.innerHTML = "";
+  let activeCategory = "Todos";
+  let activeTabFilter = "destacados";
 
-      const filtered = products.filter(p => {
-        const matchesCategory = activeCategory === "Todos" || p.categoria === activeCategory;
-        const matchesTab =
-          !activeTabFilter ||
-          (activeTabFilter === "destacados" && p.tag === "destacado") ||
-          (activeTabFilter === "nuevos" && p.tag === "nuevos") ||
-          (activeTabFilter === "masvendidos" && p.tag === "masvendido");
+  // ==========================
+  // LOCALES – llenar selects por JS
+  // ==========================
+  function populateLocalesSelect(selectEl) {
+    if (!selectEl) return;
+    selectEl.innerHTML = "";
+    LOCALES.forEach(loc => {
+      const opt = document.createElement("option");
+      opt.value = loc.id;
+      opt.textContent = loc.label;
+      selectEl.appendChild(opt);
+    });
+    // seleccionar el local activo
+    selectEl.value = activeLocal;
+  }
 
-        const matchesSearch =
-          !search ||
-          p.nombre.toLowerCase().includes(search) ||
-          p.categoria.toLowerCase().includes(search) ||
-          (p.descripcion && p.descripcion.toLowerCase().includes(search));
+  // ==========================
+  // CATEGORÍAS
+  // ==========================
+  function getCategories() {
+    const set = new Set(products.map(p => p.categoria));
+    return ["Todos", ...Array.from(set)];
+  }
 
-        return matchesCategory && matchesTab && matchesSearch;
-      });
-
-      if (!filtered.length) {
-        productsGrid.innerHTML = "<p style='color:#a0a0b5;font-size:13px;'>No encontramos productos con esos filtros.</p>";
-        return;
-      }
-
-      filtered.forEach(p => {
-        const card = document.createElement("article");
-        card.className = "product-card";
-
-        const badge = document.createElement("div");
-        badge.className = "product-badge";
-        if (p.tag === "masvendido") badge.classList.add("product-badge--hot");
-
-        let badgeText = "";
-        if (p.tag === "destacado") badgeText = "DESTACADO";
-        if (p.tag === "nuevos") badgeText = "NUEVO";
-        if (p.tag === "masvendido") badgeText = "MÁS VENDIDO";
-        badge.textContent = badgeText || "DISPONIBLE";
-
-        const imgWrap = document.createElement("div");
-        imgWrap.className = "product-image-wrap";
-
-        const img = document.createElement("img");
-        img.className = "product-image";
-        img.src = p.imagen;
-        img.alt = p.nombre;
-
-        imgWrap.appendChild(img);
-
-        const title = document.createElement("h3");
-        title.className = "product-title";
-        title.textContent = p.nombre;
-
-        const desc = document.createElement("p");
-        desc.className = "product-desc";
-        desc.textContent = p.descripcion || "";
-
-        const meta = document.createElement("div");
-        meta.className = "product-meta";
-
-        const price = document.createElement("div");
-        price.className = "product-price";
-
-        price.innerHTML = `
-          $ ${p.precioLocal.toFixed(2)}
-          <small>Precio en tienda</small>
-        `;
-
-        const note = document.createElement("div");
-        note.className = "product-note";
-        note.innerHTML = `
-          Delivery vía app / taxi no está incluido.<br>
-          Pago con tarjeta + recargo % en el local.
-        `;
-
-        meta.appendChild(price);
-        meta.appendChild(note);
-
-        const actions = document.createElement("div");
-        actions.className = "product-actions";
-
-        const btnWp = document.createElement("button");
-        btnWp.className = "btn btn-primary";
-        btnWp.innerHTML = `<span>💬</span> Pedir por WhatsApp`;
-        btnWp.addEventListener("click", () => {
-          const text = encodeURIComponent(
-            `Hola, quiero hacer un pedido en *La Huequita Quiteña*:\n` +
-            `• Producto: ${p.nombre}\n` +
-            `• Precio en tienda: $${p.precioLocal.toFixed(2)}\n` +
-            `¿Me ayudas con disponibilidad y delivery?`
-          );
-          window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
-        });
-
-        const btnInfo = document.createElement("button");
-        btnInfo.className = "btn btn-ghost";
-        btnInfo.textContent = "Detalle / info";
-        btnInfo.addEventListener("click", () => {
-          alert(`Producto: ${p.nombre}\nCategoría: ${p.categoria}\nPrecio en tienda: $${p.precioLocal.toFixed(2)}`);
-        });
-
-        actions.appendChild(btnWp);
-        actions.appendChild(btnInfo);
-
-        card.appendChild(badge);
-        card.appendChild(imgWrap);
-        card.appendChild(title);
-        card.appendChild(desc);
-        card.appendChild(meta);
-        card.appendChild(actions);
-
-        productsGrid.appendChild(card);
-      });
-    }
-
-    tabs.forEach(tab => {
-      tab.addEventListener("click", () => {
-        tabs.forEach(t => t.classList.remove("active"));
-        tab.classList.add("active");
-        activeTabFilter = tab.dataset.filterTab;
+  function renderCategories() {
+    categoriesContainer.innerHTML = "";
+    getCategories().forEach(cat => {
+      const btn = document.createElement("button");
+      btn.className = "category-chip" + (cat === activeCategory ? " active" : "");
+      btn.textContent = cat;
+      btn.dataset.category = cat;
+      btn.addEventListener("click", () => {
+        activeCategory = cat;
+        document.querySelectorAll(".category-chip").forEach(c => c.classList.remove("active"));
+        btn.classList.add("active");
         renderProducts();
       });
+      categoriesContainer.appendChild(btn);
+    });
+  }
+
+  // ==========================
+  // RENDER DE PRODUCTOS
+  // ==========================
+  function renderProducts() {
+    const search = (searchBox?.value || "").trim().toLowerCase();
+    productsGrid.innerHTML = "";
+
+    const filtered = products.filter(p => {
+      // 1) local
+      const matchesLocal = !p.locales || p.locales.includes(activeLocal);
+
+      // 2) categoría
+      const matchesCategory = activeCategory === "Todos" || p.categoria === activeCategory;
+
+      // 3) pestañas (destacados/nuevos/más vendidos)
+      const matchesTab =
+        !activeTabFilter ||
+        (activeTabFilter === "destacados" && p.tag === "destacado") ||
+        (activeTabFilter === "nuevos" && p.tag === "nuevos") ||
+        (activeTabFilter === "masvendidos" && p.tag === "masvendido");
+
+      // 4) buscador
+      const matchesSearch =
+        !search ||
+        p.nombre.toLowerCase().includes(search) ||
+        p.categoria.toLowerCase().includes(search) ||
+        (p.descripcion && p.descripcion.toLowerCase().includes(search));
+
+      return matchesLocal && matchesCategory && matchesTab && matchesSearch;
     });
 
+    if (!filtered.length) {
+      productsGrid.innerHTML =
+        "<p style='color:#a0a0b5;font-size:13px;'>No encontramos productos para esta sucursal con esos filtros.</p>";
+      return;
+    }
+
+    filtered.forEach(p => {
+      const card = document.createElement("article");
+      card.className = "product-card";
+
+      const badge = document.createElement("div");
+      badge.className = "product-badge";
+      if (p.tag === "masvendido") badge.classList.add("product-badge--hot");
+
+      let badgeText = "";
+      if (p.tag === "destacado") badgeText = "DESTACADO";
+      if (p.tag === "nuevos") badgeText = "NUEVO";
+      if (p.tag === "masvendido") badgeText = "MÁS VENDIDO";
+      badge.textContent = badgeText || "DISPONIBLE";
+
+      const imgWrap = document.createElement("div");
+      imgWrap.className = "product-image-wrap";
+
+      const img = document.createElement("img");
+      img.className = "product-image";
+      img.src = p.imagen;
+      img.alt = p.nombre;
+
+      imgWrap.appendChild(img);
+
+      const title = document.createElement("h3");
+      title.className = "product-title";
+      title.textContent = p.nombre;
+
+      const desc = document.createElement("p");
+      desc.className = "product-desc";
+      desc.textContent = p.descripcion || "";
+
+      const meta = document.createElement("div");
+      meta.className = "product-meta";
+
+      const price = document.createElement("div");
+      price.className = "product-price";
+
+      // precio según sucursal activa
+      const priceForLocal = p.precios?.[activeLocal];
+      let priceText = priceForLocal
+        ? `$ ${priceForLocal.toFixed(2)}`
+        : "No disponible";
+
+      price.innerHTML = `
+        ${priceText}
+        <small>Precio en tienda (${getLocalLabel(activeLocal)})</small>
+      `;
+
+      const note = document.createElement("div");
+      note.className = "product-note";
+      note.innerHTML = `
+        Delivery vía app / taxi no está incluido.<br>
+        Pago con tarjeta + recargo % en el local.
+      `;
+
+      meta.appendChild(price);
+      meta.appendChild(note);
+
+      const actions = document.createElement("div");
+      actions.className = "product-actions";
+
+      const btnWp = document.createElement("button");
+      btnWp.className = "btn btn-primary";
+      btnWp.innerHTML = `<span>💬</span> Pedir por WhatsApp`;
+      btnWp.addEventListener("click", () => {
+        const text = encodeURIComponent(
+          `Hola, quiero hacer un pedido en *La Huequita Quiteña* (${getLocalLabel(activeLocal)}):\n` +
+          `• Producto: ${p.nombre}\n` +
+          `• Precio en tienda: ${priceText}\n` +
+          `¿Me ayudas con disponibilidad y delivery?`
+        );
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
+      });
+
+      const btnInfo = document.createElement("button");
+      btnInfo.className = "btn btn-ghost";
+      btnInfo.textContent = "Detalle / info";
+      btnInfo.addEventListener("click", () => {
+        alert(
+          `Producto: ${p.nombre}\n` +
+          `Sucursal: ${getLocalLabel(activeLocal)}\n` +
+          `Categoría: ${p.categoria}\n` +
+          `Precio en tienda: ${priceText}`
+        );
+      });
+
+      actions.appendChild(btnWp);
+      actions.appendChild(btnInfo);
+
+      card.appendChild(badge);
+      card.appendChild(imgWrap);
+      card.appendChild(title);
+      card.appendChild(desc);
+      card.appendChild(meta);
+      card.appendChild(actions);
+
+      productsGrid.appendChild(card);
+    });
+  }
+
+  function getLocalLabel(id) {
+    const loc = LOCALES.find(l => l.id === id);
+    return loc ? loc.label : id;
+  }
+
+  // ==========================
+  // EVENTOS
+  // ==========================
+  // Tabs de mejores productos
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      activeTabFilter = tab.dataset.filterTab;
+      renderProducts();
+    });
+  });
+
+  if (searchBox) {
     searchBox.addEventListener("input", () => {
       renderProducts();
     });
+  }
 
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    const cartPill = document.getElementById("cart-pill");
+  if (cartPill) {
     cartPill.addEventListener("click", () => {
       alert("Por ahora los pedidos se gestionan por WhatsApp 💚");
     });
+  }
 
-    // ==============
-    // POPUP EDAD
-    // ==============
-    function acceptAge() {
-      document.getElementById("age-modal").style.display = "none";
-      localStorage.setItem("huequita18", "true");
+  // Select de sucursal en la barra principal
+  if (localSelectToolbar) {
+    populateLocalesSelect(localSelectToolbar);
+    localSelectToolbar.addEventListener("change", () => {
+      activeLocal = localSelectToolbar.value;
+      localStorage.setItem("huequita_local", activeLocal);
+      // sincronizar popup si existe
+      if (storeSelectPopup) storeSelectPopup.value = activeLocal;
+      renderProducts();
+    });
+  }
+
+  // Select de sucursal en el popup
+  if (storeSelectPopup) {
+    populateLocalesSelect(storeSelectPopup);
+    storeSelectPopup.addEventListener("change", () => {
+      activeLocal = storeSelectPopup.value;
+    });
+  }
+
+  // Año en footer
+  if (yearSpan) {
+    yearSpan.textContent = new Date().getFullYear();
+  }
+
+  // ==============
+  // POPUP EDAD
+  // ==============
+  function acceptAge() {
+    const modal = document.getElementById("age-modal");
+    if (storeSelectPopup) {
+      activeLocal = storeSelectPopup.value;
+      localStorage.setItem("huequita_local", activeLocal);
+      if (localSelectToolbar) localSelectToolbar.value = activeLocal;
     }
-
-    function rejectAge() {
-      alert("Lo sentimos, debes ser mayor de edad para ingresar 🍾");
-      window.location.href = "https://google.com";
-    }
-
-    if (localStorage.getItem("huequita18") === "true") {
-      document.getElementById("age-modal").style.display = "none";
-    }
-
-    // Init catálogo
-    renderCategories();
+    if (modal) modal.style.display = "none";
+    localStorage.setItem("huequita18", "true");
     renderProducts();
-  </script>
+  }
+
+  function rejectAge() {
+    alert("Lo sentimos, debes ser mayor de edad para ingresar 🍾");
+    window.location.href = "https://google.com";
+  }
+
+  window.acceptAge = acceptAge;
+  window.rejectAge = rejectAge;
+
+  // si ya aceptó antes, no mostrar popup
+  if (localStorage.getItem("huequita18") === "true") {
+    const modal = document.getElementById("age-modal");
+    if (modal) modal.style.display = "none";
+  }
+
+  // Init catálogo
+  renderCategories();
+  renderProducts();
+</script>
 </body>
 </html>
