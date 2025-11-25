@@ -4,6 +4,143 @@
   <meta charset="UTF-8" />
   <title>La Huequita Quiteña - Licorería</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  /* NUESTROS PRODUCTOS (tipo servicios spa) */
+.productos-section {
+  margin-top: 40px;
+}
+
+.productos-section h2 {
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 6px;
+}
+
+.productos-section .section-sub {
+  font-size: 13px;
+  opacity: 0.8;
+  margin-bottom: 16px;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.category-card {
+  border-radius: 16px;
+  border: 1px solid #222;
+  background: radial-gradient(circle at top, #262626 0, #050505 55%);
+  color: #f5f5f5;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.8);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.category-header h3 {
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.category-count {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.btn-small {
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid #f5f5f5;
+  background: #f5f5f5;
+  color: #111;
+  cursor: pointer;
+}
+
+.btn-small:hover {
+  background: #ffffff;
+}
+
+.category-body {
+  margin-top: 6px;
+  border-radius: 12px;
+  border: 1px solid #333;
+  background: rgba(0,0,0,0.55);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.22s ease, opacity 0.22s ease, padding 0.22s ease;
+  opacity: 0;
+  padding: 0 8px;
+}
+
+.category-card.open .category-body {
+  max-height: 420px;
+  opacity: 1;
+  padding: 8px;
+}
+
+.category-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.category-body th,
+.category-body td {
+  padding: 6px 4px;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+.category-body th {
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.9;
+}
+
+.category-body td.precio {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.category-body tr:last-child td {
+  border-bottom: none;
+}
+
+.category-body tbody {
+  display: block;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.category-body thead,
+.category-body tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+/* scroll dentro de la tabla */
+.category-body::-webkit-scrollbar {
+  width: 6px;
+}
+.category-body::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 999px;
+}
   <style>
     :root {
       --bg-page: #050505;
@@ -1014,200 +1151,197 @@
     </section>
 
     <!-- NUESTROS PRODUCTOS (CATEGORÍAS TIPO SPA) -->
-    <section id="categorias" class="productos-section">
-      <h2>Nuestros productos</h2>
-      <p class="section-sub">
-        Primero eliges la categoría y luego se despliegan todos los productos con su precio en local
-        (efectivo o transferencia). Delivery por Uber / InDrive, y pagos con tarjeta tienen un recargo porcentual.
-      </p>
+   <section id="categorias" class="productos-section">
+  <h2>Nuestros productos</h2>
+  <p class="section-sub">
+    Toca una categoría para ver todos los productos y su precio en local
+    (efectivo o transferencia). Delivery por Uber / InDriver; pagos con tarjeta tienen recargo.
+  </p>
 
-      <div class="category-grid">
-        <!-- RON -->
-        <article class="category-card">
-          <div class="category-header">
-            <div>
-              <h3>Ron</h3>
-              <span class="category-count">Ejemplos de tu carta</span>
-            </div>
-            <button class="btn btn-small toggle-category">Ver productos ▾</button>
-          </div>
-          <div class="category-body">
-            <table>
-              <thead>
-                <tr><th>Producto</th><th class="precio">Precio local</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>100 FUEGOS 375ML</td><td class="precio">$9.25</td></tr>
-                <tr><td>100 FUEGOS 750ML</td><td class="precio">$16.50</td></tr>
-                <tr><td>ABUELO 375ML</td><td class="precio">$8.25</td></tr>
-                <tr><td>ABUELO 750ML</td><td class="precio">$16.00</td></tr>
-                <tr><td>RONERO 750ML</td><td class="precio">$9.25</td></tr>
-                <tr><td>SAN MIGUEL ORO 750ML</td><td class="precio">$13.50</td></tr>
-                <tr><td>VIEJO DE CALDAS 750ML</td><td class="precio">$17.50</td></tr>
-                <!-- Aquí podemos seguir pegando TODOS los rones del Excel -->
-              </tbody>
-            </table>
-          </div>
-        </article>
-
-        <!-- AGUARDIENTE -->
-        <article class="category-card">
-          <div class="category-header">
-            <div>
-              <h3>Aguardiente</h3>
-              <span class="category-count">Ejemplos de tu carta</span>
-            </div>
-            <button class="btn btn-small toggle-category">Ver productos ▾</button>
-          </div>
-          <div class="category-body">
-            <table>
-              <thead>
-                <tr><th>Producto</th><th class="precio">Precio local</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>AGUARDIENTE AMARILLO</td><td class="precio">$20.00</td></tr>
-                <tr><td>AGUARDIENTE AMARILLO 1LT</td><td class="precio">$25.00</td></tr>
-                <tr><td>ANTIOQUEÑO 1LT</td><td class="precio">$25.70</td></tr>
-                <tr><td>ANTIOQUEÑO 375ML</td><td class="precio">$12.50</td></tr>
-                <tr><td>ANTIOQUEÑO 750ML</td><td class="precio">$20.75</td></tr>
-                <tr><td>NORTEÑO 375ML</td><td class="precio">$4.75</td></tr>
-                <tr><td>NORTEÑO 750ML</td><td class="precio">$9.25</td></tr>
-                <tr><td>TROPICO 375ML</td><td class="precio">$4.75</td></tr>
-                <tr><td>TROPICO 750ML</td><td class="precio">$9.25</td></tr>
-                <!-- Igual, aquí podemos ir pegando todos los demás -->
-              </tbody>
-            </table>
-          </div>
-        </article>
-
-        <!-- WHISKY -->
-        <article class="category-card">
-          <div class="category-header">
-            <div>
-              <h3>Whisky</h3>
-              <span class="category-count">Ejemplos de tu carta</span>
-            </div>
-            <button class="btn btn-small toggle-category">Ver productos ▾</button>
-          </div>
-          <div class="category-body">
-            <table>
-              <thead>
-                <tr><th>Producto</th><th class="precio">Precio local</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>100 PIPERS 750ML</td><td class="precio">$19.50</td></tr>
-                <tr><td>JHONNIE WALKER RED 750ML</td><td class="precio">$20.50</td></tr>
-                <tr><td>JHONNIE WALKER BLACK 750ML</td><td class="precio">$32.00</td></tr>
-                <tr><td>BUCHANANS 12 AÑOS</td><td class="precio">$52.00</td></tr>
-                <tr><td>OLD PARR 12 AÑOS</td><td class="precio">$48.00</td></tr>
-                <tr><td>WHITE HORSE 750ML</td><td class="precio">$17.50</td></tr>
-                <tr><td>WILLIAM LAWSON'S 750ML</td><td class="precio">$16.00</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </article>
-
-        <!-- CERVEZA -->
-        <article class="category-card">
-          <div class="category-header">
-            <div>
-              <h3>Cerveza</h3>
-              <span class="category-count">Ejemplos de tu carta</span>
-            </div>
-            <button class="btn btn-small toggle-category">Ver productos ▾</button>
-          </div>
-          <div class="category-body">
-            <table>
-              <thead>
-                <tr><th>Producto</th><th class="precio">Precio local</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>PILSENER 1LT</td><td class="precio">$3.00</td></tr>
-                <tr><td>CLUB 1LT</td><td class="precio">$3.10</td></tr>
-                <tr><td>PILSENER LATA 355ML</td><td class="precio">$1.25</td></tr>
-                <tr><td>CLUB LATA 355ML</td><td class="precio">$1.35</td></tr>
-                <tr><td>STELLA ARTOIS 330ML</td><td class="precio">$2.20</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </article>
-
-        <!-- BEBIDAS NO ALCOHÓLICAS -->
-        <article class="category-card">
-          <div class="category-header">
-            <div>
-              <h3>Bebidas no alcohólicas</h3>
-              <span class="category-count">Ejemplos de tu carta</span>
-            </div>
-            <button class="btn btn-small toggle-category">Ver productos ▾</button>
-          </div>
-          <div class="category-body">
-            <table>
-              <thead>
-                <tr><th>Producto</th><th class="precio">Precio local</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>AGUA CIELO 1LT</td><td class="precio">$1.00</td></tr>
-                <tr><td>COCA COLA 1LT</td><td class="precio">$1.75</td></tr>
-                <tr><td>FUZE TEA 1LT</td><td class="precio">$1.55</td></tr>
-                <tr><td>JUGO DEL VALLE 500ML</td><td class="precio">$0.75</td></tr>
-                <tr><td>V220</td><td class="precio">$1.60</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </article>
-
-        <!-- CIGARRILLOS -->
-        <article class="category-card">
-          <div class="category-header">
-            <div>
-              <h3>Cigarrillos</h3>
-              <span class="category-count">Ejemplos de tu carta</span>
-            </div>
-            <button class="btn btn-small toggle-category">Ver productos ▾</button>
-          </div>
-          <div class="category-body">
-            <table>
-              <thead>
-                <tr><th>Producto</th><th class="precio">Precio local</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>MALBORO ROJO</td><td class="precio">$5.50</td></tr>
-                <tr><td>MALBORO GOLD</td><td class="precio">$5.50</td></tr>
-                <tr><td>MALBORO ICE BLAST</td><td class="precio">$6.00</td></tr>
-                <tr><td>PHILLIP MORRIS AZUL</td><td class="precio">$4.75</td></tr>
-                <tr><td>PHILLIP MORRIS ROJO</td><td class="precio">$4.75</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </article>
-
-        <!-- SNACKS / CONFITERÍA -->
-        <article class="category-card">
-          <div class="category-header">
-            <div>
-              <h3>Snacks y confitería</h3>
-              <span class="category-count">Ejemplos de tu carta</span>
-            </div>
-            <button class="btn btn-small toggle-category">Ver productos ▾</button>
-          </div>
-          <div class="category-body">
-            <table>
-              <thead>
-                <tr><th>Producto</th><th class="precio">Precio local</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>PAPAS SIN MARCA</td><td class="precio">$1.25</td></tr>
-                <tr><td>PANCHITOS</td><td class="precio">$0.50</td></tr>
-                <tr><td>AGOGO MENTA COOL GRANDE</td><td class="precio">$0.40</td></tr>
-                <tr><td>TRIDENT X6 SURTIDO</td><td class="precio">$0.75</td></tr>
-                <tr><td>MENTAS</td><td class="precio">$0.05</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </article>
+  <div class="category-grid">
+    <!-- RON -->
+    <article class="category-card">
+      <div class="category-header">
+        <div>
+          <h3>Ron</h3>
+          <span class="category-count">Algunos de tus rones</span>
+        </div>
+        <button class="btn-small toggle-category">Ver productos ▾</button>
       </div>
-    </section>
+      <div class="category-body">
+        <table>
+          <thead>
+            <tr><th>Producto</th><th class="precio">Precio local</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>100 FUEGOS 375ML</td><td class="precio">$9.25</td></tr>
+            <tr><td>100 FUEGOS 750ML</td><td class="precio">$16.50</td></tr>
+            <tr><td>100 FUEGOS LATA 350ML</td><td class="precio">$2.50</td></tr>
+            <tr><td>ABUELO 375ML</td><td class="precio">$8.25</td></tr>
+            <tr><td>ABUELO 750ML</td><td class="precio">$16.00</td></tr>
+            <tr><td>BACARDI BLANCO 980ML</td><td class="precio">$22.75</td></tr>
+            <tr><td>CAÑA BLANCA 750ML</td><td class="precio">$11.00</td></tr>
+            <tr><td>CASTILLO AÑEJO 750ML</td><td class="precio">$14.50</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- AGUARDIENTE -->
+    <article class="category-card">
+      <div class="category-header">
+        <div>
+          <h3>Aguardiente</h3>
+          <span class="category-count">Algunos de tus aguardientes</span>
+        </div>
+        <button class="btn-small toggle-category">Ver productos ▾</button>
+      </div>
+      <div class="category-body">
+        <table>
+          <thead>
+            <tr><th>Producto</th><th class="precio">Precio local</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>AGUARDIENTE AMARILLO</td><td class="precio">$20.00</td></tr>
+            <tr><td>AGUARDIENTE AMARILLO 1LT</td><td class="precio">$25.00</td></tr>
+            <tr><td>AGUARDIENTE DON COCO</td><td class="precio">$11.00</td></tr>
+            <tr><td>AGUARDIENTE MEDALLO</td><td class="precio">$14.00</td></tr>
+            <tr><td>AGUARDIENTE POZO 350ML</td><td class="precio">$2.50</td></tr>
+            <tr><td>ANTIOQUEÑO 1LT</td><td class="precio">$25.70</td></tr>
+            <tr><td>ANTIOQUEÑO 375ML</td><td class="precio">$12.50</td></tr>
+            <tr><td>ANTIOQUEÑO 750ML</td><td class="precio">$20.75</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- WHISKY -->
+    <article class="category-card">
+      <div class="category-header">
+        <div>
+          <h3>Whisky</h3>
+          <span class="category-count">Algunos whiskies</span>
+        </div>
+        <button class="btn-small toggle-category">Ver productos ▾</button>
+      </div>
+      <div class="category-body">
+        <table>
+          <thead>
+            <tr><th>Producto</th><th class="precio">Precio local</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>BALLANTINES 700ML</td><td class="precio">$22.75</td></tr>
+            <tr><td>BLACK AND WHITE 750ML</td><td class="precio">$24.75</td></tr>
+            <tr><td>BLACK CASTLE ROJO 750ML</td><td class="precio">$17.00</td></tr>
+            <tr><td>BUCHANANS 750ML</td><td class="precio">$74.00</td></tr>
+            <tr><td>CHIVAS REGAL 12 AÑOS 750ML</td><td class="precio">$59.75</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- CERVEZA -->
+    <article class="category-card">
+      <div class="category-header">
+        <div>
+          <h3>Cerveza</h3>
+          <span class="category-count">Algunas cervezas</span>
+        </div>
+        <button class="btn-small toggle-category">Ver productos ▾</button>
+      </div>
+      <div class="category-body">
+        <table>
+          <thead>
+            <tr><th>Producto</th><th class="precio">Precio local</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>CERVEZA PILSENER 1LT</td><td class="precio">$2.85</td></tr>
+            <tr><td>CERVEZA CLUB 1LT</td><td class="precio">$2.90</td></tr>
+            <tr><td>CERVEZA CLUB LATA</td><td class="precio">$2.00</td></tr>
+            <tr><td>CERVEZA CORONA 355CC</td><td class="precio">$2.60</td></tr>
+            <tr><td>CERVEZA PILSENER PEQUEÑA 330CC</td><td class="precio">$2.00</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- BEBIDAS NO ALCOHÓLICAS -->
+    <article class="category-card">
+      <div class="category-header">
+        <div>
+          <h3>Bebidas no alcohólicas</h3>
+          <span class="category-count">Algunas bebidas</span>
+        </div>
+        <button class="btn-small toggle-category">Ver productos ▾</button>
+      </div>
+      <div class="category-body">
+        <table>
+          <thead>
+            <tr><th>Producto</th><th class="precio">Precio local</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>AGUA CIELO 1LT</td><td class="precio">$1.00</td></tr>
+            <tr><td>COCA COLA 1LT</td><td class="precio">$1.75</td></tr>
+            <tr><td>FUZE TEA 1LT</td><td class="precio">$1.55</td></tr>
+            <tr><td>JUGO DEL VALLE 500ML</td><td class="precio">$0.75</td></tr>
+            <tr><td>V220</td><td class="precio">$1.60</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- CIGARRILLOS -->
+    <article class="category-card">
+      <div class="category-header">
+        <div>
+          <h3>Cigarrillos</h3>
+          <span class="category-count">Algunos cigarrillos</span>
+        </div>
+        <button class="btn-small toggle-category">Ver productos ▾</button>
+      </div>
+      <div class="category-body">
+        <table>
+          <thead>
+            <tr><th>Producto</th><th class="precio">Precio local</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>MALBORO ROJO</td><td class="precio">$5.50</td></tr>
+            <tr><td>MALBORO GOLD</td><td class="precio">$5.50</td></tr>
+            <tr><td>MALBORO ICE BLAST</td><td class="precio">$6.00</td></tr>
+            <tr><td>PHILLIP MORRIS AZUL</td><td class="precio">$4.75</td></tr>
+            <tr><td>PHILLIP MORRIS ROJO</td><td class="precio">$4.75</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- SNACKS / CONFITERÍA -->
+    <article class="category-card">
+      <div class="category-header">
+        <div>
+          <h3>Snacks y confitería</h3>
+          <span class="category-count">Algunos snacks</span>
+        </div>
+        <button class="btn-small toggle-category">Ver productos ▾</button>
+      </div>
+      <div class="category-body">
+        <table>
+          <thead>
+            <tr><th>Producto</th><th class="precio">Precio local</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>PAPAS SIN MARCA</td><td class="precio">$1.25</td></tr>
+            <tr><td>PANCHITOS</td><td class="precio">$0.50</td></tr>
+            <tr><td>AGOGO MENTA COOL GRANDE</td><td class="precio">$0.40</td></tr>
+            <tr><td>TRIDENT X6 SURTIDO</td><td class="precio">$0.75</td></tr>
+            <tr><td>MENTAS</td><td class="precio">$0.05</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+  </div>
+</section>
+
 
     <!-- INFO / CONTACTO -->
     <section id="contacto">
@@ -1434,6 +1568,15 @@
 
       chatbotForm.reset();
     });
+  </script>
+  // Abrir / cerrar categorías de productos
+document.querySelectorAll(".toggle-category").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const card = btn.closest(".category-card");
+    const isOpen = card.classList.toggle("open");
+    btn.textContent = isOpen ? "Ocultar productos ▴" : "Ver productos ▾";
+  });
+});
   </script>
 </body>
 </html>
