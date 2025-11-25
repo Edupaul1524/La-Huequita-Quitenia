@@ -1083,34 +1083,29 @@
     yearSpan.textContent = new Date().getFullYear();
   }
 
-  // ==============
-  // POPUP EDAD
-  // ==============
-  function acceptAge() {
-    const modal = document.getElementById("age-modal");
-    if (storeSelectPopup) {
-      activeLocal = storeSelectPopup.value;
-      localStorage.setItem("huequita_local", activeLocal);
-      if (localSelectToolbar) localSelectToolbar.value = activeLocal;
-    }
-    if (modal) modal.style.display = "none";
-    localStorage.setItem("huequita18", "true");
-    renderProducts();
-  }
+// ==============
+ // POPUP EDAD SIEMPRE
+ // ==============
+function acceptAge() {
+  const modal = document.getElementById("age-modal");
+  if (modal) modal.style.display = "none";
+}
 
-  function rejectAge() {
-    alert("Lo sentimos, debes ser mayor de edad para ingresar 🍾");
-    window.location.href = "https://google.com";
-  }
+function rejectAge() {
+  alert("Lo sentimos, debes ser mayor de edad para ingresar 🍾");
+  window.location.href = "https://google.com";
+}
 
-  window.acceptAge = acceptAge;
-  window.rejectAge = rejectAge;
+// Exponer funciones para los botones del HTML
+window.acceptAge = acceptAge;
+window.rejectAge = rejectAge;
 
-  // si ya aceptó antes, no mostrar popup
-  if (localStorage.getItem("huequita18") === "true") {
-    const modal = document.getElementById("age-modal");
-    if (modal) modal.style.display = "none";
-  }
+// ⚠️ IMPORTANTE:
+// Ya NO usamos localStorage, para que SIEMPRE aparezca el mensaje
+// Cada vez que recargues la página, el modal arranca visible
+
+
+  
 
   // Init catálogo
   renderCategories();
