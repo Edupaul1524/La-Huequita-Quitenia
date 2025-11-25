@@ -6,13 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root {
-      --color-fondo: #f4f4f4;
-      --color-texto: #111111;
-      --color-acento: #111111; /* Blanco y negro como base */
-      --color-borde: #dddddd;
-      --color-gris-suave: #fafafa;
-      --radio: 16px;
-      --sombra-suave: 0 6px 18px rgba(0,0,0,0.08);
+      --bg-page: #050505;
+      --bg-card: #111111;
+      --bg-card-soft: #161616;
+      --text-main: #f5f5f5;
+      --text-soft: #bbbbbb;
+      --accent: #f6c453; /* dorado suave tipo bar */
+      --border-soft: #2d2d2d;
+      --radius: 18px;
+      --shadow-strong: 0 18px 40px rgba(0,0,0,0.8);
+      --shadow-soft: 0 10px 26px rgba(0,0,0,0.6);
     }
 
     * {
@@ -23,8 +26,9 @@
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--color-fondo);
-      color: var(--color-texto);
+      background:
+        radial-gradient(circle at top, #262626 0, #050505 55%);
+      color: var(--text-main);
       min-height: 100vh;
     }
 
@@ -33,12 +37,10 @@
       color: inherit;
     }
 
-    /* LAYOUT GENERAL */
-
     .container {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 16px 32px;
+      padding: 0 16px 40px;
     }
 
     /* HEADER */
@@ -47,14 +49,15 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: #ffffff;
-      border-bottom: 1px solid var(--color-borde);
+      background: rgba(5,5,5,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
     }
 
     .header-inner {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 12px 16px;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -67,25 +70,19 @@
       gap: 10px;
     }
 
-    .logo-placeholder {
-      width: 52px;
-      height: 52px;
+    .logo-mark {
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
-      border: 2px solid #111;
+      border: 2px solid var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 11px;
-      text-align: center;
-      background: #fff;
-    }
-
-    .logo img {
-      width: 52px;
-      height: 52px;
-      object-fit: contain;
-      border-radius: 50%;
-      border: 2px solid #111;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: radial-gradient(circle at top, #272727 0, #111 60%);
+      box-shadow: var(--shadow-soft);
     }
 
     .logo-text {
@@ -97,30 +94,30 @@
     .logo-text span:first-child {
       font-weight: 700;
       letter-spacing: 0.08em;
-      font-size: 14px;
+      font-size: 13px;
       text-transform: uppercase;
     }
 
     .logo-text span:last-child {
       font-size: 11px;
-      opacity: 0.7;
+      color: var(--text-soft);
     }
 
     nav ul {
       display: flex;
       list-style: none;
-      gap: 18px;
+      gap: 16px;
       font-size: 13px;
     }
 
     nav li a {
       position: relative;
-      padding-bottom: 4px;
-      opacity: 0.8;
+      padding-bottom: 3px;
+      color: var(--text-soft);
     }
 
     nav li a:hover {
-      opacity: 1;
+      color: var(--text-main);
     }
 
     nav li a::after {
@@ -130,8 +127,8 @@
       bottom: 0;
       width: 0;
       height: 2px;
-      background: #111;
-      transition: width 0.2s ease;
+      background: var(--accent);
+      transition: width 0.18s ease;
     }
 
     nav li a:hover::after {
@@ -150,30 +147,45 @@
 
     .btn {
       border-radius: 999px;
-      border: 1px solid #111;
+      border: 1px solid var(--accent);
       padding: 7px 16px;
       font-size: 13px;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      background: #ffffff;
-      color: #111;
+      background: transparent;
+      color: var(--text-main);
       transition: background 0.12s ease, transform 0.08s ease, box-shadow 0.08s ease;
     }
 
     .btn-acento {
-      background: #111111;
-      color: #ffffff;
+      background: var(--accent);
+      color: #111111;
+      border-color: var(--accent);
+      box-shadow: 0 0 18px rgba(246,196,83,0.65);
     }
 
     .btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.16);
+      box-shadow: var(--shadow-soft);
     }
 
     .btn-icon {
       font-size: 16px;
+    }
+
+    .btn-small {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border-width: 1px;
+      background: #f5f5f5;
+      color: #111;
+    }
+
+    .btn-small:hover {
+      background: #ffffff;
     }
 
     /* HERO */
@@ -182,92 +194,118 @@
       display: grid;
       grid-template-columns: 1.1fr 1fr;
       gap: 24px;
-      padding-top: 24px;
-      align-items: center;
+      padding-top: 26px;
+      align-items: stretch;
     }
 
-    @media (max-width: 820px) {
+    @media (max-width: 860px) {
       .hero {
         grid-template-columns: 1fr;
       }
     }
 
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hero-tagline {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+    }
+
     .hero-left h1 {
-      font-size: 32px;
-      line-height: 1.05;
-      margin-bottom: 10px;
+      font-size: 30px;
+      line-height: 1.1;
       text-transform: uppercase;
     }
 
     .hero-left h1 span {
       display: block;
+      font-size: 17px;
       font-weight: 300;
-      font-size: 18px;
-      letter-spacing: 0.12em;
-      opacity: 0.75;
-    }
-
-    .hero-highlight {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      margin-bottom: 6px;
+      letter-spacing: 0.14em;
+      color: var(--text-soft);
     }
 
     .hero-subtitle {
       font-size: 14px;
-      opacity: 0.8;
+      color: var(--text-soft);
       max-width: 460px;
-      margin-bottom: 16px;
     }
 
     .hero-ctas {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-top: 6px;
     }
 
-    .hero-tags {
+    .hero-chips {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
+      margin-top: 6px;
       font-size: 11px;
-      opacity: 0.75;
     }
 
-    .hero-tag {
+    .chip {
       border-radius: 999px;
-      border: 1px solid var(--color-borde);
+      border: 1px solid var(--border-soft);
       padding: 4px 10px;
-      background: #ffffff;
+      color: var(--text-soft);
+      background: rgba(0,0,0,0.55);
     }
 
     .hero-right {
-      justify-self: stretch;
+      position: relative;
     }
 
     .hero-card {
-      background: #ffffff;
-      border-radius: var(--radio);
-      padding: 16px 16px 14px;
-      border: 1px solid var(--color-borde);
-      box-shadow: var(--sombra-suave);
+      background: radial-gradient(circle at top, #292929 0, #101010 65%);
+      border-radius: 22px;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-strong);
+      padding: 14px 16px 14px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("img/fondo-licor.jpg");
+      background-size: cover;
+      background-position: center;
+      opacity: 0.08;
+      mix-blend-mode: screen;
+      pointer-events: none;
     }
 
     .hero-card-header {
+      position: relative;
+      z-index: 1;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
       font-size: 12px;
-      opacity: 0.85;
+      color: var(--text-soft);
     }
 
     .hero-card-body {
+      position: relative;
+      z-index: 1;
       display: grid;
       grid-template-columns: 1.1fr 1fr;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
     }
 
@@ -278,25 +316,18 @@
     }
 
     .hero-bottle {
-      border-radius: 14px;
-      border: 1px dashed var(--color-borde);
-      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      padding: 12px;
+      background: rgba(0,0,0,0.65);
       text-align: center;
-      background: var(--color-gris-suave);
-    }
-
-    .hero-bottle span {
-      display: block;
-      font-size: 11px;
-      opacity: 0.7;
-      margin-top: 8px;
     }
 
     .bottle-shape {
       width: 60px;
       height: 130px;
-      border-radius: 14px 14px 6px 6px;
-      border: 2px solid #111;
+      border-radius: 16px 16px 6px 6px;
+      border: 2px solid #f5f5f5;
       margin: 0 auto;
       position: relative;
     }
@@ -304,45 +335,51 @@
     .bottle-shape::before {
       content: "";
       position: absolute;
-      width: 20px;
+      width: 22px;
       height: 16px;
       border-radius: 8px 8px 4px 4px;
-      border: 2px solid #111;
+      border: 2px solid #f5f5f5;
       top: -16px;
       left: 50%;
       transform: translateX(-50%);
     }
 
+    .hero-bottle span {
+      display: block;
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
     .hero-combo-info h3 {
-      font-size: 16px;
+      font-size: 17px;
       margin-bottom: 4px;
     }
 
     .hero-combo-info p {
       font-size: 12px;
-      opacity: 0.8;
-      margin-bottom: 8px;
+      color: var(--text-soft);
+      margin-bottom: 6px;
     }
 
     .hero-price {
       font-size: 18px;
       font-weight: 700;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
-    .hero-price span {
+    .hero-price small {
       font-size: 11px;
-      opacity: 0.7;
       font-weight: 400;
-      margin-left: 4px;
+      color: var(--text-soft);
     }
 
     .hero-meta {
       font-size: 11px;
-      opacity: 0.75;
+      color: var(--text-soft);
     }
 
-    /* TÍTULOS DE SECCIÓN */
+    /* SECCIONES GENERALES */
 
     section {
       margin-top: 28px;
@@ -357,28 +394,61 @@
 
     .section-sub {
       font-size: 13px;
-      opacity: 0.75;
+      color: var(--text-soft);
       margin-bottom: 14px;
     }
 
-    /* COMBOS DESTACADOS (TARJETAS GRANDES) */
+    /* COMBOS DESTACADOS */
 
     .combos-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 14px;
     }
 
     .combo-card {
-      background: #ffffff;
-      border-radius: var(--radio);
-      border: 1px solid var(--color-borde);
-      padding: 14px;
-      box-shadow: var(--sombra-suave);
+      background: linear-gradient(140deg, #141414, #090909);
+      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 12px 14px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
       position: relative;
+      overflow: hidden;
+    }
+
+    .combo-tag {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-soft);
+    }
+
+    .combo-name {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .combo-items {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .combo-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .combo-price {
+      font-size: 17px;
+      font-weight: 700;
     }
 
     .combo-badge {
@@ -390,115 +460,145 @@
       letter-spacing: 0.16em;
       padding: 3px 8px;
       border-radius: 999px;
-      border: 1px solid var(--color-borde);
-      background: #ffffff;
-    }
-
-    .combo-label {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      opacity: 0.6;
-    }
-
-    .combo-name {
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    .combo-items {
-      font-size: 12px;
-      opacity: 0.8;
-    }
-
-    .combo-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-top: 4px;
-    }
-
-    .combo-price {
-      font-size: 18px;
-      font-weight: 700;
-    }
-
-    .combo-note {
-      font-size: 10px;
-      opacity: 0.6;
-    }
-
-    .combo-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 6px;
-      gap: 8px;
-      font-size: 11px;
-      opacity: 0.8;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.8);
+      color: var(--accent);
     }
 
     .combo-btn {
       font-size: 11px;
-      padding: 6px 10px;
+      padding: 5px 10px;
     }
 
-    /* CATEGORÍAS Y TABLAS DE PRECIOS */
+    /* NUESTROS PRODUCTOS - CATEGORÍAS TIPO SPA */
 
-    .categorias-grid {
+    .productos-section {
+      margin-top: 32px;
+    }
+
+    .productos-section h2 {
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 6px;
+    }
+
+    .productos-section .section-sub {
+      font-size: 13px;
+      color: var(--text-soft);
+      margin-bottom: 16px;
+    }
+
+    .category-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
+      gap: 18px;
     }
 
-    .categoria-card {
-      background: #ffffff;
-      border-radius: var(--radio);
-      border: 1px solid var(--color-borde);
-      padding: 14px;
-      box-shadow: var(--sombra-suave);
+    .category-card {
+      border-radius: 16px;
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top, #262626 0, #090909 55%);
+      color: #f5f5f5;
+      box-shadow: var(--shadow-soft);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
-    .categoria-title {
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .category-header h3 {
       font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 6px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
     }
 
-    .categoria-card p {
-      font-size: 12px;
-      opacity: 0.75;
-      margin-bottom: 6px;
+    .category-count {
+      font-size: 11px;
+      color: var(--text-soft);
     }
 
-    table {
+    .category-body {
+      margin-top: 6px;
+      border-radius: 12px;
+      border: 1px solid #333;
+      background: rgba(0,0,0,0.55);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.22s ease, opacity 0.22s ease, padding 0.22s ease;
+      opacity: 0;
+      padding: 0 8px;
+    }
+
+    .category-card.open .category-body {
+      max-height: 420px;
+      opacity: 1;
+      padding: 8px;
+    }
+
+    .category-body table {
       width: 100%;
       border-collapse: collapse;
       font-size: 12px;
-      margin-top: 4px;
     }
 
-    th, td {
+    .category-body th,
+    .category-body td {
       padding: 6px 4px;
       text-align: left;
-      border-bottom: 1px solid #eeeeee;
+      border-bottom: 1px solid #333;
     }
 
-    th {
+    .category-body th {
       font-weight: 600;
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.06em;
+      color: #f5f5f5;
     }
 
-    td.precio {
+    .category-body td {
+      color: #e5e5e5;
+    }
+
+    .category-body td.precio {
       text-align: right;
       white-space: nowrap;
     }
 
-    /* INFO Y CONTACTO */
+    .category-body tr:last-child td {
+      border-bottom: none;
+    }
+
+    .category-body tbody {
+      display: block;
+      max-height: 260px;
+      overflow-y: auto;
+    }
+
+    .category-body thead,
+    .category-body tbody tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    .category-body::-webkit-scrollbar {
+      width: 6px;
+    }
+    .category-body::-webkit-scrollbar-thumb {
+      background: #444;
+      border-radius: 999px;
+    }
+
+    /* INFO & CONTACTO */
 
     .info-grid {
       display: grid;
@@ -507,28 +607,29 @@
     }
 
     .info-card {
-      background: #ffffff;
-      border-radius: var(--radio);
-      border: 1px solid var(--color-borde);
-      padding: 14px;
-      box-shadow: var(--sombra-suave);
+      background: var(--bg-card-soft);
+      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 12px 14px;
       font-size: 12px;
+      color: var(--text-soft);
     }
 
     .info-title {
       font-size: 13px;
       font-weight: 600;
-      margin-bottom: 6px;
+      color: var(--text-main);
+      margin-bottom: 4px;
     }
 
     footer {
-      border-top: 1px solid var(--color-borde);
-      padding: 14px 16px 18px;
+      border-top: 1px solid var(--border-soft);
+      padding: 14px 16px 20px;
       font-size: 11px;
-      opacity: 0.8;
+      color: var(--text-soft);
       text-align: center;
       margin-top: 32px;
-      background: #ffffff;
     }
 
     footer span {
@@ -536,7 +637,7 @@
       margin: 0 6px;
     }
 
-    /* BOTONES FLOTANTES Y CHATBOT */
+    /* FABs y CHATBOT (mantenemos el estilo básico anterior) */
 
     .fab-container {
       position: fixed;
@@ -553,12 +654,12 @@
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      border: 1px solid var(--color-borde);
-      background: #ffffff;
+      border: 1px solid var(--border-soft);
+      background: #111111;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: var(--sombra-suave);
+      box-shadow: var(--shadow-soft);
       cursor: pointer;
       position: relative;
     }
@@ -570,13 +671,14 @@
     .fab-label {
       position: absolute;
       right: 54px;
-      background: #ffffff;
+      background: #111111;
       border-radius: 999px;
       padding: 4px 10px;
       font-size: 11px;
       white-space: nowrap;
-      border: 1px solid var(--color-borde);
-      box-shadow: var(--sombra-suave);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      color: var(--text-soft);
     }
 
     .chatbot-panel {
@@ -587,9 +689,9 @@
       max-width: calc(100vw - 32px);
       height: 360px;
       border-radius: 16px;
-      background: #ffffff;
-      border: 1px solid var(--color-borde);
-      box-shadow: var(--sombra-suave);
+      background: #111111;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-strong);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -608,12 +710,12 @@
 
     .chatbot-header {
       padding: 8px 12px;
-      border-bottom: 1px solid var(--color-borde);
+      border-bottom: 1px solid var(--border-soft);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      background: #fafafa;
+      background: #181818;
     }
 
     .chatbot-header-left {
@@ -626,12 +728,12 @@
       width: 26px;
       height: 26px;
       border-radius: 50%;
-      border: 1px solid var(--color-borde);
+      border: 1px solid var(--border-soft);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 16px;
-      background: #ffffff;
+      background: #111111;
     }
 
     .chatbot-header-text {
@@ -645,13 +747,13 @@
 
     .chatbot-header-text span {
       font-size: 10px;
-      opacity: 0.7;
+      color: var(--text-soft);
     }
 
     .chatbot-close {
       font-size: 16px;
       cursor: pointer;
-      opacity: 0.7;
+      color: var(--text-soft);
     }
 
     .chatbot-messages {
@@ -659,7 +761,7 @@
       padding: 10px 10px 6px;
       overflow-y: auto;
       font-size: 12px;
-      background: #ffffff;
+      background: #101010;
     }
 
     .msg {
@@ -683,13 +785,14 @@
     }
 
     .msg-bot .msg-bubble {
-      background: #f1f1f1;
-      border: 1px solid #e3e3e3;
+      background: #1c1c1c;
+      border: 1px solid #2a2a2a;
+      color: var(--text-soft);
     }
 
     .msg-user .msg-bubble {
-      background: #111111;
-      color: #ffffff;
+      background: var(--accent);
+      color: #111;
     }
 
     .quick-options {
@@ -702,23 +805,24 @@
     .quick-chip {
       font-size: 11px;
       border-radius: 999px;
-      border: 1px solid var(--color-borde);
+      border: 1px solid var(--border-soft);
       padding: 3px 8px;
       cursor: pointer;
-      background: #ffffff;
+      background: #111111;
+      color: var(--text-soft);
     }
 
     .chatbot-form {
       padding: 8px 10px 10px;
-      border-top: 1px solid var(--color-borde);
-      background: #fafafa;
+      border-top: 1px solid var(--border-soft);
+      background: #181818;
     }
 
     .chatbot-form label {
       display: block;
       font-size: 11px;
       margin-bottom: 2px;
-      opacity: 0.8;
+      color: var(--text-soft);
     }
 
     .chatbot-form input,
@@ -726,9 +830,9 @@
       width: 100%;
       padding: 5px 8px;
       border-radius: 10px;
-      border: 1px solid var(--color-borde);
-      background: #ffffff;
-      color: var(--color-texto);
+      border: 1px solid var(--border-soft);
+      background: #101010;
+      color: var(--text-main);
       font-size: 12px;
       margin-bottom: 6px;
     }
@@ -740,35 +844,33 @@
       border-radius: 999px;
       border: none;
       cursor: pointer;
-      background: #111111;
-      color: #ffffff;
+      background: var(--accent);
+      color: #111111;
       font-weight: 600;
     }
 
-    /* SCROLLBAR */
+    /* SCROLLBAR GLOBAL */
 
     ::-webkit-scrollbar {
       width: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #f4f4f4;
+      background: #050505;
     }
     ::-webkit-scrollbar-thumb {
-      background: #cccccc;
+      background: #333333;
       border-radius: 999px;
     }
   </style>
 </head>
 <body>
-
   <header>
     <div class="header-inner">
       <div class="logo">
-        <!-- Si luego subes un logo, cambia el div por <img src="RUTA" ...> -->
-        <div class="logo-placeholder">LOGO<br/>LA HUEQUITA</div>
+        <div class="logo-mark">LHQ</div>
         <div class="logo-text">
           <span>LA HUEQUITA QUITEÑA</span>
-          <span>Licorería & delivery nocturno</span>
+          <span>Licorería & combos nocturnos</span>
         </div>
       </div>
 
@@ -776,12 +878,12 @@
         <ul>
           <li><a href="#inicio">Inicio</a></li>
           <li><a href="#combos">Combos</a></li>
-          <li><a href="#categorias">Categorías</a></li>
+          <li><a href="#categorias">Nuestros productos</a></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
       </nav>
 
-      <button class="btn header-cta btn-acento" id="headerWhatsApp">
+      <button class="btn btn-acento header-cta" id="headerWhatsApp">
         <span class="btn-icon">📲</span>
         Pedir ahora
       </button>
@@ -792,20 +894,20 @@
     <!-- HERO -->
     <section class="hero">
       <div class="hero-left">
-        <div class="hero-highlight">Licorería nocturna · Quito</div>
+        <div class="hero-tagline">Quito · Norte · Farras</div>
         <h1>
           La Huequita Quiteña
-          <span>Combos, tragos y buen servicio</span>
+          <span>Licorería y combos listos para la noche</span>
         </h1>
         <p class="hero-subtitle">
-          Combos listos para que no te compliques: eliges, escribes al WhatsApp y te lo tenemos
-          listo en local o te ayudamos con tu pedido.
+          Tu huequita de confianza: tragos, combos armados, cigarrillos, snacks y gaseosas.
+          Entras, eliges y escribes por WhatsApp. Lo tenemos listo en local o coordinamos entrega.
         </p>
 
         <div class="hero-ctas">
           <button class="btn btn-acento" id="verCombos">
             <span class="btn-icon">🥃</span>
-            Ver combos
+            Ver combos destacados
           </button>
           <button class="btn" id="heroWhatsApp">
             <span class="btn-icon">💬</span>
@@ -813,1253 +915,327 @@
           </button>
         </div>
 
-        <div class="hero-tags">
-          <div class="hero-tag">Horario: 17:00 a 05:00</div>
-          <div class="hero-tag">Sector norte de Quito</div>
-          <div class="hero-tag">Atención personalizada</div>
+        <div class="hero-chips">
+          <div class="chip">Horario: 17h00 a 05h00</div>
+          <div class="chip">Sector norte de Quito</div>
+          <div class="chip">Snacks, cigarrillos, energéticas</div>
         </div>
       </div>
 
       <div class="hero-right">
-        <div class="hero-card">
+        <article class="hero-card">
           <div class="hero-card-header">
-            <span>Combo destacado de la noche</span>
+            <span>Combo estrella de la noche</span>
             <span>Hoy · <span id="fraseRotativa">Sin filas, solo tragos</span></span>
           </div>
           <div class="hero-card-body">
             <div class="hero-bottle">
               <div class="bottle-shape"></div>
-              <span>Luego podemos cambiar esto por una foto real del combo estrella.</span>
+              <span>Luego podemos poner foto real del combo.</span>
             </div>
             <div class="hero-combo-info">
-              <h3>Combo Aguardiente + Snack + Tabacos</h3>
+              <h3>Combo Aguardiente Amarillo + Papas + ½ Marlboro</h3>
               <p>
-                Aguardiente amarillo + papas + 1/2 Marlboro mentolado.
-                Ideal para arrancar la noche tranquilo pero decidido.
+                Aguardiente amarillo, papas sin marca y medio paquete de Malboro. Combo clásico para
+                arrancar la noche con todo.
               </p>
               <div class="hero-price">
-                $XX,XX <span>(aquí va el precio real)</span>
+                $XX,XX <small>(ajustar según tu lista real)</small>
               </div>
               <div class="hero-meta">
-                Stock sujeto a disponibilidad · Escríbenos para reservar tu combo.
+                Precio en local. Delivery por Uber / InDrive (valor según la app).
               </div>
             </div>
           </div>
-        </div>
+        </article>
       </div>
     </section>
 
     <!-- COMBOS DESTACADOS -->
     <section id="combos">
       <h2>Combos destacados</h2>
-      <p class="section-sub">Algunos combos listos. Luego ajustamos precios y agregamos fotos reales.</p>
+      <p class="section-sub">
+        Aquí puedes armar los combos que más vendes (luego cambiamos los precios por los definitivos).
+      </p>
 
       <div class="combos-grid">
-        <!-- COMBO 1 -->
         <article class="combo-card">
-          <div class="combo-badge">Más pedido</div>
-          <div class="combo-label">Combo A</div>
-          <div class="combo-name">Aguardiente + snack + tabacos</div>
+          <span class="combo-badge">Más pedido</span>
+          <div class="combo-tag">Combo A</div>
+          <div class="combo-name">Aguardiente amarillo + papas + ½ Marlboro</div>
           <div class="combo-items">
             • 1 Aguardiente amarillo<br/>
-            • Papas (marca libre)<br/>
-            • ½ Marlboro mentolado
-          </div>
-          <div class="combo-meta">
-            <div class="combo-price">$XX,XX</div>
-            <div class="combo-note">Precio editable</div>
+            • Papas sin marca<br/>
+            • ½ paquete Marlboro (rojo / mentolado)
           </div>
           <div class="combo-bottom">
+            <div class="combo-price">$XX,XX</div>
             <button class="btn btn-acento combo-btn"
-              data-combo="Combo Aguardiente + snack + tabacos">
+              data-combo="Combo Aguardiente amarillo + papas + 1/2 Marlboro">
               Pedir este combo
             </button>
-            <span>Para 2–3 personas.</span>
           </div>
         </article>
 
-        <!-- COMBO 2 -->
         <article class="combo-card">
-          <div class="combo-label">Combo Whisky</div>
-          <div class="combo-name">Whisky + gaseosa + hielo</div>
+          <div class="combo-tag">Combo Whisky</div>
+          <div class="combo-name">Whisky + gaseosas + hielo</div>
           <div class="combo-items">
-            • 1 Whisky (marca a elección)<br/>
-            • 2 Gaseosas 1.5L<br/>
-            • Hielo en funda
-          </div>
-          <div class="combo-meta">
-            <div class="combo-price">$XX,XX</div>
-            <div class="combo-note">Depende de la marca</div>
+            • 1 Whisky (Johnnie / Buchanans / el que manejes)<br/>
+            • 2 gaseosas grandes<br/>
+            • 1 funda de hielo
           </div>
           <div class="combo-bottom">
+            <div class="combo-price">$XX,XX</div>
             <button class="btn btn-acento combo-btn"
-              data-combo="Combo Whisky + gaseosa + hielo">
+              data-combo="Combo Whisky + gaseosas + hielo">
               Pedir este combo
             </button>
-            <span>Perfecto para la mesa completa.</span>
           </div>
         </article>
 
-        <!-- COMBO 3 -->
         <article class="combo-card">
-          <div class="combo-label">Combo Ron</div>
-          <div class="combo-name">Ron + colas + mezcla</div>
+          <div class="combo-tag">Combo shots</div>
+          <div class="combo-name">Shots con energizante</div>
           <div class="combo-items">
-            • 1 Ron 750ml<br/>
-            • 2 Colas personales<br/>
-            • Limón / hielo
-          </div>
-          <div class="combo-meta">
-            <div class="combo-price">$XX,XX</div>
-            <div class="combo-note">Puedes poner promo aquí</div>
-          </div>
-          <div class="combo-bottom">
-            <button class="btn btn-acento combo-btn"
-              data-combo="Combo Ron + colas + mezcla">
-              Pedir este combo
-            </button>
-            <span>Buenísimo para viernes o sábado.</span>
-          </div>
-        </article>
-
-        <!-- COMBO 4 -->
-        <article class="combo-card">
-          <div class="combo-label">Combo Shots</div>
-          <div class="combo-name">Shots power</div>
-          <div class="combo-items">
-            • Base de licor fuerte<br/>
-            • Energética<br/>
+            • Base de licor fuerte (Jäger, vodka, etc.)<br/>
+            • Energética tipo V220<br/>
             • Vasos shots descartables
           </div>
-          <div class="combo-meta">
-            <div class="combo-price">$XX,XX</div>
-            <div class="combo-note">Arma tu propio shot</div>
-          </div>
           <div class="combo-bottom">
+            <div class="combo-price">$XX,XX</div>
             <button class="btn btn-acento combo-btn"
-              data-combo="Combo Shots power">
+              data-combo="Combo shots con energizante">
               Pedir este combo
             </button>
-            <span>Cuando la fiesta recién arranca.</span>
           </div>
         </article>
       </div>
     </section>
 
-   <section id="categorias">
-  <h2>Categorías y precios</h2>
-  <p class="section-sub">Lista de productos por categoría. Los precios corresponden a venta en local (efectivo o transferencia).</p>
-  <div class="categorias-grid">
-    <!-- AGUARDIENTE -->
-    <div class="categoria-card">
-      <div class="categoria-title">Aguardiente</div>
-      <p>Productos de esta categoría disponibles en La Huequita Quiteña.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Unidad</th>
-            <th class="precio">Precio local</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>ADIVINO 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$5.75</td>
-          </tr>
-          <tr>
-            <td>ANDINO 350ML</td>
-            <td>Unidad</td>
-            <td class="precio">$4.00</td>
-          </tr>
-          <tr>
-            <td>ANDINO 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$6.75</td>
-          </tr>
-          <tr>
-            <td>ANTIOQUEÑO 1000ML</td>
-            <td>Unidad</td>
-            <td class="precio">$25.70</td>
-          </tr>
-          <tr>
-            <td>ANTIOQUEÑO 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$12.50</td>
-          </tr>
-          <tr>
-            <td>ANTIOQUEÑO 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$20.75</td>
-          </tr>
-          <tr>
-            <td>CANTACLARO 385ML</td>
-            <td>Unidad</td>
-            <td class="precio">$2.75</td>
-          </tr>
-          <tr>
-            <td>CANTACLARO 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$4.75</td>
-          </tr>
-          <tr>
-            <td>CRISTAL 350ML</td>
-            <td>Unidad</td>
-            <td class="precio">$4.00</td>
-          </tr>
-          <tr>
-            <td>CRISTAL 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$6.75</td>
-          </tr>
-          <tr>
-            <td>CRISTAL AZUL 350ML</td>
-            <td>Unidad</td>
-            <td class="precio">$4.00</td>
-          </tr>
-          <tr>
-            <td>CRISTAL AZUL 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$6.75</td>
-          </tr>
-          <tr>
-            <td>CRISTAL ORO 350ML</td>
-            <td>Unidad</td>
-            <td class="precio">$4.00</td>
-          </tr>
-          <tr>
-            <td>CRISTAL ORO 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$6.75</td>
-          </tr>
-          <tr>
-            <td>CRISTALITO 350ML</td>
-            <td>Unidad</td>
-            <td class="precio">$4.00</td>
-          </tr>
-          <tr>
-            <td>CRISTALITO 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$6.75</td>
-          </tr>
-          <tr>
-            <td>ESTRELLITA 350ML</td>
-            <td>Unidad</td>
-            <td class="precio">$3.75</td>
-          </tr>
-          <tr>
-            <td>ESTRELLITA 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$6.25</td>
-          </tr>
-          <tr>
-            <td>GATO NEGRO 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$4.00</td>
-          </tr>
-          <tr>
-            <td>GATO NEGRO 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$7.25</td>
-          </tr>
-          <tr>
-            <td>ZHUMIR 350ML</td>
-            <td>Unidad</td>
-            <td class="precio">$5.25</td>
-          </tr>
-          <tr>
-            <td>ZHUMIR 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$9.25</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- BEBIDAS NO ALCOHOLICAS -->
-    <div class="categoria-card">
-      <div class="categoria-title">Bebidas No Alcoholicas</div>
-      <p>Productos de esta categoría disponibles en La Huequita Quiteña.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Unidad</th>
-            <th class="precio">Precio local</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>AGUA DASANI 600ML</td>
-            <td>Unidad</td>
-            <td class="precio">$0.80</td>
-          </tr>
-          <tr>
-            <td>AGUA DASANI 1.5L</td>
-            <td>Unidad</td>
-            <td class="precio">$1.20</td>
-          </tr>
-          <tr>
-            <td>AGUA VITAL 600ML</td>
-            <td>Unidad</td>
-            <td class="precio">$0.80</td>
-          </tr>
-          <tr>
-            <td>AGUA VITAL 1.5L</td>
-            <td>Unidad</td>
-            <td class="precio">$1.20</td>
-          </tr>
-          <tr>
-            <td>AGUA TONICA 355ML</td>
-            <td>Unidad</td>
-            <td class="precio">$1.25</td>
-          </tr>
-          <tr>
-            <td>COLA COLA 355ML</td>
-            <td>Unidad</td>
-            <td class="precio">$0.90</td>
-          </tr>
-          <tr>
-            <td>COLA COLA 600ML</td>
-            <td>Unidad</td>
-            <td class="precio">$1.25</td>
-          </tr>
-          <tr>
-            <td>COLA COLA 1.5L</td>
-            <td>Unidad</td>
-            <td class="precio">$2.00</td>
-          </tr>
-          <tr>
-            <td>COLA COLA 2L</td>
-            <td>Unidad</td>
-            <td class="precio">$2.25</td>
-          </tr>
-          <tr>
-            <td>COLA COLA ZERO 600ML</td>
-            <td>Unidad</td>
-            <td class="precio">$1.25</td>
-          </tr>
-          <tr>
-            <td>COLA COLA ZERO 1.5L</td>
-            <td>Unidad</td>
-            <td class="precio">$2.00</td>
-          </tr>
-          <tr>
-            <td>COLA COLA ZERO 2L</td>
-            <td>Unidad</td>
-            <td class="precio">$2.25</td>
-          </tr>
-          <tr>
-            <td>ENERGETICA V220 473ML</td>
-            <td>Unidad</td>
-            <td class="precio">$2.00</td>
-          </tr>
-          <tr>
-            <td>JUGO DEL VALLE 500ML</td>
-            <td>Unidad</td>
-            <td class="precio">$1.50</td>
-          </tr>
-          <tr>
-            <td>SPRITE 355ML</td>
-            <td>Unidad</td>
-            <td class="precio">$0.90</td>
-          </tr>
-          <tr>
-            <td>SPRITE 600ML</td>
-            <td>Unidad</td>
-            <td class="precio">$1.25</td>
-          </tr>
-          <tr>
-            <td>SPRITE 1.5L</td>
-            <td>Unidad</td>
-            <td class="precio">$2.00</td>
-          </tr>
-          <tr>
-            <td>SPRITE 2L</td>
-            <td>Unidad</td>
-            <td class="precio">$2.25</td>
-          </tr>
-          <tr>
-            <td>TONICA 1.5L</td>
-            <td>Unidad</td>
-            <td class="precio">$2.00</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- CERVEZA -->
-    <div class="categoria-card">
-      <div class="categoria-title">Cerveza</div>
-      <p>Productos de esta categoría disponibles en La Huequita Quiteña.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Unidad</th>
-            <th class="precio">Precio local</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>CLUB LATA 355ML</td>
-            <td>Unidad</td>
-            <td class="precio">$1.35</td>
-          </tr>
-          <tr>
-            <td>CLUB BOTELLA 330ML</td>
-            <td>Unidad</td>
-            <td class="precio">$1.50</td>
-          </tr>
-          <tr>
-            <td>CLUB 550ML</td>
-            <td>Unidad</td>
-            <td class="precio">$1.85</td>
-          </tr>
-          <tr>
-            <td>CLUB 1L</td>
-            <td>Unidad</td>
-            <td class="precio">$3.10</td>
-          </tr>
-          <tr>
-            <td>PILSENER LATA 355ML</td>
-            <td>Unidad</td>
-            <td class="precio">$1.25</td>
-          </tr>
-          <tr>
-            <td>PILSENER BOTELLA 330ML</td>
-            <td>Unidad</td>
-            <td class="precio">$1.40</td>
-          </tr>
-          <tr>
-            <td>PILSENER 550ML</td>
-            <td>Unidad</td>
-            <td class="precio">$1.75</td>
-          </tr>
-          <tr>
-            <td>PILSENER 1L</td>
-            <td>Unidad</td>
-            <td class="precio">$3.00</td>
-          </tr>
-          <tr>
-            <td>PONY MALTA 330ML</td>
-            <td>Unidad</td>
-            <td class="precio">$1.20</td>
-          </tr>
-          <tr>
-            <td>STELLA ARTOIS 330ML</td>
-            <td>Unidad</td>
-            <td class="precio">$2.20</td>
-          </tr>
-          <tr>
-            <td>STELLA ARTOIS LATA 355ML</td>
-            <td>Unidad</td>
-            <td class="precio">$2.00</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- CHAMPAGNE -->
-    <div class="categoria-card">
-      <div class="categoria-title">Champagne</div>
-      <p>Productos de esta categoría disponibles en La Huequita Quiteña.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Unidad</th>
-            <th class="precio">Precio local</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>CHAMPAGNE FREIXENET</td>
-            <td>Unidad</td>
-            <td class="precio">$20.00</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- CIGARRILLOS -->
-    <div class="categoria-card">
-      <div class="categoria-title">Cigarrillos</div>
-      <p>Productos de esta categoría disponibles en La Huequita Quiteña.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Unidad</th>
-            <th class="precio">Precio local</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>CAMEL AZUL</td>
-            <td>Unidad</td>
-            <td class="precio">$5.25</td>
-          </tr>
-          <tr>
-            <td>MALBORO GOLD</td>
-            <td>Unidad</td>
-            <td class="precio">$5.50</td>
-          </tr>
-          <tr>
-            <td>MALBORO ICE BLAST</td>
-            <td>Unidad</td>
-            <td class="precio">$6.00</td>
-          </tr>
-          <tr>
-            <td>MALBORO ROJO</td>
-            <td>Unidad</td>
-            <td class="precio">$5.50</td>
-          </tr>
-          <tr>
-            <td>MALBORO TOUCH</td>
-            <td>Unidad</td>
-            <td class="precio">$5.50</td>
-          </tr>
-          <tr>
-            <td>PHILLIP MORRIS AZUL</td>
-            <td>Unidad</td>
-            <td class="precio">$4.75</td>
-          </tr>
-          <tr>
-            <td>PHILLIP MORRIS ROJO</td>
-            <td>Unidad</td>
-            <td class="precio">$4.75</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- COCTEL -->
-    <div class="categoria-card">
-      <div class="categoria-title">Coctel</div>
-      <p>Productos de esta categoría disponibles en La Huequita Quiteña.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Unidad</th>
-            <th class="precio">Precio local</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>COCTEL DURAZNO</td>
-            <td>Unidad</td>
-            <td class="precio">$9.50</td>
-          </tr>
-          <tr>
-            <td>COCTEL FRUTAS</td>
-            <td>Unidad</td>
-            <td class="precio">$9.50</td>
-          </tr>
-          <tr>
-            <td>COCTEL MANZANA</td>
-            <td>Unidad</td>
-            <td class="precio">$9.50</td>
-          </tr>
-          <tr>
-            <td>COCTEL MANGO</td>
-            <td>Unidad</td>
-            <td class="precio">$9.50</td>
-          </tr>
-          <tr>
-            <td>COCTEL UVA</td>
-            <td>Unidad</td>
-            <td class="precio">$9.50</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- CONFITERIA -->
-    <div class="categoria-card">
-      <div class="categoria-title">Confiteria</div>
-      <p>Productos de esta categoría disponibles en La Huequita Quiteña.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Unidad</th>
-            <th class="precio">Precio local</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>CHIFLES</td>
-            <td>Unidad</td>
-            <td class="precio">$1.00</td>
-          </tr>
-          <tr>
-            <td>CHOCOLATE</td>
-            <td>Unidad</td>
-            <td class="precio">$1.25</td>
-          </tr>
-          <tr>
-            <td>CONFITES</td>
-            <td>Unidad</td>
-            <td class="precio">$0.50</td>
-          </tr>
-          <tr>
-            <td>GALLETAS</td>
-            <td>Unidad</td>
-            <td class="precio">$0.75</td>
-          </tr>
-          <tr>
-            <td>MANI</td>
-            <td>Unidad</td>
-            <td class="precio">$1.00</td>
-          </tr>
-          <tr>
-            <td>PAPAS FRITAS</td>
-            <td>Unidad</td>
-            <td class="precio">$1.00</td>
-          </tr>
-          <tr>
-            <td>PLATANITOS</td>
-            <td>Unidad</td>
-            <td class="precio">$1.00</td>
-          </tr>
-          <tr>
-            <td>SNACK MIXTO</td>
-            <td>Unidad</td>
-            <td class="precio">$1.25</td>
-          </tr>
-          <tr>
-            <td>TOSTITOS</td>
-            <td>Unidad</td>
-            <td class="precio">$1.25</td>
-          </tr>
-          <tr>
-            <td>TUTI</td>
-            <td>Unidad</td>
-            <td class="precio">$0.75</td>
-          </tr>
-          <tr>
-            <td>YOGURT</td>
-            <td>Unidad</td>
-            <td class="precio">$1.50</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- GINEBRA -->
-    <div class="categoria-card">
-      <div class="categoria-title">Ginebra</div>
-      <p>Productos de esta categoría disponibles en La Huequita Quiteña.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Unidad</th>
-            <th class="precio">Precio local</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>GINEBRA BEEFEATER</td>
-            <td>Unidad</td>
-            <td class="precio">$22.00</td>
-          </tr>
-          <tr>
-            <td>GINEBRA GORDONS</td>
-            <td>Unidad</td>
-            <td class="precio">$18.00</td>
-          </tr>
-          <tr>
-            <td>GINEBRA TANQUERAY</td>
-            <td>Unidad</td>
-            <td class="precio">$24.00</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- LICOR DE HIERBAS -->
-    <div class="categoria-card">
-      <div class="categoria-title">Licor De Hierbas</div>
-      <p>Productos de esta categoría disponibles en La Huequita Quiteña.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Unidad</th>
-            <th class="precio">Precio local</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>JAGERMEISTER 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$18.00</td>
-          </tr>
-          <tr>
-            <td>JAGERMEISTER 700ML</td>
-            <td>Unidad</td>
-            <td class="precio">$28.00</td>
-          </tr>
-          <tr>
-            <td>JAGERMEISTER MINI</td>
-            <td>Unidad</td>
-            <td class="precio">$3.50</td>
-          </tr>
-          <tr>
-            <td>LICOR 43</td>
-            <td>Unidad</td>
-            <td class="precio">$26.00</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- RON -->
-    <div class="categoria-card">
-      <div class="categoria-title">Ron</div>
-      <p>Productos de esta categoría disponibles en La Huequita Quiteña.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Unidad</th>
-            <th class="precio">Precio local</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>100 FUEGOS 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$9.25</td>
-          </tr>
-          <tr>
-            <td>100 FUEGOS 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$16.50</td>
-          </tr>
-          <tr>
-            <td>100 FUEGOS LATA 350ML</td>
-            <td>Unidad</td>
-            <td class="precio">$2.50</td>
-          </tr>
-          <tr>
-            <td>ABUELO 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$8.25</td>
-          </tr>
-          <tr>
-            <td>ABUELO 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$16.00</td>
-          </tr>
-          <tr>
-            <td>BACARDI 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$9.25</td>
-          </tr>
-          <tr>
-            <td>BACARDI 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$17.00</td>
-          </tr>
-          <tr>
-            <td>CACIQUE 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$7.75</td>
-          </tr>
-          <tr>
-            <td>CACIQUE 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$14.50</td>
-          </tr>
-          <tr>
-            <td>CACIQUE LATA 350ML</td>
-            <td>Unidad</td>
-            <td class="precio">$2.25</td>
-          </tr>
-          <tr>
-            <td>CASTILLO 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$7.25</td>
-          </tr>
-          <tr>
-            <td>CASTILLO 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$13.50</td>
-          </tr>
-          <tr>
-            <td>CASTILLO LATA 350ML</td>
-            <td>Unidad</td>
-            <td class="precio">$2.25</td>
-          </tr>
-          <tr>
-            <td>HAVANA 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$10.50</td>
-          </tr>
-          <tr>
-            <td>HAVANA 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$18.50</td>
-          </tr>
-          <tr>
-            <td>RON PAMPERO 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$8.75</td>
-          </tr>
-          <tr>
-            <td>RON PAMPERO 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$16.25</td>
-          </tr>
-          <tr>
-            <td>RON PAMPERO NEGRO 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$17.00</td>
-          </tr>
-          <tr>
-            <td>RON ZACAPA 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$65.00</td>
-          </tr>
-          <tr>
-            <td>RON ZACAPA 23 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$75.00</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- TEQUILA -->
-    <div class="categoria-card">
-      <div class="categoria-title">Tequila</div>
-      <p>Productos de esta categoría disponibles en La Huequita Quiteña.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Unidad</th>
-            <th class="precio">Precio local</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>TEQUILA DON JULIO</td>
-            <td>Unidad</td>
-            <td class="precio">$60.00</td>
-          </tr>
-          <tr>
-            <td>TEQUILA EL JIMADOR</td>
-            <td>Unidad</td>
-            <td class="precio">$24.00</td>
-          </tr>
-          <tr>
-            <td>TEQUILA JOSÉ CUERVO</td>
-            <td>Unidad</td>
-            <td class="precio">$26.00</td>
-          </tr>
-          <tr>
-            <td>TEQUILA PATRÓN</td>
-            <td>Unidad</td>
-            <td class="precio">$80.00</td>
-          </tr>
-          <tr>
-            <td>TEQUILA SIERRA</td>
-            <td>Unidad</td>
-            <td class="precio">$22.00</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- VARIOS -->
-    <div class="categoria-card">
-      <div class="categoria-title">Varios</div>
-      <p>Productos de esta categoría disponibles en La Huequita Quiteña.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Unidad</th>
-            <th class="precio">Precio local</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>HIELO 1KG</td>
-            <td>Unidad</td>
-            <td class="precio">$1.50</td>
-          </tr>
-          <tr>
-            <td>VASOS DESCARTABLES (PACK)</td>
-            <td>Unidad</td>
-            <td class="precio">$1.50</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- VINO -->
-    <div class="categoria-card">
-      <div class="categoria-title">Vino</div>
-      <p>Productos de esta categoría disponibles en La Huequita Quiteña.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Unidad</th>
-            <th class="precio">Precio local</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>VINO GATO NEGRO TINTO</td>
-            <td>Unidad</td>
-            <td class="precio">$11.50</td>
-          </tr>
-          <tr>
-            <td>VINO GATO NEGRO BLANCO</td>
-            <td>Unidad</td>
-            <td class="precio">$11.50</td>
-          </tr>
-          <tr>
-            <td>VINO NAVARRO CORREAS</td>
-            <td>Unidad</td>
-            <td class="precio">$18.00</td>
-          </tr>
-          <tr>
-            <td>VINO SANTA CAROLINA</td>
-            <td>Unidad</td>
-            <td class="precio">$16.00</td>
-          </tr>
-          <tr>
-            <td>VINO SANTA HELENA</td>
-            <td>Unidad</td>
-            <td class="precio">$15.50</td>
-          </tr>
-          <tr>
-            <td>VINO SANTA RITA</td>
-            <td>Unidad</td>
-            <td class="precio">$16.50</td>
-          </tr>
-          <tr>
-            <td>VINO TARAPACÁ</td>
-            <td>Unidad</td>
-            <td class="precio">$17.00</td>
-          </tr>
-          <tr>
-            <td>VINO TINTO CASA SILVA</td>
-            <td>Unidad</td>
-            <td class="precio">$19.00</td>
-          </tr>
-          <tr>
-            <td>VINO TINTO RESERVA</td>
-            <td>Unidad</td>
-            <td class="precio">$20.00</td>
-          </tr>
-          <tr>
-            <td>VINO BLANCO RESERVA</td>
-            <td>Unidad</td>
-            <td class="precio">$20.00</td>
-          </tr>
-          <tr>
-            <td>VINO ESPUMANTE</td>
-            <td>Unidad</td>
-            <td class="precio">$18.00</td>
-          </tr>
-          <tr>
-            <td>VINO ROSÉ</td>
-            <td>Unidad</td>
-            <td class="precio">$18.00</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- VODKA -->
-    <div class="categoria-card">
-      <div class="categoria-title">Vodka</div>
-      <p>Productos de esta categoría disponibles en La Huequita Quiteña.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Unidad</th>
-            <th class="precio">Precio local</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>VODKA ABSOLUT 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$12.00</td>
-          </tr>
-          <tr>
-            <td>VODKA ABSOLUT 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$22.00</td>
-          </tr>
-          <tr>
-            <td>VODKA GREY GOOSE</td>
-            <td>Unidad</td>
-            <td class="precio">$60.00</td>
-          </tr>
-          <tr>
-            <td>VODKA RUSSKAYA</td>
-            <td>Unidad</td>
-            <td class="precio">$10.00</td>
-          </tr>
-          <tr>
-            <td>VODKA SKY 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$20.00</td>
-          </tr>
-          <tr>
-            <td>VODKA SMIRNOFF 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$10.50</td>
-          </tr>
-          <tr>
-            <td>VODKA SMIRNOFF 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$18.50</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- WHISKY -->
-    <div class="categoria-card">
-      <div class="categoria-title">Whisky</div>
-      <p>Productos de esta categoría disponibles en La Huequita Quiteña.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Unidad</th>
-            <th class="precio">Precio local</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>100 PIPERS 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$10.50</td>
-          </tr>
-          <tr>
-            <td>100 PIPERS 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$19.50</td>
-          </tr>
-          <tr>
-            <td>BALLANTINES 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$11.50</td>
-          </tr>
-          <tr>
-            <td>BALLANTINES 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$20.50</td>
-          </tr>
-          <tr>
-            <td>BUCHANANS 12 AÑOS</td>
-            <td>Unidad</td>
-            <td class="precio">$52.00</td>
-          </tr>
-          <tr>
-            <td>BUCHANANS 18 AÑOS</td>
-            <td>Unidad</td>
-            <td class="precio">$85.00</td>
-          </tr>
-          <tr>
-            <td>BUCHANANS MASTER</td>
-            <td>Unidad</td>
-            <td class="precio">$60.00</td>
-          </tr>
-          <tr>
-            <td>CHIVAS REGAL 12</td>
-            <td>Unidad</td>
-            <td class="precio">$45.00</td>
-          </tr>
-          <tr>
-            <td>CHIVAS REGAL 18</td>
-            <td>Unidad</td>
-            <td class="precio">$80.00</td>
-          </tr>
-          <tr>
-            <td>GRANT'S 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$9.50</td>
-          </tr>
-          <tr>
-            <td>GRANT'S 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$17.50</td>
-          </tr>
-          <tr>
-            <td>JACK DANIEL'S 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$18.00</td>
-          </tr>
-          <tr>
-            <td>JACK DANIEL'S 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$32.00</td>
-          </tr>
-          <tr>
-            <td>JAMESON 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$14.00</td>
-          </tr>
-          <tr>
-            <td>JAMESON 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$25.00</td>
-          </tr>
-          <tr>
-            <td>JHONNIE WALKER BLACK 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$18.00</td>
-          </tr>
-          <tr>
-            <td>JHONNIE WALKER BLACK 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$32.00</td>
-          </tr>
-          <tr>
-            <td>JHONNIE WALKER RED 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$11.50</td>
-          </tr>
-          <tr>
-            <td>JHONNIE WALKER RED 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$20.50</td>
-          </tr>
-          <tr>
-            <td>OLD PARR 12 AÑOS</td>
-            <td>Unidad</td>
-            <td class="precio">$48.00</td>
-          </tr>
-          <tr>
-            <td>OLD PARR 18 AÑOS</td>
-            <td>Unidad</td>
-            <td class="precio">$90.00</td>
-          </tr>
-          <tr>
-            <td>WHITE HORSE 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$9.50</td>
-          </tr>
-          <tr>
-            <td>WHITE HORSE 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$17.50</td>
-          </tr>
-          <tr>
-            <td>WILLIAM LAWSON'S 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$8.75</td>
-          </tr>
-          <tr>
-            <td>WILLIAM LAWSON'S 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$16.00</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- ZHUMIR -->
-    <div class="categoria-card">
-      <div class="categoria-title">Zhumir</div>
-      <p>Productos de esta categoría disponibles en La Huequita Quiteña.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Unidad</th>
-            <th class="precio">Precio local</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>ZHUMIR DURAZNO 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$6.50</td>
-          </tr>
-          <tr>
-            <td>ZHUMIR DURAZNO 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$11.50</td>
-          </tr>
-          <tr>
-            <td>ZHUMIR FRUTAS 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$6.50</td>
-          </tr>
-          <tr>
-            <td>ZHUMIR FRUTAS 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$11.50</td>
-          </tr>
-          <tr>
-            <td>ZHUMIR MANZANA 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$6.50</td>
-          </tr>
-          <tr>
-            <td>ZHUMIR MANZANA 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$11.50</td>
-          </tr>
-          <tr>
-            <td>ZHUMIR MANGO 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$6.50</td>
-          </tr>
-          <tr>
-            <td>ZHUMIR MANGO 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$11.50</td>
-          </tr>
-          <tr>
-            <td>ZHUMIR UVA 375ML</td>
-            <td>Unidad</td>
-            <td class="precio">$6.50</td>
-          </tr>
-          <tr>
-            <td>ZHUMIR UVA 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$11.50</td>
-          </tr>
-          <tr>
-            <td>ZHUMIR CAFE 750ML</td>
-            <td>Unidad</td>
-            <td class="precio">$11.50</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
+    <!-- NUESTROS PRODUCTOS (CATEGORÍAS TIPO SPA) -->
+    <section id="categorias" class="productos-section">
+      <h2>Nuestros productos</h2>
+      <p class="section-sub">
+        Primero eliges la categoría y luego se despliegan todos los productos con su precio en local
+        (efectivo o transferencia). Delivery por Uber / InDrive, y pagos con tarjeta tienen un recargo porcentual.
+      </p>
 
+      <div class="category-grid">
+        <!-- RON -->
+        <article class="category-card">
+          <div class="category-header">
+            <div>
+              <h3>Ron</h3>
+              <span class="category-count">Ejemplos de tu carta</span>
+            </div>
+            <button class="btn btn-small toggle-category">Ver productos ▾</button>
+          </div>
+          <div class="category-body">
+            <table>
+              <thead>
+                <tr><th>Producto</th><th class="precio">Precio local</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>100 FUEGOS 375ML</td><td class="precio">$9.25</td></tr>
+                <tr><td>100 FUEGOS 750ML</td><td class="precio">$16.50</td></tr>
+                <tr><td>ABUELO 375ML</td><td class="precio">$8.25</td></tr>
+                <tr><td>ABUELO 750ML</td><td class="precio">$16.00</td></tr>
+                <tr><td>RONERO 750ML</td><td class="precio">$9.25</td></tr>
+                <tr><td>SAN MIGUEL ORO 750ML</td><td class="precio">$13.50</td></tr>
+                <tr><td>VIEJO DE CALDAS 750ML</td><td class="precio">$17.50</td></tr>
+                <!-- Aquí podemos seguir pegando TODOS los rones del Excel -->
+              </tbody>
+            </table>
+          </div>
+        </article>
 
-    <!-- CONTACTO / INFO -->
+        <!-- AGUARDIENTE -->
+        <article class="category-card">
+          <div class="category-header">
+            <div>
+              <h3>Aguardiente</h3>
+              <span class="category-count">Ejemplos de tu carta</span>
+            </div>
+            <button class="btn btn-small toggle-category">Ver productos ▾</button>
+          </div>
+          <div class="category-body">
+            <table>
+              <thead>
+                <tr><th>Producto</th><th class="precio">Precio local</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>AGUARDIENTE AMARILLO</td><td class="precio">$20.00</td></tr>
+                <tr><td>AGUARDIENTE AMARILLO 1LT</td><td class="precio">$25.00</td></tr>
+                <tr><td>ANTIOQUEÑO 1LT</td><td class="precio">$25.70</td></tr>
+                <tr><td>ANTIOQUEÑO 375ML</td><td class="precio">$12.50</td></tr>
+                <tr><td>ANTIOQUEÑO 750ML</td><td class="precio">$20.75</td></tr>
+                <tr><td>NORTEÑO 375ML</td><td class="precio">$4.75</td></tr>
+                <tr><td>NORTEÑO 750ML</td><td class="precio">$9.25</td></tr>
+                <tr><td>TROPICO 375ML</td><td class="precio">$4.75</td></tr>
+                <tr><td>TROPICO 750ML</td><td class="precio">$9.25</td></tr>
+                <!-- Igual, aquí podemos ir pegando todos los demás -->
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <!-- WHISKY -->
+        <article class="category-card">
+          <div class="category-header">
+            <div>
+              <h3>Whisky</h3>
+              <span class="category-count">Ejemplos de tu carta</span>
+            </div>
+            <button class="btn btn-small toggle-category">Ver productos ▾</button>
+          </div>
+          <div class="category-body">
+            <table>
+              <thead>
+                <tr><th>Producto</th><th class="precio">Precio local</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>100 PIPERS 750ML</td><td class="precio">$19.50</td></tr>
+                <tr><td>JHONNIE WALKER RED 750ML</td><td class="precio">$20.50</td></tr>
+                <tr><td>JHONNIE WALKER BLACK 750ML</td><td class="precio">$32.00</td></tr>
+                <tr><td>BUCHANANS 12 AÑOS</td><td class="precio">$52.00</td></tr>
+                <tr><td>OLD PARR 12 AÑOS</td><td class="precio">$48.00</td></tr>
+                <tr><td>WHITE HORSE 750ML</td><td class="precio">$17.50</td></tr>
+                <tr><td>WILLIAM LAWSON'S 750ML</td><td class="precio">$16.00</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <!-- CERVEZA -->
+        <article class="category-card">
+          <div class="category-header">
+            <div>
+              <h3>Cerveza</h3>
+              <span class="category-count">Ejemplos de tu carta</span>
+            </div>
+            <button class="btn btn-small toggle-category">Ver productos ▾</button>
+          </div>
+          <div class="category-body">
+            <table>
+              <thead>
+                <tr><th>Producto</th><th class="precio">Precio local</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>PILSENER 1LT</td><td class="precio">$3.00</td></tr>
+                <tr><td>CLUB 1LT</td><td class="precio">$3.10</td></tr>
+                <tr><td>PILSENER LATA 355ML</td><td class="precio">$1.25</td></tr>
+                <tr><td>CLUB LATA 355ML</td><td class="precio">$1.35</td></tr>
+                <tr><td>STELLA ARTOIS 330ML</td><td class="precio">$2.20</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <!-- BEBIDAS NO ALCOHÓLICAS -->
+        <article class="category-card">
+          <div class="category-header">
+            <div>
+              <h3>Bebidas no alcohólicas</h3>
+              <span class="category-count">Ejemplos de tu carta</span>
+            </div>
+            <button class="btn btn-small toggle-category">Ver productos ▾</button>
+          </div>
+          <div class="category-body">
+            <table>
+              <thead>
+                <tr><th>Producto</th><th class="precio">Precio local</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>AGUA CIELO 1LT</td><td class="precio">$1.00</td></tr>
+                <tr><td>COCA COLA 1LT</td><td class="precio">$1.75</td></tr>
+                <tr><td>FUZE TEA 1LT</td><td class="precio">$1.55</td></tr>
+                <tr><td>JUGO DEL VALLE 500ML</td><td class="precio">$0.75</td></tr>
+                <tr><td>V220</td><td class="precio">$1.60</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <!-- CIGARRILLOS -->
+        <article class="category-card">
+          <div class="category-header">
+            <div>
+              <h3>Cigarrillos</h3>
+              <span class="category-count">Ejemplos de tu carta</span>
+            </div>
+            <button class="btn btn-small toggle-category">Ver productos ▾</button>
+          </div>
+          <div class="category-body">
+            <table>
+              <thead>
+                <tr><th>Producto</th><th class="precio">Precio local</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>MALBORO ROJO</td><td class="precio">$5.50</td></tr>
+                <tr><td>MALBORO GOLD</td><td class="precio">$5.50</td></tr>
+                <tr><td>MALBORO ICE BLAST</td><td class="precio">$6.00</td></tr>
+                <tr><td>PHILLIP MORRIS AZUL</td><td class="precio">$4.75</td></tr>
+                <tr><td>PHILLIP MORRIS ROJO</td><td class="precio">$4.75</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <!-- SNACKS / CONFITERÍA -->
+        <article class="category-card">
+          <div class="category-header">
+            <div>
+              <h3>Snacks y confitería</h3>
+              <span class="category-count">Ejemplos de tu carta</span>
+            </div>
+            <button class="btn btn-small toggle-category">Ver productos ▾</button>
+          </div>
+          <div class="category-body">
+            <table>
+              <thead>
+                <tr><th>Producto</th><th class="precio">Precio local</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>PAPAS SIN MARCA</td><td class="precio">$1.25</td></tr>
+                <tr><td>PANCHITOS</td><td class="precio">$0.50</td></tr>
+                <tr><td>AGOGO MENTA COOL GRANDE</td><td class="precio">$0.40</td></tr>
+                <tr><td>TRIDENT X6 SURTIDO</td><td class="precio">$0.75</td></tr>
+                <tr><td>MENTAS</td><td class="precio">$0.05</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- INFO / CONTACTO -->
     <section id="contacto">
       <h2>Información y contacto</h2>
-      <p class="section-sub">Datos básicos para que el cliente sepa cómo pedir.</p>
+      <p class="section-sub">Datos básicos para que tus clientes sepan cómo funciona La Huequita Quiteña.</p>
 
       <div class="info-grid">
         <div class="info-card">
-          <div class="info-title">Horarios de atención</div>
+          <div class="info-title">Horarios</div>
           <p>
-            🕔 De lunes a domingo: 17h00 a 05h00<br/>
-            📍 Atención en local y pedidos por WhatsApp.
+            🕔 Lunes a domingo: 17h00 a 05h00<br/>
+            📍 Quito, sector norte (escribe aquí la referencia exacta del local).
           </p>
         </div>
         <div class="info-card">
-          <div class="info-title">WhatsApp pedidos</div>
+          <div class="info-title">Formas de pedido</div>
           <p>
-            📲 <strong>0980000000</strong> (ejemplo)<br/>
-            Luego aquí ponemos tu número real para que coincida con los botones.
+            • Entras a la página y revisas combos / carta.<br/>
+            • Das clic en “Pedir este combo” o en el botón de WhatsApp.<br/>
+            • Te abre el chat con un mensaje armado, solo confirmas.
           </p>
         </div>
         <div class="info-card">
-          <div class="info-title">Ubicación / redes</div>
+          <div class="info-title">Pagos y delivery</div>
           <p>
-            Quito, Ecuador. Agregamos dirección exacta y redes cuando quieras:<br/>
-            Instagram, Facebook, TikTok, etc.
+            💳 Precio mostrado: venta en local (efectivo o transferencia).<br/>
+            💳 Pagos con tarjeta: recargo porcentual sobre el valor.<br/>
+            🚗 Delivery: se coordina por Uber / InDrive, el valor del envío lo muestra la app según la distancia.
           </p>
         </div>
       </div>
@@ -2069,7 +1245,7 @@
   <footer>
     <span>© <span id="year"></span> La Huequita Quiteña</span> ·
     <span>Licorería y combos nocturnos</span> ·
-    <span>Hecho para Quito, Ecuador</span>
+    <span>Quito, Ecuador</span>
   </footer>
 
   <!-- CHATBOT -->
@@ -2089,21 +1265,21 @@
       <div class="msg msg-bot">
         <div class="msg-bubble">
           ¡Hola! Soy el chatbot de La Huequita Quiteña 🍻<br/>
-          ¿Te ayudo a elegir un combo?
+          ¿Te ayudo a elegir un combo o buscar un producto?
         </div>
       </div>
       <div class="msg msg-bot">
         <div class="msg-bubble">
-          Puedes marcar una opción o llenar tus datos abajo y te escribimos por WhatsApp.
+          Puedes marcar una opción rápida o llenar tus datos abajo.
           <div class="quick-options">
             <div class="quick-chip" data-chip="Quiero ver combos de aguardiente">
               Aguardiente
             </div>
-            <div class="quick-chip" data-chip="Quiero ver combos de whisky">
+            <div class="quick-chip" data-chip="Quiero ver whisky para compartir">
               Whisky
             </div>
             <div class="quick-chip" data-chip="Quiero algo económico para 2 personas">
-              Para 2 personas
+              Económico 2 personas
             </div>
           </div>
         </div>
@@ -2117,13 +1293,13 @@
       <label for="telefono">Número de WhatsApp</label>
       <input type="tel" id="telefono" placeholder="Ej: 0980000000" required />
 
-      <label for="comboInteres">Combo de interés</label>
+      <label for="comboInteres">Qué estás buscando</label>
       <select id="comboInteres">
         <option value="">Selecciona una opción</option>
-        <option value="Aguardiente + snack + tabacos">Aguardiente + snack + tabacos</option>
-        <option value="Whisky + gaseosa + hielo">Whisky + gaseosa + hielo</option>
-        <option value="Ron + colas + mezcla">Ron + colas + mezcla</option>
-        <option value="Shots power">Shots power</option>
+        <option value="Aguardiente amarillo + papas + 1/2 Marlboro">Combo Aguardiente</option>
+        <option value="Whisky + gaseosas + hielo">Combo Whisky</option>
+        <option value="Shots con energizante">Combo shots</option>
+        <option value="Solo botella (de la carta)">Solo botella</option>
         <option value="Otro / No sé aún">Otro / No sé aún</option>
       </select>
 
@@ -2131,7 +1307,7 @@
     </form>
   </div>
 
-  <!-- BOTONES FLOTANTES -->
+  <!-- FABs -->
   <div class="fab-container">
     <div class="fab" id="chatbotFab">
       <span>🤖</span>
@@ -2145,29 +1321,31 @@
   </div>
 
   <script>
-    // 👉 CAMBIA ESTE NÚMERO CUANDO TENGAS EL REAL (mismo que pondremos en la sección de contacto)
-    const NUM_WHATSAPP = "0980000000";
+    const NUM_WHATSAPP = "0980000000"; // luego lo cambiamos por tu número real
 
+    // Año footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Frases rotativas
     const frases = [
       "Sin filas, solo tragos",
-      "Arma el pre sin complicarte",
+      "Tu huequita para la farra",
       "Combos listos, tú solo llegas",
       "La noche empieza en La Huequita"
     ];
     let fraseIndex = 0;
-
     const fraseRotativaSpan = document.getElementById("fraseRotativa");
     setInterval(() => {
       fraseIndex = (fraseIndex + 1) % frases.length;
       fraseRotativaSpan.textContent = frases[fraseIndex];
     }, 3500);
 
-    document.getElementById("year").textContent = new Date().getFullYear();
-
+    // Scroll a combos
     document.getElementById("verCombos").addEventListener("click", () => {
       document.getElementById("combos").scrollIntoView({ behavior: "smooth" });
     });
 
+    // WhatsApp helper
     function abrirWhatsApp(mensaje = "Hola, quiero información de los combos de La Huequita Quiteña") {
       const texto = encodeURIComponent(mensaje);
       const link = `https://wa.me/593${NUM_WHATSAPP.slice(1)}?text=${texto}`;
@@ -2181,11 +1359,21 @@
     document.querySelectorAll(".combo-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         const combo = btn.getAttribute("data-combo");
-        const mensaje = `Hola, vengo de la página web y quiero el ${combo}. ¿Me ayudas con el precio y disponibilidad?`;
+        const mensaje = `Hola, vengo de la página de La Huequita y quiero el ${combo}. ¿Me ayudas con el precio final y disponibilidad?`;
         abrirWhatsApp(mensaje);
       });
     });
 
+    // Abrir / cerrar categorías
+    document.querySelectorAll(".toggle-category").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const card = btn.closest(".category-card");
+        const isOpen = card.classList.toggle("open");
+        btn.textContent = isOpen ? "Ocultar productos ▴" : "Ver productos ▾";
+      });
+    });
+
+    // Chatbot
     const chatbotFab = document.getElementById("chatbotFab");
     const chatbotPanel = document.getElementById("chatbotPanel");
     const chatbotClose = document.getElementById("chatbotClose");
@@ -2203,7 +1391,7 @@
         const text = chip.getAttribute("data-chip");
         agregarMensajeUsuario(text);
         setTimeout(() => {
-          agregarMensajeBot("Perfecto, revisa los combos o llena el formulario de abajo y te escribimos.");
+          agregarMensajeBot("Perfecto, revisa los combos destacados o llena el formulario de abajo y te escribimos.");
         }, 700);
       });
     });
@@ -2236,22 +1424,11 @@
         return;
       }
 
-      const registro = {
-        nombre,
-        telefono,
-        combo,
-        fecha: new Date().toISOString()
-      };
-
-      const registrosPrevios = JSON.parse(localStorage.getItem("clientesHuequita") || "[]");
-      registrosPrevios.push(registro);
-      localStorage.setItem("clientesHuequita", JSON.stringify(registrosPrevios));
-
-      agregarMensajeUsuario(`Mis datos: ${nombre}, ${telefono}, combo: ${combo || "no definido aún"}`);
+      agregarMensajeUsuario(`Mis datos: ${nombre}, ${telefono}, buscando: ${combo || "recomendación"}`);
       agregarMensajeBot("¡Gracias! Te redirigimos a WhatsApp para continuar la atención. 🍻");
 
       const mensaje = `Hola, soy ${nombre}. Mi número es ${telefono}. Estoy interesado en: ${
-        combo || "algún combo, necesito recomendación"
+        combo || "algún combo / producto, necesito recomendación"
       }. Vengo del chatbot de la página.`;
       abrirWhatsApp(mensaje);
 
@@ -2260,3 +1437,4 @@
   </script>
 </body>
 </html>
+
