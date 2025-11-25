@@ -2,157 +2,25 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>La Huequita Quiteña - Licorería</title>
+  <title>La Huequita Quiteña - Catálogo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  /* NUESTROS PRODUCTOS (tipo servicios spa) */
-.productos-section {
-  margin-top: 40px;
-}
 
-.productos-section h2 {
-  font-size: 18px;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  margin-bottom: 6px;
-}
-
-.productos-section .section-sub {
-  font-size: 13px;
-  opacity: 0.8;
-  margin-bottom: 16px;
-}
-
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 18px;
-}
-
-.category-card {
-  border-radius: 16px;
-  border: 1px solid #222;
-  background: radial-gradient(circle at top, #262626 0, #050505 55%);
-  color: #f5f5f5;
-  box-shadow: 0 10px 26px rgba(0,0,0,0.8);
-  padding: 12px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.category-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
-
-.category-header h3 {
-  font-size: 15px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.category-count {
-  font-size: 11px;
-  opacity: 0.7;
-}
-
-.btn-small {
-  font-size: 11px;
-  padding: 5px 10px;
-  border-radius: 999px;
-  border: 1px solid #f5f5f5;
-  background: #f5f5f5;
-  color: #111;
-  cursor: pointer;
-}
-
-.btn-small:hover {
-  background: #ffffff;
-}
-
-.category-body {
-  margin-top: 6px;
-  border-radius: 12px;
-  border: 1px solid #333;
-  background: rgba(0,0,0,0.55);
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.22s ease, opacity 0.22s ease, padding 0.22s ease;
-  opacity: 0;
-  padding: 0 8px;
-}
-
-.category-card.open .category-body {
-  max-height: 420px;
-  opacity: 1;
-  padding: 8px;
-}
-
-.category-body table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 12px;
-}
-
-.category-body th,
-.category-body td {
-  padding: 6px 4px;
-  text-align: left;
-  border-bottom: 1px solid #333;
-}
-
-.category-body th {
-  font-weight: 600;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  opacity: 0.9;
-}
-
-.category-body td.precio {
-  text-align: right;
-  white-space: nowrap;
-}
-
-.category-body tr:last-child td {
-  border-bottom: none;
-}
-
-.category-body tbody {
-  display: block;
-  max-height: 260px;
-  overflow-y: auto;
-}
-
-.category-body thead,
-.category-body tbody tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-}
-
-/* scroll dentro de la tabla */
-.category-body::-webkit-scrollbar {
-  width: 6px;
-}
-.category-body::-webkit-scrollbar-thumb {
-  background: #444;
-  border-radius: 999px;
-}
   <style>
     :root {
-      --bg-page: #050505;
-      --bg-card: #111111;
-      --bg-card-soft: #161616;
-      --text-main: #f5f5f5;
-      --text-soft: #bbbbbb;
-      --accent: #f6c453; /* dorado suave tipo bar */
-      --border-soft: #2d2d2d;
-      --radius: 18px;
-      --shadow-strong: 0 18px 40px rgba(0,0,0,0.8);
-      --shadow-soft: 0 10px 26px rgba(0,0,0,0.6);
+      --color-bg: #050509;
+      --color-card: #111119;
+      --color-card-soft: #181824;
+      --color-primary: #00ff7f; /* Verde neón Huequita */
+      --color-primary-soft: rgba(0, 255, 127, 0.08);
+      --color-text: #f5f5f5;
+      --color-muted: #a0a0b5;
+      --color-border: #262637;
+      --color-danger: #ff4b5c;
+      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.6);
+      --radius-lg: 14px;
+      --radius-pill: 999px;
+      --transition-fast: 0.18s ease-out;
+      --max-width: 1200px;
     }
 
     * {
@@ -163,1420 +31,819 @@
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top, #262626 0, #050505 55%);
-      color: var(--text-main);
+      background: radial-gradient(circle at top, #131321 0, #020208 45%, #000 100%);
+      color: var(--color-text);
       min-height: 100vh;
     }
 
     a {
-      text-decoration: none;
       color: inherit;
+      text-decoration: none;
     }
 
-    .container {
-      max-width: 1100px;
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      max-width: var(--max-width);
       margin: 0 auto;
-      padding: 0 16px 40px;
+      padding: 12px 16px 40px;
     }
 
-    /* HEADER */
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(5,5,5,0.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.03);
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 10px 16px;
+    /* HEADER SUPERIOR */
+    .top-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 12px;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #101018, #141426);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      box-shadow: var(--shadow-soft);
+      position: sticky;
+      top: 8px;
+      z-index: 20;
+      backdrop-filter: blur(18px);
     }
 
-    .logo {
+    .top-left {
       display: flex;
       align-items: center;
       gap: 10px;
+      min-width: 0;
     }
 
-    .logo-mark {
-      width: 46px;
-      height: 46px;
+    .logo-circle {
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      border: 2px solid var(--accent);
+      background: radial-gradient(circle at 30% 0, #00ff7f, #007a3e 50%, #020208 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      background: radial-gradient(circle at top, #272727 0, #111 60%);
-      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      flex-shrink: 0;
     }
 
-    .logo-text {
+    .logo-circle span {
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: 1px;
+      text-shadow: 0 0 8px rgba(0, 255, 127, 0.9);
+    }
+
+    .top-title {
       display: flex;
       flex-direction: column;
-      line-height: 1.1;
+      gap: 2px;
+      min-width: 0;
     }
 
-    .logo-text span:first-child {
+    .top-title-main {
+      font-size: 14px;
       font-weight: 700;
-      letter-spacing: 0.08em;
-      font-size: 13px;
       text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
-    .logo-text span:last-child {
+    .top-title-sub {
       font-size: 11px;
-      color: var(--text-soft);
+      color: var(--color-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    nav ul {
+    .top-actions {
       display: flex;
-      list-style: none;
-      gap: 16px;
-      font-size: 13px;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
     }
 
-    nav li a {
+    .pill {
+      border-radius: var(--radius-pill);
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .pill-primary {
+      background: radial-gradient(circle at 0 0, #00ff7f, #01874a 55%, #020208 100%);
+      border-color: rgba(0, 255, 127, 0.5);
+      box-shadow: 0 0 18px rgba(0, 255, 127, 0.45);
+    }
+
+    .pill span.icon {
+      font-size: 14px;
+    }
+
+    .pill-cart {
       position: relative;
-      padding-bottom: 3px;
-      color: var(--text-soft);
     }
 
-    nav li a:hover {
-      color: var(--text-main);
-    }
-
-    nav li a::after {
-      content: "";
+    .pill-cart-badge {
       position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      transition: width 0.18s ease;
-    }
-
-    nav li a:hover::after {
-      width: 100%;
-    }
-
-    .header-cta {
-      display: none;
-    }
-
-    @media (min-width: 768px) {
-      .header-cta {
-        display: inline-flex;
-      }
-    }
-
-    .btn {
+      top: -6px;
+      right: -4px;
+      font-size: 10px;
+      background: var(--color-danger);
       border-radius: 999px;
-      border: 1px solid var(--accent);
-      padding: 7px 16px;
-      font-size: 13px;
+      padding: 2px 5px;
+      box-shadow: 0 0 10px rgba(255, 75, 92, 0.8);
+    }
+
+    /* BLOQUE LOCAL + BUSCADOR */
+    .toolbar {
+      margin-top: 14px;
+      margin-bottom: 18px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .local-chip {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: var(--radius-pill);
+      background: rgba(0, 255, 127, 0.06);
+      border: 1px solid rgba(0, 255, 127, 0.3);
+      font-size: 12px;
+      color: var(--color-primary);
+    }
+
+    .local-chip select {
       background: transparent;
-      color: var(--text-main);
-      transition: background 0.12s ease, transform 0.08s ease, box-shadow 0.08s ease;
+      border: none;
+      color: var(--color-text);
+      font-size: 12px;
+      outline: none;
     }
 
-    .btn-acento {
-      background: var(--accent);
-      color: #111111;
-      border-color: var(--accent);
-      box-shadow: 0 0 18px rgba(246,196,83,0.65);
+    .search-input {
+      flex: 1;
+      min-width: 160px;
+      position: relative;
     }
 
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: var(--shadow-soft);
+    .search-input input {
+      width: 100%;
+      padding: 10px 11px 10px 30px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--color-border);
+      background: rgba(4, 4, 12, 0.9);
+      color: var(--color-text);
+      font-size: 13px;
+      outline: none;
     }
 
-    .btn-icon {
-      font-size: 16px;
+    .search-input input::placeholder {
+      color: var(--color-muted);
     }
 
-    .btn-small {
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border-width: 1px;
-      background: #f5f5f5;
-      color: #111;
-    }
-
-    .btn-small:hover {
-      background: #ffffff;
-    }
-
-    /* HERO */
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 24px;
-      padding-top: 26px;
-      align-items: stretch;
-    }
-
-    @media (max-width: 860px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .hero-left {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .hero-tagline {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.22em;
-      color: var(--accent);
-    }
-
-    .hero-left h1 {
-      font-size: 30px;
-      line-height: 1.1;
-      text-transform: uppercase;
-    }
-
-    .hero-left h1 span {
-      display: block;
-      font-size: 17px;
-      font-weight: 300;
-      letter-spacing: 0.14em;
-      color: var(--text-soft);
-    }
-
-    .hero-subtitle {
+    .search-input span {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
       font-size: 14px;
-      color: var(--text-soft);
-      max-width: 460px;
+      color: var(--color-muted);
     }
 
-    .hero-ctas {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+    /* CATEGORÍAS */
+    .categories-bar {
       margin-top: 6px;
+      margin-bottom: 18px;
+      overflow-x: auto;
+      padding-bottom: 4px;
     }
 
-    .hero-chips {
-      display: flex;
-      flex-wrap: wrap;
+    .categories-list {
+      display: inline-flex;
       gap: 8px;
-      margin-top: 6px;
+      white-space: nowrap;
+    }
+
+    .category-chip {
+      padding: 7px 12px;
+      border-radius: var(--radius-pill);
       font-size: 11px;
-    }
-
-    .chip {
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      padding: 4px 10px;
-      color: var(--text-soft);
-      background: rgba(0,0,0,0.55);
-    }
-
-    .hero-right {
-      position: relative;
-    }
-
-    .hero-card {
-      background: radial-gradient(circle at top, #292929 0, #101010 65%);
-      border-radius: 22px;
-      border: 1px solid var(--border-soft);
-      box-shadow: var(--shadow-strong);
-      padding: 14px 16px 14px;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url("img/fondo-licor.jpg");
-      background-size: cover;
-      background-position: center;
-      opacity: 0.08;
-      mix-blend-mode: screen;
-      pointer-events: none;
-    }
-
-    .hero-card-header {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    .hero-card-body {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 10px;
-      align-items: center;
-    }
-
-    @media (max-width: 600px) {
-      .hero-card-body {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .hero-bottle {
-      border-radius: 18px;
-      border: 1px solid var(--border-soft);
-      padding: 12px;
-      background: rgba(0,0,0,0.65);
-      text-align: center;
-    }
-
-    .bottle-shape {
-      width: 60px;
-      height: 130px;
-      border-radius: 16px 16px 6px 6px;
-      border: 2px solid #f5f5f5;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    .bottle-shape::before {
-      content: "";
-      position: absolute;
-      width: 22px;
-      height: 16px;
-      border-radius: 8px 8px 4px 4px;
-      border: 2px solid #f5f5f5;
-      top: -16px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .hero-bottle span {
-      display: block;
-      margin-top: 6px;
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .hero-combo-info h3 {
-      font-size: 17px;
-      margin-bottom: 4px;
-    }
-
-    .hero-combo-info p {
-      font-size: 12px;
-      color: var(--text-soft);
-      margin-bottom: 6px;
-    }
-
-    .hero-price {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .hero-price small {
-      font-size: 11px;
-      font-weight: 400;
-      color: var(--text-soft);
-    }
-
-    .hero-meta {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    /* SECCIONES GENERALES */
-
-    section {
-      margin-top: 28px;
-    }
-
-    section h2 {
-      font-size: 18px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      margin-bottom: 6px;
-    }
-
-    .section-sub {
-      font-size: 13px;
-      color: var(--text-soft);
-      margin-bottom: 14px;
-    }
-
-    /* COMBOS DESTACADOS */
-
-    .combos-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 14px;
-    }
-
-    .combo-card {
-      background: linear-gradient(140deg, #141414, #090909);
-      border-radius: var(--radius);
-      border: 1px solid var(--border-soft);
-      box-shadow: var(--shadow-soft);
-      padding: 12px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .combo-tag {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-soft);
-    }
-
-    .combo-name {
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    .combo-items {
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    .combo-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-top: 4px;
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .combo-price {
-      font-size: 17px;
-      font-weight: 700;
-    }
-
-    .combo-badge {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(0,0,0,0.8);
-      color: var(--accent);
-    }
-
-    .combo-btn {
-      font-size: 11px;
-      padding: 5px 10px;
-    }
-
-    /* NUESTROS PRODUCTOS - CATEGORÍAS TIPO SPA */
-
-    .productos-section {
-      margin-top: 32px;
-    }
-
-    .productos-section h2 {
-      font-size: 18px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      margin-bottom: 6px;
-    }
-
-    .productos-section .section-sub {
-      font-size: 13px;
-      color: var(--text-soft);
-      margin-bottom: 16px;
-    }
-
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-    }
-
-    .category-card {
-      border-radius: 16px;
-      border: 1px solid var(--border-soft);
-      background: radial-gradient(circle at top, #262626 0, #090909 55%);
-      color: #f5f5f5;
-      box-shadow: var(--shadow-soft);
-      padding: 12px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .category-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .category-header h3 {
-      font-size: 15px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
+      border: 1px solid var(--color-border);
+      background: rgba(3, 3, 10, 0.7);
+      color: var(--color-muted);
+      cursor: pointer;
+      transition: var(--transition-fast);
     }
 
-    .category-count {
-      font-size: 11px;
-      color: var(--text-soft);
+    .category-chip.active {
+      background: var(--color-primary-soft);
+      color: var(--color-primary);
+      border-color: rgba(0, 255, 127, 0.8);
+      box-shadow: 0 0 12px rgba(0, 255, 127, 0.35);
     }
 
-    .category-body {
-      margin-top: 6px;
-      border-radius: 12px;
-      border: 1px solid #333;
-      background: rgba(0,0,0,0.55);
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.22s ease, opacity 0.22s ease, padding 0.22s ease;
-      opacity: 0;
-      padding: 0 8px;
+    /* SECCIÓN MEJORES PRODUCTOS */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 8px;
     }
 
-    .category-card.open .category-body {
-      max-height: 420px;
-      opacity: 1;
-      padding: 8px;
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
     }
 
-    .category-body table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
+    .section-tabs {
+      display: inline-flex;
+      gap: 6px;
+      padding: 3px;
+      border-radius: 999px;
+      background: rgba(7, 7, 18, 0.95);
+      border: 1px solid var(--color-border);
     }
 
-    .category-body th,
-    .category-body td {
-      padding: 6px 4px;
-      text-align: left;
-      border-bottom: 1px solid #333;
-    }
-
-    .category-body th {
-      font-weight: 600;
+    .section-tab {
+      border-radius: 999px;
+      padding: 5px 10px;
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: #f5f5f5;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      color: var(--color-muted);
+      border: none;
+      background: transparent;
     }
 
-    .category-body td {
-      color: #e5e5e5;
+    .section-tab.active {
+      background: var(--color-primary-soft);
+      color: var(--color-primary);
     }
 
-    .category-body td.precio {
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .category-body tr:last-child td {
-      border-bottom: none;
-    }
-
-    .category-body tbody {
-      display: block;
-      max-height: 260px;
-      overflow-y: auto;
-    }
-
-    .category-body thead,
-    .category-body tbody tr {
-      display: table;
-      width: 100%;
-      table-layout: fixed;
-    }
-
-    .category-body::-webkit-scrollbar {
-      width: 6px;
-    }
-    .category-body::-webkit-scrollbar-thumb {
-      background: #444;
-      border-radius: 999px;
-    }
-
-    /* INFO & CONTACTO */
-
-    .info-grid {
+    /* GRID DE PRODUCTOS */
+    .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
       gap: 14px;
+      margin-bottom: 28px;
     }
 
-    .info-card {
-      background: var(--bg-card-soft);
-      border-radius: var(--radius);
-      border: 1px solid var(--border-soft);
+    .product-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      padding: 10px;
+      background: linear-gradient(145deg, #111119, #16162a);
+      border: 1px solid rgba(255, 255, 255, 0.04);
       box-shadow: var(--shadow-soft);
-      padding: 12px 14px;
-      font-size: 12px;
-      color: var(--text-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, border-color 0.15s ease-out;
     }
 
-    .info-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-main);
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.9);
+      border-color: rgba(0, 255, 127, 0.35);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      padding: 3px 7px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .product-badge--hot {
+      background: rgba(255, 75, 92, 0.15);
+      border-color: rgba(255, 75, 92, 0.7);
+      color: #ff939e;
+    }
+
+    .product-image-wrap {
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin-bottom: 4px;
     }
 
-    footer {
-      border-top: 1px solid var(--border-soft);
-      padding: 14px 16px 20px;
+    .product-image {
+      max-height: 140px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.9));
+    }
+
+    .product-title {
+      font-size: 13px;
+      font-weight: 600;
+      min-height: 32px;
+    }
+
+    .product-desc {
       font-size: 11px;
-      color: var(--text-soft);
-      text-align: center;
-      margin-top: 32px;
+      color: var(--color-muted);
+      min-height: 28px;
     }
 
-    footer span {
-      display: inline-block;
-      margin: 0 6px;
-    }
-
-    /* FABs y CHATBOT (mantenemos el estilo básico anterior) */
-
-    .fab-container {
-      position: fixed;
-      right: 16px;
-      bottom: 16px;
-      z-index: 100;
+    .product-meta {
       display: flex;
-      flex-direction: column;
-      gap: 8px;
-      align-items: flex-end;
-    }
-
-    .fab {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: 1px solid var(--border-soft);
-      background: #111111;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-soft);
-      cursor: pointer;
-      position: relative;
-    }
-
-    .fab span {
-      font-size: 24px;
-    }
-
-    .fab-label {
-      position: absolute;
-      right: 54px;
-      background: #111111;
-      border-radius: 999px;
-      padding: 4px 10px;
-      font-size: 11px;
-      white-space: nowrap;
-      border: 1px solid var(--border-soft);
-      box-shadow: var(--shadow-soft);
-      color: var(--text-soft);
-    }
-
-    .chatbot-panel {
-      position: fixed;
-      right: 16px;
-      bottom: 78px;
-      width: 320px;
-      max-width: calc(100vw - 32px);
-      height: 360px;
-      border-radius: 16px;
-      background: #111111;
-      border: 1px solid var(--border-soft);
-      box-shadow: var(--shadow-strong);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transform: translateY(10px);
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.18s ease;
-      z-index: 90;
-    }
-
-    .chatbot-panel.open {
-      transform: translateY(0);
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .chatbot-header {
-      padding: 8px 12px;
-      border-bottom: 1px solid var(--border-soft);
-      display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      background: #181818;
+      align-items: baseline;
+      gap: 4px;
+      margin-top: 4px;
     }
 
-    .chatbot-header-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .product-price {
+      font-size: 15px;
+      font-weight: 700;
     }
 
-    .chatbot-avatar {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      border: 1px solid var(--border-soft);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      background: #111111;
+    .product-price small {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--color-muted);
+      display: block;
     }
 
-    .chatbot-header-text {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .chatbot-header-text strong {
-      font-size: 12px;
-    }
-
-    .chatbot-header-text span {
+    .product-note {
       font-size: 10px;
-      color: var(--text-soft);
-    }
-
-    .chatbot-close {
-      font-size: 16px;
-      cursor: pointer;
-      color: var(--text-soft);
-    }
-
-    .chatbot-messages {
-      flex: 1;
-      padding: 10px 10px 6px;
-      overflow-y: auto;
-      font-size: 12px;
-      background: #101010;
-    }
-
-    .msg {
-      margin-bottom: 6px;
-      max-width: 90%;
-      clear: both;
-    }
-
-    .msg-bot {
-      text-align: left;
-    }
-
-    .msg-user {
+      color: var(--color-muted);
       text-align: right;
     }
 
-    .msg-bubble {
-      display: inline-block;
-      padding: 7px 9px;
-      border-radius: 12px;
-    }
-
-    .msg-bot .msg-bubble {
-      background: #1c1c1c;
-      border: 1px solid #2a2a2a;
-      color: var(--text-soft);
-    }
-
-    .msg-user .msg-bubble {
-      background: var(--accent);
-      color: #111;
-    }
-
-    .quick-options {
+    .product-actions {
+      margin-top: 6px;
       display: flex;
-      flex-wrap: wrap;
       gap: 6px;
-      margin: 4px 0 2px;
     }
 
-    .quick-chip {
+    .btn {
+      flex: 1;
+      border-radius: var(--radius-pill);
+      padding: 7px 8px;
       font-size: 11px;
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      padding: 3px 8px;
-      cursor: pointer;
-      background: #111111;
-      color: var(--text-soft);
-    }
-
-    .chatbot-form {
-      padding: 8px 10px 10px;
-      border-top: 1px solid var(--border-soft);
-      background: #181818;
-    }
-
-    .chatbot-form label {
-      display: block;
-      font-size: 11px;
-      margin-bottom: 2px;
-      color: var(--text-soft);
-    }
-
-    .chatbot-form input,
-    .chatbot-form select {
-      width: 100%;
-      padding: 5px 8px;
-      border-radius: 10px;
-      border: 1px solid var(--border-soft);
-      background: #101010;
-      color: var(--text-main);
-      font-size: 12px;
-      margin-bottom: 6px;
-    }
-
-    .chatbot-form button {
-      width: 100%;
-      font-size: 12px;
-      padding: 6px;
-      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       border: none;
       cursor: pointer;
-      background: var(--accent);
-      color: #111111;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: var(--transition-fast);
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at 0 0, #00ff7f, #01874a 55%, #020208 100%);
+      color: #020208;
+      box-shadow: 0 0 16px rgba(0, 255, 127, 0.5);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 22px rgba(0, 255, 127, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--color-muted);
+      border: 1px dashed var(--color-border);
+    }
+
+    .btn-ghost:hover {
+      border-style: solid;
+      color: var(--color-primary);
+      border-color: rgba(0, 255, 127, 0.4);
+    }
+
+    /* FOOTER SIMPLE */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding-top: 16px;
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--color-muted);
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    .footer-title {
+      font-size: 12px;
       font-weight: 600;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text);
     }
 
-    /* SCROLLBAR GLOBAL */
+    .footer-social {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
 
-    ::-webkit-scrollbar {
-      width: 6px;
+    .social-pill {
+      padding: 4px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--color-border);
+      font-size: 11px;
+      cursor: pointer;
     }
-    ::-webkit-scrollbar-track {
-      background: #050505;
+
+    .footer-legal {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 10px;
+      opacity: 0.65;
+      margin-top: 4px;
     }
-    ::-webkit-scrollbar-thumb {
-      background: #333333;
-      border-radius: 999px;
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .top-bar {
+        border-radius: 16px;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      footer {
+        grid-template-columns: 1fr;
+      }
     }
+
   </style>
 </head>
 <body>
-  <header>
-    <div class="header-inner">
-      <div class="logo">
-        <div class="logo-mark">LHQ</div>
-        <div class="logo-text">
-          <span>LA HUEQUITA QUITEÑA</span>
-          <span>Licorería & combos nocturnos</span>
+
+  <div class="page">
+
+    <!-- HEADER SUPERIOR -->
+    <header class="top-bar">
+      <div class="top-left">
+        <div class="logo-circle">
+          <!-- Aquí puedes poner tu logo real como <img src="img/logo-huequita.png"> -->
+          <span>HQ</span>
+        </div>
+        <div class="top-title">
+          <div class="top-title-main">La Huequita Quiteña</div>
+          <div class="top-title-sub">Licores, combos y más · Quito - Ecuador</div>
         </div>
       </div>
 
-      <nav>
-        <ul>
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#combos">Combos</a></li>
-          <li><a href="#categorias">Nuestros productos</a></li>
-          <li><a href="#contacto">Contacto</a></li>
-        </ul>
-      </nav>
+      <div class="top-actions">
+        <button class="pill pill-primary">
+          <span class="icon">🟢</span>
+          Pide por WhatsApp
+        </button>
+        <button class="pill pill-cart" id="cart-pill">
+          <span class="icon">🛒</span>
+          Carrito
+          <span class="pill-cart-badge" id="cart-count">0</span>
+        </button>
+      </div>
+    </header>
 
-      <button class="btn btn-acento header-cta" id="headerWhatsApp">
-        <span class="btn-icon">📲</span>
-        Pedir ahora
-      </button>
+    <!-- LOCAL + BUSCADOR -->
+    <div class="toolbar">
+      <div class="local-chip">
+        <span>📍 Estás comprando en</span>
+        <select id="local-select">
+          <option value="ELOY">La Huequita - Eloy Alfaro</option>
+          <option value="QUITUMBE">La Huequita - Quitumbe</option>
+          <option value="CARAPUNGO">La Huequita - Carapungo</option>
+        </select>
+      </div>
+
+      <div class="search-input">
+        <span>🔍</span>
+        <input id="search-box" type="text" placeholder="Buscar por nombre, marca o categoría..." />
+      </div>
     </div>
-  </header>
 
-  <main class="container" id="inicio">
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-left">
-        <div class="hero-tagline">Quito · Norte · Farras</div>
-        <h1>
-          La Huequita Quiteña
-          <span>Licorería y combos listos para la noche</span>
-        </h1>
-        <p class="hero-subtitle">
-          Tu huequita de confianza: tragos, combos armados, cigarrillos, snacks y gaseosas.
-          Entras, eliges y escribes por WhatsApp. Lo tenemos listo en local o coordinamos entrega.
-        </p>
+    <!-- CATEGORÍAS -->
+    <div class="categories-bar">
+      <div class="categories-list" id="categories">
+        <!-- Se rellena por JS -->
+      </div>
+    </div>
 
-        <div class="hero-ctas">
-          <button class="btn btn-acento" id="verCombos">
-            <span class="btn-icon">🥃</span>
-            Ver combos destacados
-          </button>
-          <button class="btn" id="heroWhatsApp">
-            <span class="btn-icon">💬</span>
-            Pedir por WhatsApp
-          </button>
-        </div>
-
-        <div class="hero-chips">
-          <div class="chip">Horario: 17h00 a 05h00</div>
-          <div class="chip">Sector norte de Quito</div>
-          <div class="chip">Snacks, cigarrillos, energéticas</div>
+    <!-- SECCIÓN MEJORES PRODUCTOS -->
+    <section>
+      <div class="section-header">
+        <h2 class="section-title">Mejores productos</h2>
+        <div class="section-tabs">
+          <button class="section-tab active" data-filter-tab="destacados">Destacados</button>
+          <button class="section-tab" data-filter-tab="nuevos">Recién llegados</button>
+          <button class="section-tab" data-filter-tab="masvendidos">Más vendidos</button>
         </div>
       </div>
 
-      <div class="hero-right">
-        <article class="hero-card">
-          <div class="hero-card-header">
-            <span>Combo estrella de la noche</span>
-            <span>Hoy · <span id="fraseRotativa">Sin filas, solo tragos</span></span>
-          </div>
-          <div class="hero-card-body">
-            <div class="hero-bottle">
-              <div class="bottle-shape"></div>
-              <span>Luego podemos poner foto real del combo.</span>
-            </div>
-            <div class="hero-combo-info">
-              <h3>Combo Aguardiente Amarillo + Papas + ½ Marlboro</h3>
-              <p>
-                Aguardiente amarillo, papas sin marca y medio paquete de Malboro. Combo clásico para
-                arrancar la noche con todo.
-              </p>
-              <div class="hero-price">
-                $XX,XX <small>(ajustar según tu lista real)</small>
-              </div>
-              <div class="hero-meta">
-                Precio en local. Delivery por Uber / InDrive (valor según la app).
-              </div>
-            </div>
-          </div>
-        </article>
+      <div class="products-grid" id="products-grid">
+        <!-- Productos generados por JS -->
       </div>
     </section>
 
-    <!-- COMBOS DESTACADOS -->
-    <section id="combos">
-      <h2>Combos destacados</h2>
-      <p class="section-sub">
-        Aquí puedes armar los combos que más vendes (luego cambiamos los precios por los definitivos).
-      </p>
-
-      <div class="combos-grid">
-        <article class="combo-card">
-          <span class="combo-badge">Más pedido</span>
-          <div class="combo-tag">Combo A</div>
-          <div class="combo-name">Aguardiente amarillo + papas + ½ Marlboro</div>
-          <div class="combo-items">
-            • 1 Aguardiente amarillo<br/>
-            • Papas sin marca<br/>
-            • ½ paquete Marlboro (rojo / mentolado)
-          </div>
-          <div class="combo-bottom">
-            <div class="combo-price">$XX,XX</div>
-            <button class="btn btn-acento combo-btn"
-              data-combo="Combo Aguardiente amarillo + papas + 1/2 Marlboro">
-              Pedir este combo
-            </button>
-          </div>
-        </article>
-
-        <article class="combo-card">
-          <div class="combo-tag">Combo Whisky</div>
-          <div class="combo-name">Whisky + gaseosas + hielo</div>
-          <div class="combo-items">
-            • 1 Whisky (Johnnie / Buchanans / el que manejes)<br/>
-            • 2 gaseosas grandes<br/>
-            • 1 funda de hielo
-          </div>
-          <div class="combo-bottom">
-            <div class="combo-price">$XX,XX</div>
-            <button class="btn btn-acento combo-btn"
-              data-combo="Combo Whisky + gaseosas + hielo">
-              Pedir este combo
-            </button>
-          </div>
-        </article>
-
-        <article class="combo-card">
-          <div class="combo-tag">Combo shots</div>
-          <div class="combo-name">Shots con energizante</div>
-          <div class="combo-items">
-            • Base de licor fuerte (Jäger, vodka, etc.)<br/>
-            • Energética tipo V220<br/>
-            • Vasos shots descartables
-          </div>
-          <div class="combo-bottom">
-            <div class="combo-price">$XX,XX</div>
-            <button class="btn btn-acento combo-btn"
-              data-combo="Combo shots con energizante">
-              Pedir este combo
-            </button>
-          </div>
-        </article>
+    <!-- FOOTER -->
+    <footer>
+      <div>
+        <div class="footer-title">Información de la tienda</div>
+        <p>Quito - Ecuador<br>Atención: 17h00 a 05h00</p>
+        <p>Pedidos por WhatsApp: <strong>098 223 0393</strong></p>
       </div>
-    </section>
-
-    <!-- NUESTROS PRODUCTOS (CATEGORÍAS TIPO SPA) -->
-   <section id="categorias" class="productos-section">
-  <h2>Nuestros productos</h2>
-  <p class="section-sub">
-    Toca una categoría para ver todos los productos y su precio en local
-    (efectivo o transferencia). Delivery por Uber / InDriver; pagos con tarjeta tienen recargo.
-  </p>
-
-  <div class="category-grid">
-    <!-- RON -->
-    <article class="category-card">
-      <div class="category-header">
-        <div>
-          <h3>Ron</h3>
-          <span class="category-count">Algunos de tus rones</span>
-        </div>
-        <button class="btn-small toggle-category">Ver productos ▾</button>
-      </div>
-      <div class="category-body">
-        <table>
-          <thead>
-            <tr><th>Producto</th><th class="precio">Precio local</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>100 FUEGOS 375ML</td><td class="precio">$9.25</td></tr>
-            <tr><td>100 FUEGOS 750ML</td><td class="precio">$16.50</td></tr>
-            <tr><td>100 FUEGOS LATA 350ML</td><td class="precio">$2.50</td></tr>
-            <tr><td>ABUELO 375ML</td><td class="precio">$8.25</td></tr>
-            <tr><td>ABUELO 750ML</td><td class="precio">$16.00</td></tr>
-            <tr><td>BACARDI BLANCO 980ML</td><td class="precio">$22.75</td></tr>
-            <tr><td>CAÑA BLANCA 750ML</td><td class="precio">$11.00</td></tr>
-            <tr><td>CASTILLO AÑEJO 750ML</td><td class="precio">$14.50</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </article>
-
-    <!-- AGUARDIENTE -->
-    <article class="category-card">
-      <div class="category-header">
-        <div>
-          <h3>Aguardiente</h3>
-          <span class="category-count">Algunos de tus aguardientes</span>
-        </div>
-        <button class="btn-small toggle-category">Ver productos ▾</button>
-      </div>
-      <div class="category-body">
-        <table>
-          <thead>
-            <tr><th>Producto</th><th class="precio">Precio local</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>AGUARDIENTE AMARILLO</td><td class="precio">$20.00</td></tr>
-            <tr><td>AGUARDIENTE AMARILLO 1LT</td><td class="precio">$25.00</td></tr>
-            <tr><td>AGUARDIENTE DON COCO</td><td class="precio">$11.00</td></tr>
-            <tr><td>AGUARDIENTE MEDALLO</td><td class="precio">$14.00</td></tr>
-            <tr><td>AGUARDIENTE POZO 350ML</td><td class="precio">$2.50</td></tr>
-            <tr><td>ANTIOQUEÑO 1LT</td><td class="precio">$25.70</td></tr>
-            <tr><td>ANTIOQUEÑO 375ML</td><td class="precio">$12.50</td></tr>
-            <tr><td>ANTIOQUEÑO 750ML</td><td class="precio">$20.75</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </article>
-
-    <!-- WHISKY -->
-    <article class="category-card">
-      <div class="category-header">
-        <div>
-          <h3>Whisky</h3>
-          <span class="category-count">Algunos whiskies</span>
-        </div>
-        <button class="btn-small toggle-category">Ver productos ▾</button>
-      </div>
-      <div class="category-body">
-        <table>
-          <thead>
-            <tr><th>Producto</th><th class="precio">Precio local</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>BALLANTINES 700ML</td><td class="precio">$22.75</td></tr>
-            <tr><td>BLACK AND WHITE 750ML</td><td class="precio">$24.75</td></tr>
-            <tr><td>BLACK CASTLE ROJO 750ML</td><td class="precio">$17.00</td></tr>
-            <tr><td>BUCHANANS 750ML</td><td class="precio">$74.00</td></tr>
-            <tr><td>CHIVAS REGAL 12 AÑOS 750ML</td><td class="precio">$59.75</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </article>
-
-    <!-- CERVEZA -->
-    <article class="category-card">
-      <div class="category-header">
-        <div>
-          <h3>Cerveza</h3>
-          <span class="category-count">Algunas cervezas</span>
-        </div>
-        <button class="btn-small toggle-category">Ver productos ▾</button>
-      </div>
-      <div class="category-body">
-        <table>
-          <thead>
-            <tr><th>Producto</th><th class="precio">Precio local</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>CERVEZA PILSENER 1LT</td><td class="precio">$2.85</td></tr>
-            <tr><td>CERVEZA CLUB 1LT</td><td class="precio">$2.90</td></tr>
-            <tr><td>CERVEZA CLUB LATA</td><td class="precio">$2.00</td></tr>
-            <tr><td>CERVEZA CORONA 355CC</td><td class="precio">$2.60</td></tr>
-            <tr><td>CERVEZA PILSENER PEQUEÑA 330CC</td><td class="precio">$2.00</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </article>
-
-    <!-- BEBIDAS NO ALCOHÓLICAS -->
-    <article class="category-card">
-      <div class="category-header">
-        <div>
-          <h3>Bebidas no alcohólicas</h3>
-          <span class="category-count">Algunas bebidas</span>
-        </div>
-        <button class="btn-small toggle-category">Ver productos ▾</button>
-      </div>
-      <div class="category-body">
-        <table>
-          <thead>
-            <tr><th>Producto</th><th class="precio">Precio local</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>AGUA CIELO 1LT</td><td class="precio">$1.00</td></tr>
-            <tr><td>COCA COLA 1LT</td><td class="precio">$1.75</td></tr>
-            <tr><td>FUZE TEA 1LT</td><td class="precio">$1.55</td></tr>
-            <tr><td>JUGO DEL VALLE 500ML</td><td class="precio">$0.75</td></tr>
-            <tr><td>V220</td><td class="precio">$1.60</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </article>
-
-    <!-- CIGARRILLOS -->
-    <article class="category-card">
-      <div class="category-header">
-        <div>
-          <h3>Cigarrillos</h3>
-          <span class="category-count">Algunos cigarrillos</span>
-        </div>
-        <button class="btn-small toggle-category">Ver productos ▾</button>
-      </div>
-      <div class="category-body">
-        <table>
-          <thead>
-            <tr><th>Producto</th><th class="precio">Precio local</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>MALBORO ROJO</td><td class="precio">$5.50</td></tr>
-            <tr><td>MALBORO GOLD</td><td class="precio">$5.50</td></tr>
-            <tr><td>MALBORO ICE BLAST</td><td class="precio">$6.00</td></tr>
-            <tr><td>PHILLIP MORRIS AZUL</td><td class="precio">$4.75</td></tr>
-            <tr><td>PHILLIP MORRIS ROJO</td><td class="precio">$4.75</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </article>
-
-    <!-- SNACKS / CONFITERÍA -->
-    <article class="category-card">
-      <div class="category-header">
-        <div>
-          <h3>Snacks y confitería</h3>
-          <span class="category-count">Algunos snacks</span>
-        </div>
-        <button class="btn-small toggle-category">Ver productos ▾</button>
-      </div>
-      <div class="category-body">
-        <table>
-          <thead>
-            <tr><th>Producto</th><th class="precio">Precio local</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>PAPAS SIN MARCA</td><td class="precio">$1.25</td></tr>
-            <tr><td>PANCHITOS</td><td class="precio">$0.50</td></tr>
-            <tr><td>AGOGO MENTA COOL GRANDE</td><td class="precio">$0.40</td></tr>
-            <tr><td>TRIDENT X6 SURTIDO</td><td class="precio">$0.75</td></tr>
-            <tr><td>MENTAS</td><td class="precio">$0.05</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </article>
-  </div>
-</section>
-
-
-    <!-- INFO / CONTACTO -->
-    <section id="contacto">
-      <h2>Información y contacto</h2>
-      <p class="section-sub">Datos básicos para que tus clientes sepan cómo funciona La Huequita Quiteña.</p>
-
-      <div class="info-grid">
-        <div class="info-card">
-          <div class="info-title">Horarios</div>
-          <p>
-            🕔 Lunes a domingo: 17h00 a 05h00<br/>
-            📍 Quito, sector norte (escribe aquí la referencia exacta del local).
-          </p>
-        </div>
-        <div class="info-card">
-          <div class="info-title">Formas de pedido</div>
-          <p>
-            • Entras a la página y revisas combos / carta.<br/>
-            • Das clic en “Pedir este combo” o en el botón de WhatsApp.<br/>
-            • Te abre el chat con un mensaje armado, solo confirmas.
-          </p>
-        </div>
-        <div class="info-card">
-          <div class="info-title">Pagos y delivery</div>
-          <p>
-            💳 Precio mostrado: venta en local (efectivo o transferencia).<br/>
-            💳 Pagos con tarjeta: recargo porcentual sobre el valor.<br/>
-            🚗 Delivery: se coordina por Uber / InDrive, el valor del envío lo muestra la app según la distancia.
-          </p>
+      <div>
+        <div class="footer-title">Síguenos</div>
+        <div class="footer-social">
+          <a href="#" class="social-pill">Instagram</a>
+          <a href="#" class="social-pill">Facebook</a>
         </div>
       </div>
-    </section>
-  </main>
-
-  <footer>
-    <span>© <span id="year"></span> La Huequita Quiteña</span> ·
-    <span>Licorería y combos nocturnos</span> ·
-    <span>Quito, Ecuador</span>
-  </footer>
-
-  <!-- CHATBOT -->
-  <div class="chatbot-panel" id="chatbotPanel">
-    <div class="chatbot-header">
-      <div class="chatbot-header-left">
-        <div class="chatbot-avatar">🤖</div>
-        <div class="chatbot-header-text">
-          <strong>Chat Huequita</strong>
-          <span>Respuestas rápidas sobre combos</span>
-        </div>
+      <div class="footer-legal">
+        © <span id="year"></span> La Huequita Quiteña · Consumo responsable 18+
       </div>
-      <div class="chatbot-close" id="chatbotClose">✕</div>
-    </div>
-
-    <div class="chatbot-messages" id="chatbotMessages">
-      <div class="msg msg-bot">
-        <div class="msg-bubble">
-          ¡Hola! Soy el chatbot de La Huequita Quiteña 🍻<br/>
-          ¿Te ayudo a elegir un combo o buscar un producto?
-        </div>
-      </div>
-      <div class="msg msg-bot">
-        <div class="msg-bubble">
-          Puedes marcar una opción rápida o llenar tus datos abajo.
-          <div class="quick-options">
-            <div class="quick-chip" data-chip="Quiero ver combos de aguardiente">
-              Aguardiente
-            </div>
-            <div class="quick-chip" data-chip="Quiero ver whisky para compartir">
-              Whisky
-            </div>
-            <div class="quick-chip" data-chip="Quiero algo económico para 2 personas">
-              Económico 2 personas
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <form class="chatbot-form" id="chatbotForm">
-      <label for="nombre">Nombre</label>
-      <input type="text" id="nombre" placeholder="Tu nombre" required />
-
-      <label for="telefono">Número de WhatsApp</label>
-      <input type="tel" id="telefono" placeholder="Ej: 0980000000" required />
-
-      <label for="comboInteres">Qué estás buscando</label>
-      <select id="comboInteres">
-        <option value="">Selecciona una opción</option>
-        <option value="Aguardiente amarillo + papas + 1/2 Marlboro">Combo Aguardiente</option>
-        <option value="Whisky + gaseosas + hielo">Combo Whisky</option>
-        <option value="Shots con energizante">Combo shots</option>
-        <option value="Solo botella (de la carta)">Solo botella</option>
-        <option value="Otro / No sé aún">Otro / No sé aún</option>
-      </select>
-
-      <button type="submit">Enviar y abrir WhatsApp</button>
-    </form>
-  </div>
-
-  <!-- FABs -->
-  <div class="fab-container">
-    <div class="fab" id="chatbotFab">
-      <span>🤖</span>
-      <div class="fab-label">Chat Huequita</div>
-    </div>
-
-    <div class="fab" id="whatsFab">
-      <span>💬</span>
-      <div class="fab-label">Pedir por WhatsApp</div>
-    </div>
+    </footer>
   </div>
 
   <script>
-    const NUM_WHATSAPP = "0980000000"; // luego lo cambiamos por tu número real
+    // ==========================
+    // CONFIGURACIÓN BÁSICA
+    // ==========================
+    const WHATSAPP_NUMBER = "593982230393"; 
+    // 👆 REEMPLAZA con tu número en formato internacional: 593 + tu número sin 0
 
-    // Año footer
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Frases rotativas
-    const frases = [
-      "Sin filas, solo tragos",
-      "Tu huequita para la farra",
-      "Combos listos, tú solo llegas",
-      "La noche empieza en La Huequita"
+    // ==========================
+    // DATA DE PRODUCTOS
+    // ==========================
+    // 👉 AQUÍ PEGAS TUS PRODUCTOS (puedes sacarlos de tu Excel)
+    const products = [
+      {
+        id: 1,
+        nombre: "Aguardiente Amarillo 750ml",
+        descripcion: "Clásico para compartir con los panas.",
+        categoria: "Aguardiente",
+        precioLocal: 7.50,
+        imagen: "https://via.placeholder.com/200x260?text=Aguardiente",
+        tag: "destacado"
+      },
+      {
+        id: 2,
+        nombre: "Combo Aguardiente + Papa + 1/2 Marlboro Mentolado",
+        descripcion: "Combo A: full ahorro para la previa.",
+        categoria: "Combos",
+        precioLocal: 11.99,
+        imagen: "https://via.placeholder.com/200x260?text=Combo+A",
+        tag: "masvendido"
+      },
+      {
+        id: 3,
+        nombre: "Ron Abuelo Añejo 750ml",
+        descripcion: "Ron para cocktails o puro, tú decides.",
+        categoria: "Ron",
+        precioLocal: 18.90,
+        imagen: "https://via.placeholder.com/200x260?text=Ron",
+        tag: "destacado"
+      },
+      {
+        id: 4,
+        nombre: "Whisky Johnnie Walker Red Label 750ml",
+        descripcion: "Ideal para mezclas y shots.",
+        categoria: "Whisky",
+        precioLocal: 27.50,
+        imagen: "https://via.placeholder.com/200x260?text=Whisky",
+        tag: "nuevos"
+      },
+      {
+        id: 5,
+        nombre: "Vodka Smirnoff 700ml",
+        descripcion: "Perfecto para tragos largos y cócteles.",
+        categoria: "Vodka",
+        precioLocal: 16.20,
+        imagen: "https://via.placeholder.com/200x260?text=Vodka",
+        tag: "masvendido"
+      },
+      {
+        id: 6,
+        nombre: "Snacks surtidos (papas, maní, chifles)",
+        descripcion: "Para acompañar cualquier botella.",
+        categoria: "Snacks & Complementos",
+        precioLocal: 3.50,
+        imagen: "https://via.placeholder.com/200x260?text=Snacks",
+        tag: "destacado"
+      }
     ];
-    let fraseIndex = 0;
-    const fraseRotativaSpan = document.getElementById("fraseRotativa");
-    setInterval(() => {
-      fraseIndex = (fraseIndex + 1) % frases.length;
-      fraseRotativaSpan.textContent = frases[fraseIndex];
-    }, 3500);
 
-    // Scroll a combos
-    document.getElementById("verCombos").addEventListener("click", () => {
-      document.getElementById("combos").scrollIntoView({ behavior: "smooth" });
-    });
+    // ==========================
+    // GENERAR CATEGORÍAS
+    // ==========================
+    const categoriesContainer = document.getElementById("categories");
+    const searchBox = document.getElementById("search-box");
+    const productsGrid = document.getElementById("products-grid");
+    const tabs = document.querySelectorAll(".section-tab");
 
-    // WhatsApp helper
-    function abrirWhatsApp(mensaje = "Hola, quiero información de los combos de La Huequita Quiteña") {
-      const texto = encodeURIComponent(mensaje);
-      const link = `https://wa.me/593${NUM_WHATSAPP.slice(1)}?text=${texto}`;
-      window.open(link, "_blank");
+    let activeCategory = "Todos";
+    let activeTabFilter = "destacados";
+
+    function getCategories() {
+      const set = new Set(products.map(p => p.categoria));
+      return ["Todos", ...Array.from(set)];
     }
 
-    document.getElementById("headerWhatsApp").addEventListener("click", () => abrirWhatsApp());
-    document.getElementById("heroWhatsApp").addEventListener("click", () => abrirWhatsApp());
-    document.getElementById("whatsFab").addEventListener("click", () => abrirWhatsApp());
-
-    document.querySelectorAll(".combo-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const combo = btn.getAttribute("data-combo");
-        const mensaje = `Hola, vengo de la página de La Huequita y quiero el ${combo}. ¿Me ayudas con el precio final y disponibilidad?`;
-        abrirWhatsApp(mensaje);
+    function renderCategories() {
+      categoriesContainer.innerHTML = "";
+      getCategories().forEach(cat => {
+        const btn = document.createElement("button");
+        btn.className = "category-chip" + (cat === activeCategory ? " active" : "");
+        btn.textContent = cat;
+        btn.dataset.category = cat;
+        btn.addEventListener("click", () => {
+          activeCategory = cat;
+          document.querySelectorAll(".category-chip").forEach(c => c.classList.remove("active"));
+          btn.classList.add("active");
+          renderProducts();
+        });
+        categoriesContainer.appendChild(btn);
       });
-    });
+    }
 
-    // Abrir / cerrar categorías
-    document.querySelectorAll(".toggle-category").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const card = btn.closest(".category-card");
-        const isOpen = card.classList.toggle("open");
-        btn.textContent = isOpen ? "Ocultar productos ▴" : "Ver productos ▾";
+    // ==========================
+    // FILTRO DE PRODUCTOS
+    // ==========================
+    function renderProducts() {
+      const search = searchBox.value.trim().toLowerCase();
+      productsGrid.innerHTML = "";
+
+      const filtered = products.filter(p => {
+        const matchesCategory = activeCategory === "Todos" || p.categoria === activeCategory;
+        const matchesTab = !activeTabFilter
+          || activeTabFilter === "destacados" && p.tag === "destacado"
+          || activeTabFilter === "nuevos" && p.tag === "nuevos"
+          || activeTabFilter === "masvendidos" && p.tag === "masvendido";
+
+        const matchesSearch =
+          !search ||
+          p.nombre.toLowerCase().includes(search) ||
+          p.categoria.toLowerCase().includes(search) ||
+          (p.descripcion && p.descripcion.toLowerCase().includes(search));
+
+        return matchesCategory && matchesTab && matchesSearch;
       });
-    });
 
-    // Chatbot
-    const chatbotFab = document.getElementById("chatbotFab");
-    const chatbotPanel = document.getElementById("chatbotPanel");
-    const chatbotClose = document.getElementById("chatbotClose");
-    const chatbotMessages = document.getElementById("chatbotMessages");
-
-    function toggleChatbot() {
-      chatbotPanel.classList.toggle("open");
-    }
-
-    chatbotFab.addEventListener("click", toggleChatbot);
-    chatbotClose.addEventListener("click", toggleChatbot);
-
-    document.querySelectorAll(".quick-chip").forEach((chip) => {
-      chip.addEventListener("click", () => {
-        const text = chip.getAttribute("data-chip");
-        agregarMensajeUsuario(text);
-        setTimeout(() => {
-          agregarMensajeBot("Perfecto, revisa los combos destacados o llena el formulario de abajo y te escribimos.");
-        }, 700);
-      });
-    });
-
-    function agregarMensajeUsuario(texto) {
-      const msg = document.createElement("div");
-      msg.className = "msg msg-user";
-      msg.innerHTML = `<div class="msg-bubble">${texto}</div>`;
-      chatbotMessages.appendChild(msg);
-      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-    }
-
-    function agregarMensajeBot(texto) {
-      const msg = document.createElement("div");
-      msg.className = "msg msg-bot";
-      msg.innerHTML = `<div class="msg-bubble">${texto}</div>`;
-      chatbotMessages.appendChild(msg);
-      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-    }
-
-    const chatbotForm = document.getElementById("chatbotForm");
-    chatbotForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const nombre = document.getElementById("nombre").value.trim();
-      const telefono = document.getElementById("telefono").value.trim();
-      const combo = document.getElementById("comboInteres").value;
-
-      if (!nombre || !telefono) {
-        alert("Por favor llena tu nombre y número de WhatsApp.");
+      if (!filtered.length) {
+        productsGrid.innerHTML = "<p style='color:#a0a0b5;font-size:13px;'>No encontramos productos con esos filtros.</p>";
         return;
       }
 
-      agregarMensajeUsuario(`Mis datos: ${nombre}, ${telefono}, buscando: ${combo || "recomendación"}`);
-      agregarMensajeBot("¡Gracias! Te redirigimos a WhatsApp para continuar la atención. 🍻");
+      filtered.forEach(p => {
+        const card = document.createElement("article");
+        card.className = "product-card";
 
-      const mensaje = `Hola, soy ${nombre}. Mi número es ${telefono}. Estoy interesado en: ${
-        combo || "algún combo / producto, necesito recomendación"
-      }. Vengo del chatbot de la página.`;
-      abrirWhatsApp(mensaje);
+        const badge = document.createElement("div");
+        badge.className = "product-badge";
+        if (p.tag === "masvendido") badge.classList.add("product-badge--hot");
 
-      chatbotForm.reset();
+        let badgeText = "";
+        if (p.tag === "destacado") badgeText = "DESTACADO";
+        if (p.tag === "nuevos") badgeText = "NUEVO";
+        if (p.tag === "masvendido") badgeText = "MÁS VENDIDO";
+        badge.textContent = badgeText || "DISPONIBLE";
+
+        const imgWrap = document.createElement("div");
+        imgWrap.className = "product-image-wrap";
+
+        const img = document.createElement("img");
+        img.className = "product-image";
+        img.src = p.imagen;
+        img.alt = p.nombre;
+
+        imgWrap.appendChild(img);
+
+        const title = document.createElement("h3");
+        title.className = "product-title";
+        title.textContent = p.nombre;
+
+        const desc = document.createElement("p");
+        desc.className = "product-desc";
+        desc.textContent = p.descripcion || "";
+
+        const meta = document.createElement("div");
+        meta.className = "product-meta";
+
+        const price = document.createElement("div");
+        price.className = "product-price";
+
+        // Aquí manejas el tema precios local / delivery
+        // Precio en tienda:
+        price.innerHTML = `
+          $ ${p.precioLocal.toFixed(2)}
+          <small>Precio en tienda</small>
+        `;
+
+        const note = document.createElement("div");
+        note.className = "product-note";
+        note.innerHTML = `
+          Delivery vía app / taxi no está incluido.<br>
+          Pago con tarjeta + recargo % en el local.
+        `;
+
+        meta.appendChild(price);
+        meta.appendChild(note);
+
+        const actions = document.createElement("div");
+        actions.className = "product-actions";
+
+        const btnWp = document.createElement("button");
+        btnWp.className = "btn btn-primary";
+        btnWp.innerHTML = `<span>💬</span> Pedir por WhatsApp`;
+        btnWp.addEventListener("click", () => {
+          const text = encodeURIComponent(
+            `Hola, quiero hacer un pedido en *La Huequita Quiteña*:\n` +
+            `• Producto: ${p.nombre}\n` +
+            `• Precio en tienda: $${p.precioLocal.toFixed(2)}\n` +
+            `¿Me ayudas con disponibilidad y delivery?`
+          );
+          window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
+        });
+
+        const btnInfo = document.createElement("button");
+        btnInfo.className = "btn btn-ghost";
+        btnInfo.textContent = "Detalle / info";
+        btnInfo.addEventListener("click", () => {
+          alert(`Producto: ${p.nombre}\nCategoría: ${p.categoria}\nPrecio en tienda: $${p.precioLocal.toFixed(2)}`);
+        });
+
+        actions.appendChild(btnWp);
+        actions.appendChild(btnInfo);
+
+        card.appendChild(badge);
+        card.appendChild(imgWrap);
+        card.appendChild(title);
+        card.appendChild(desc);
+        card.appendChild(meta);
+        card.appendChild(actions);
+
+        productsGrid.appendChild(card);
+      });
+    }
+
+    // Tabs de mejores productos
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        activeTabFilter = tab.dataset.filterTab;
+        renderProducts();
+      });
     });
-  </script>
-  // Abrir / cerrar categorías de productos
-document.querySelectorAll(".toggle-category").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const card = btn.closest(".category-card");
-    const isOpen = card.classList.toggle("open");
-    btn.textContent = isOpen ? "Ocultar productos ▴" : "Ver productos ▾";
-  });
-});
+
+    searchBox.addEventListener("input", () => {
+      renderProducts();
+    });
+
+    // Año en footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Cart pill ejemplo simple (no carrito real)
+    const cartPill = document.getElementById("cart-pill");
+    cartPill.addEventListener("click", () => {
+      alert("Por ahora los pedidos se gestionan por WhatsApp 💚");
+    });
+
+    // Init
+    renderCategories();
+    renderProducts();
   </script>
 </body>
 </html>
