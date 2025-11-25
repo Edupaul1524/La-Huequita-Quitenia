@@ -21,7 +21,121 @@
       --radius-pill: 999px;
       --transition-fast: 0.18s ease-out;
       --max-width: 1200px;
+      /* BOTÓN FLOTANTE WHATSAPP */
+.whatsapp-float {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #25d366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  z-index: 9998;
+}
+.whatsapp-float img {
+  width: 28px;
+  height: 28px;
+}
+
     }
+
+    /* CHATBOT BURBUJA */
+.chatbot-launcher {
+  position: fixed;
+  right: 18px;
+  bottom: 86px; /* encima del botón de WhatsApp */
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 0 0, #00ff7f, #01874a 60%, #020208);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+  z-index: 9998;
+}
+.chatbot-launcher img {
+  width: 32px;
+  height: 32px;
+}
+
+/* VENTANA DEL CHATBOT */
+.chatbot-window {
+  position: fixed;
+  right: 18px;
+  bottom: 150px;
+  width: 320px;
+  max-height: 420px;
+  background: #050509;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 255, 127, 0.4);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.chatbot-header {
+  padding: 10px 12px;
+  background: linear-gradient(135deg, #00ff7f, #01874a);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.chatbot-header span {
+  font-weight: 700;
+  font-size: 13px;
+}
+.chatbot-close {
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.chatbot-body {
+  padding: 12px;
+  font-size: 12px;
+  color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chatbot-form input,
+.chatbot-form textarea {
+  width: 100%;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid #262637;
+  background: #0b0b12;
+  color: #f5f5f5;
+  font-size: 12px;
+}
+
+.chatbot-form button {
+  width: 100%;
+  padding: 7px;
+  border-radius: 999px;
+  border: none;
+  background: #00ff7f;
+  color: #000;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.chatbot-hint {
+  font-size: 11px;
+  color: #a0a0b5;
+}
 
     * {
       box-sizing: border-box;
@@ -747,6 +861,16 @@
   // 👉 AQUÍ PEGAS TUS PRODUCTOS, ya con precios por local
   // 👉 ESTE BLOQUE VA EN TU <script>
 
+  const WHATSAPP_NUMBER = "593982230393"; // tu número en formato internacional
+
+function openWhatsapp() {
+  const text = encodeURIComponent(
+    "Hola, vengo de la web de La Huequita Quiteña y quiero hacer un pedido 🍾"
+  );
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
+}
+
+
 // LOCALES
 const LOCALES = [
   { id: "PUSUQUI", label: "La Huequita – Pusuqui" },
@@ -1097,5 +1221,10 @@ window.rejectAge = rejectAge;
   renderCategories();
   renderProducts();
 </script>
+  <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+<div class="whatsapp-float" onclick="openWhatsapp()">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</div>
+
 </body>
 </html>
