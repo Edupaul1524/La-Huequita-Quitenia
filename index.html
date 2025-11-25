@@ -489,6 +489,108 @@
       margin-top: 4px;
     }
 
+    /* POPUP EDAD */
+    #age-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .age-modal-box {
+      width: 95%;
+      max-width: 420px;
+      background: rgba(0, 0, 0, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .age-modal-hero {
+      background: url("https://via.placeholder.com/600x800?text=Huequita+Fondo") center/cover;
+      padding: 40px 20px 60px;
+    }
+
+    .age-logo-title {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .age-logo-title h1 {
+      font-size: 34px;
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 0 0 12px rgba(0, 255, 127, 0.9);
+    }
+
+    .age-logo-sub {
+      color: var(--color-primary);
+      letter-spacing: 0.25em;
+      text-align: center;
+      font-size: 12px;
+      margin-top: -8px;
+    }
+
+    .age-hero-select {
+      text-align: center;
+    }
+
+    .age-hero-select select {
+      width: 80%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 15px;
+    }
+
+    .age-divider {
+      margin-top: 25px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .age-modal-footer {
+      padding: 20px;
+      text-align: center;
+      background: #0b0b0f;
+    }
+
+    .age-modal-footer p {
+      color: #fff;
+      margin-bottom: 20px;
+      font-size: 17px;
+    }
+
+    .age-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .age-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .age-btn-no {
+      background: #333;
+      color: #fff;
+    }
+
+    .age-btn-yes {
+      background: #00ff7f;
+      color: #000;
+      box-shadow: 0 0 12px rgba(0, 255, 127, 0.5);
+    }
+
     /* RESPONSIVE */
     @media (max-width: 768px) {
       .top-bar {
@@ -504,7 +606,6 @@
         grid-template-columns: 1fr;
       }
     }
-
   </style>
 </head>
 <body>
@@ -597,17 +698,43 @@
     </footer>
   </div>
 
+  <!-- POPUP EDAD -->
+  <div id="age-modal">
+    <div class="age-modal-box">
+      <div class="age-modal-hero">
+        <div class="age-logo-title">
+          <h1>LA HUEQUITA</h1>
+          <div class="age-logo-sub">QUITEÑA</div>
+        </div>
+        <div class="age-hero-select">
+          <select id="store-select">
+            <option value="ELOY">La Huequita Eloy Alfaro</option>
+            <option value="QUITUMBE">La Huequita Quitumbe</option>
+            <option value="CARAPUNGO">La Huequita Carapungo</option>
+          </select>
+        </div>
+        <div class="age-divider"></div>
+      </div>
+      <div class="age-modal-footer">
+        <p>¿Eres mayor de edad?</p>
+        <div class="age-buttons">
+          <button class="age-btn age-btn-no" onclick="rejectAge()">NO</button>
+          <button class="age-btn age-btn-yes" onclick="acceptAge()">SÍ, TENGO MÁS DE 18 AÑOS</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // ==========================
     // CONFIGURACIÓN BÁSICA
     // ==========================
-    const WHATSAPP_NUMBER = "593982230393"; 
+    const WHATSAPP_NUMBER = "593982230393";
     // 👆 REEMPLAZA con tu número en formato internacional: 593 + tu número sin 0
 
     // ==========================
     // DATA DE PRODUCTOS
     // ==========================
-    // 👉 AQUÍ PEGAS TUS PRODUCTOS (puedes sacarlos de tu Excel)
     const products = [
       {
         id: 1,
@@ -665,9 +792,6 @@
       }
     ];
 
-    // ==========================
-    // GENERAR CATEGORÍAS
-    // ==========================
     const categoriesContainer = document.getElementById("categories");
     const searchBox = document.getElementById("search-box");
     const productsGrid = document.getElementById("products-grid");
@@ -698,19 +822,17 @@
       });
     }
 
-    // ==========================
-    // FILTRO DE PRODUCTOS
-    // ==========================
     function renderProducts() {
       const search = searchBox.value.trim().toLowerCase();
       productsGrid.innerHTML = "";
 
       const filtered = products.filter(p => {
         const matchesCategory = activeCategory === "Todos" || p.categoria === activeCategory;
-        const matchesTab = !activeTabFilter
-          || activeTabFilter === "destacados" && p.tag === "destacado"
-          || activeTabFilter === "nuevos" && p.tag === "nuevos"
-          || activeTabFilter === "masvendidos" && p.tag === "masvendido";
+        const matchesTab =
+          !activeTabFilter ||
+          (activeTabFilter === "destacados" && p.tag === "destacado") ||
+          (activeTabFilter === "nuevos" && p.tag === "nuevos") ||
+          (activeTabFilter === "masvendidos" && p.tag === "masvendido");
 
         const matchesSearch =
           !search ||
@@ -764,8 +886,6 @@
         const price = document.createElement("div");
         price.className = "product-price";
 
-        // Aquí manejas el tema precios local / delivery
-        // Precio en tienda:
         price.innerHTML = `
           $ ${p.precioLocal.toFixed(2)}
           <small>Precio en tienda</small>
@@ -818,7 +938,6 @@
       });
     }
 
-    // Tabs de mejores productos
     tabs.forEach(tab => {
       tab.addEventListener("click", () => {
         tabs.forEach(t => t.classList.remove("active"));
@@ -832,19 +951,33 @@
       renderProducts();
     });
 
-    // Año en footer
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Cart pill ejemplo simple (no carrito real)
     const cartPill = document.getElementById("cart-pill");
     cartPill.addEventListener("click", () => {
       alert("Por ahora los pedidos se gestionan por WhatsApp 💚");
     });
 
-    // Init
+    // ==============
+    // POPUP EDAD
+    // ==============
+    function acceptAge() {
+      document.getElementById("age-modal").style.display = "none";
+      localStorage.setItem("huequita18", "true");
+    }
+
+    function rejectAge() {
+      alert("Lo sentimos, debes ser mayor de edad para ingresar 🍾");
+      window.location.href = "https://google.com";
+    }
+
+    if (localStorage.getItem("huequita18") === "true") {
+      document.getElementById("age-modal").style.display = "none";
+    }
+
+    // Init catálogo
     renderCategories();
     renderProducts();
   </script>
 </body>
 </html>
-
