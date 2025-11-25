@@ -1088,8 +1088,25 @@
  // ==============
 function acceptAge() {
   const modal = document.getElementById("age-modal");
+
+  // Guardar el local elegido en el popup
+  activeLocal = storeSelectPopup.value;
+
+  // Guardar para que toda la página use el mismo local
+  localStorage.setItem("huequita_local", activeLocal);
+
+  // 🔥 SINCRONIZA EL SELECT DE ARRIBA
+  if (localSelectToolbar) {
+    localSelectToolbar.value = activeLocal;
+  }
+
+  // Ocultar el popup
   if (modal) modal.style.display = "none";
+
+  // Renderizar los productos del local elegido
+  renderProducts();
 }
+
 
 function rejectAge() {
   alert("Lo sentimos, debes ser mayor de edad para ingresar 🍾");
