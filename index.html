@@ -6,12 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root {
-      --color-fondo: #000000;
-      --color-texto: #ffffff;
-      --color-acento: #00e676; /* Puedes cambiar o poner gris si no quieres color */
-      --color-gris: #2b2b2b;
-      --radio: 18px;
-      --sombra: 0 10px 30px rgba(0, 0, 0, 0.7);
+      --color-fondo: #f4f4f4;
+      --color-texto: #111111;
+      --color-acento: #111111; /* Blanco y negro como base */
+      --color-borde: #dddddd;
+      --color-gris-suave: #fafafa;
+      --radio: 16px;
+      --sombra-suave: 0 6px 18px rgba(0,0,0,0.08);
     }
 
     * {
@@ -22,7 +23,7 @@
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #222 0, #000 55%);
+      background: var(--color-fondo);
       color: var(--color-texto);
       min-height: 100vh;
     }
@@ -32,15 +33,22 @@
       color: inherit;
     }
 
+    /* LAYOUT GENERAL */
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 16px 32px;
+    }
+
     /* HEADER */
 
     header {
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(0, 0, 0, 0.9);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #222;
+      background: #ffffff;
+      border-bottom: 1px solid var(--color-borde);
     }
 
     .header-inner {
@@ -59,12 +67,25 @@
       gap: 10px;
     }
 
+    .logo-placeholder {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 2px solid #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      text-align: center;
+      background: #fff;
+    }
+
     .logo img {
       width: 52px;
       height: 52px;
       object-fit: contain;
       border-radius: 50%;
-      border: 2px solid var(--color-texto);
+      border: 2px solid #111;
     }
 
     .logo-text {
@@ -75,7 +96,7 @@
 
     .logo-text span:first-child {
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       font-size: 14px;
       text-transform: uppercase;
     }
@@ -89,7 +110,7 @@
       display: flex;
       list-style: none;
       gap: 18px;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     nav li a {
@@ -109,7 +130,7 @@
       bottom: 0;
       width: 0;
       height: 2px;
-      background: var(--color-acento);
+      background: #111;
       transition: width 0.2s ease;
     }
 
@@ -129,28 +150,26 @@
 
     .btn {
       border-radius: 999px;
-      border: 1px solid var(--color-texto);
+      border: 1px solid #111;
       padding: 7px 16px;
       font-size: 13px;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      background: #000;
-      color: var(--color-texto);
-      transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.1s ease;
+      background: #ffffff;
+      color: #111;
+      transition: background 0.12s ease, transform 0.08s ease, box-shadow 0.08s ease;
     }
 
     .btn-acento {
-      background: var(--color-acento);
-      color: #000;
-      border-color: var(--color-acento);
-      box-shadow: 0 0 18px rgba(0, 230, 118, 0.7);
+      background: #111111;
+      color: #ffffff;
     }
 
     .btn:hover {
       transform: translateY(-1px);
-      box-shadow: var(--sombra);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.16);
     }
 
     .btn-icon {
@@ -160,57 +179,53 @@
     /* HERO */
 
     .hero {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 32px 16px 40px;
       display: grid;
-      grid-template-columns: 1.15fr 1fr;
+      grid-template-columns: 1.1fr 1fr;
       gap: 24px;
+      padding-top: 24px;
       align-items: center;
     }
 
     @media (max-width: 820px) {
       .hero {
         grid-template-columns: 1fr;
-        padding-top: 24px;
       }
     }
 
     .hero-left h1 {
-      font-size: 34px;
+      font-size: 32px;
       line-height: 1.05;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       text-transform: uppercase;
     }
 
     .hero-left h1 span {
       display: block;
       font-weight: 300;
-      font-size: 20px;
-      letter-spacing: 0.16em;
-      opacity: 0.8;
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      opacity: 0.75;
+    }
+
+    .hero-highlight {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 6px;
     }
 
     .hero-subtitle {
       font-size: 14px;
       opacity: 0.8;
-      max-width: 440px;
+      max-width: 460px;
       margin-bottom: 16px;
-    }
-
-    .hero-highlight {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--color-acento);
-      margin-bottom: 8px;
     }
 
     .hero-ctas {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .hero-tags {
@@ -218,13 +233,14 @@
       flex-wrap: wrap;
       gap: 8px;
       font-size: 11px;
-      opacity: 0.7;
+      opacity: 0.75;
     }
 
     .hero-tag {
       border-radius: 999px;
-      border: 1px solid #333;
+      border: 1px solid var(--color-borde);
       padding: 4px 10px;
+      background: #ffffff;
     }
 
     .hero-right {
@@ -232,20 +248,20 @@
     }
 
     .hero-card {
-      background: linear-gradient(145deg, #101010, #000000);
-      border-radius: 22px;
+      background: #ffffff;
+      border-radius: var(--radio);
       padding: 16px 16px 14px;
-      border: 1px solid #333;
-      box-shadow: var(--sombra);
+      border: 1px solid var(--color-borde);
+      box-shadow: var(--sombra-suave);
     }
 
     .hero-card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       font-size: 12px;
-      opacity: 0.8;
+      opacity: 0.85;
     }
 
     .hero-card-body {
@@ -262,11 +278,11 @@
     }
 
     .hero-bottle {
-      border-radius: 20px;
-      border: 1px solid #444;
-      padding: 12px;
+      border-radius: 14px;
+      border: 1px dashed var(--color-borde);
+      padding: 14px;
       text-align: center;
-      background: radial-gradient(circle at top, #242424 0, #050505 60%);
+      background: var(--color-gris-suave);
     }
 
     .hero-bottle span {
@@ -277,10 +293,10 @@
     }
 
     .bottle-shape {
-      width: 65px;
-      height: 145px;
+      width: 60px;
+      height: 130px;
       border-radius: 14px 14px 6px 6px;
-      border: 2px solid #f5f5f5;
+      border: 2px solid #111;
       margin: 0 auto;
       position: relative;
     }
@@ -288,11 +304,11 @@
     .bottle-shape::before {
       content: "";
       position: absolute;
-      width: 24px;
-      height: 18px;
+      width: 20px;
+      height: 16px;
       border-radius: 8px 8px 4px 4px;
-      border: 2px solid #f5f5f5;
-      top: -18px;
+      border: 2px solid #111;
+      top: -16px;
       left: 50%;
       transform: translateX(-50%);
     }
@@ -311,7 +327,7 @@
     .hero-price {
       font-size: 18px;
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .hero-price span {
@@ -322,41 +338,30 @@
     }
 
     .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      font-size: 10px;
-      opacity: 0.7;
+      font-size: 11px;
+      opacity: 0.75;
     }
 
-    .hero-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--color-acento);
-      margin-right: 4px;
-    }
-
-    /* SECCIÓN COMBOS */
+    /* TÍTULOS DE SECCIÓN */
 
     section {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 8px 16px 32px;
+      margin-top: 28px;
     }
 
     section h2 {
-      font-size: 20px;
+      font-size: 18px;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      margin-bottom: 8px;
+      letter-spacing: 0.16em;
+      margin-bottom: 6px;
     }
 
     .section-sub {
       font-size: 13px;
-      opacity: 0.7;
-      margin-bottom: 18px;
+      opacity: 0.75;
+      margin-bottom: 14px;
     }
+
+    /* COMBOS DESTACADOS (TARJETAS GRANDES) */
 
     .combos-grid {
       display: grid;
@@ -365,16 +370,28 @@
     }
 
     .combo-card {
-      background: #050505;
+      background: #ffffff;
       border-radius: var(--radio);
-      border: 1px solid #222;
+      border: 1px solid var(--color-borde);
       padding: 14px;
-      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.9);
+      box-shadow: var(--sombra-suave);
       display: flex;
       flex-direction: column;
       gap: 8px;
       position: relative;
-      overflow: hidden;
+    }
+
+    .combo-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--color-borde);
+      background: #ffffff;
     }
 
     .combo-label {
@@ -418,7 +435,7 @@
       margin-top: 6px;
       gap: 8px;
       font-size: 11px;
-      opacity: 0.7;
+      opacity: 0.8;
     }
 
     .combo-btn {
@@ -426,35 +443,76 @@
       padding: 6px 10px;
     }
 
-    .combo-badge {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid #555;
-      background: rgba(0, 0, 0, 0.9);
+    /* CATEGORÍAS Y TABLAS DE PRECIOS */
+
+    .categorias-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
     }
 
-    /* INFORMACIÓN ADICIONAL */
+    .categoria-card {
+      background: #ffffff;
+      border-radius: var(--radio);
+      border: 1px solid var(--color-borde);
+      padding: 14px;
+      box-shadow: var(--sombra-suave);
+    }
+
+    .categoria-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .categoria-card p {
+      font-size: 12px;
+      opacity: 0.75;
+      margin-bottom: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    th, td {
+      padding: 6px 4px;
+      text-align: left;
+      border-bottom: 1px solid #eeeeee;
+    }
+
+    th {
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    td.precio {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    /* INFO Y CONTACTO */
 
     .info-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 14px;
-      margin-top: 8px;
     }
 
     .info-card {
-      background: #050505;
+      background: #ffffff;
       border-radius: var(--radio);
-      border: 1px solid #222;
+      border: 1px solid var(--color-borde);
       padding: 14px;
+      box-shadow: var(--sombra-suave);
       font-size: 12px;
-      opacity: 0.85;
     }
 
     .info-title {
@@ -463,14 +521,14 @@
       margin-bottom: 6px;
     }
 
-    /* FOOTER */
-
     footer {
-      border-top: 1px solid #222;
+      border-top: 1px solid var(--color-borde);
       padding: 14px 16px 18px;
       font-size: 11px;
-      opacity: 0.7;
+      opacity: 0.8;
       text-align: center;
+      margin-top: 32px;
+      background: #ffffff;
     }
 
     footer span {
@@ -478,7 +536,7 @@
       margin: 0 6px;
     }
 
-    /* BOTONES FLOTANTES */
+    /* BOTONES FLOTANTES Y CHATBOT */
 
     .fab-container {
       position: fixed;
@@ -487,60 +545,58 @@
       z-index: 100;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
       align-items: flex-end;
     }
 
     .fab {
-      width: 52px;
-      height: 52px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      border: 1px solid #333;
-      background: #000000;
+      border: 1px solid var(--color-borde);
+      background: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: var(--sombra);
+      box-shadow: var(--sombra-suave);
       cursor: pointer;
       position: relative;
-      overflow: hidden;
     }
 
     .fab span {
-      font-size: 26px;
+      font-size: 24px;
     }
 
     .fab-label {
       position: absolute;
-      right: 56px;
-      background: rgba(0, 0, 0, 0.95);
+      right: 54px;
+      background: #ffffff;
       border-radius: 999px;
       padding: 4px 10px;
       font-size: 11px;
       white-space: nowrap;
-      border: 1px solid #333;
+      border: 1px solid var(--color-borde);
+      box-shadow: var(--sombra-suave);
     }
-
-    /* CHATBOT */
 
     .chatbot-panel {
       position: fixed;
       right: 16px;
-      bottom: 82px;
+      bottom: 78px;
       width: 320px;
       max-width: calc(100vw - 32px);
-      height: 390px;
-      border-radius: 18px;
-      background: #050505;
-      border: 1px solid #333;
-      box-shadow: var(--sombra);
+      height: 360px;
+      border-radius: 16px;
+      background: #ffffff;
+      border: 1px solid var(--color-borde);
+      box-shadow: var(--sombra-suave);
       display: flex;
       flex-direction: column;
       overflow: hidden;
       transform: translateY(10px);
       opacity: 0;
       pointer-events: none;
-      transition: all 0.2s ease;
+      transition: all 0.18s ease;
       z-index: 90;
     }
 
@@ -551,12 +607,13 @@
     }
 
     .chatbot-header {
-      padding: 10px 12px;
-      border-bottom: 1px solid #222;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--color-borde);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
+      background: #fafafa;
     }
 
     .chatbot-header-left {
@@ -566,15 +623,15 @@
     }
 
     .chatbot-avatar {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
-      border: 1px solid #444;
+      border: 1px solid var(--color-borde);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
-      background: #111;
+      font-size: 16px;
+      background: #ffffff;
     }
 
     .chatbot-header-text {
@@ -602,6 +659,7 @@
       padding: 10px 10px 6px;
       overflow-y: auto;
       font-size: 12px;
+      background: #ffffff;
     }
 
     .msg {
@@ -620,40 +678,40 @@
 
     .msg-bubble {
       display: inline-block;
-      padding: 8px 10px;
-      border-radius: 14px;
+      padding: 7px 9px;
+      border-radius: 12px;
     }
 
     .msg-bot .msg-bubble {
-      background: #111;
-      border: 1px solid #222;
+      background: #f1f1f1;
+      border: 1px solid #e3e3e3;
     }
 
     .msg-user .msg-bubble {
-      background: #f5f5f5;
-      color: #000;
+      background: #111111;
+      color: #ffffff;
     }
 
     .quick-options {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin: 4px 0 6px;
+      margin: 4px 0 2px;
     }
 
     .quick-chip {
       font-size: 11px;
       border-radius: 999px;
-      border: 1px solid #333;
+      border: 1px solid var(--color-borde);
       padding: 3px 8px;
       cursor: pointer;
-      background: #050505;
+      background: #ffffff;
     }
 
     .chatbot-form {
       padding: 8px 10px 10px;
-      border-top: 1px solid #222;
-      background: #050505;
+      border-top: 1px solid var(--color-borde);
+      background: #fafafa;
     }
 
     .chatbot-form label {
@@ -668,8 +726,8 @@
       width: 100%;
       padding: 5px 8px;
       border-radius: 10px;
-      border: 1px solid #333;
-      background: #000;
+      border: 1px solid var(--color-borde);
+      background: #ffffff;
       color: var(--color-texto);
       font-size: 12px;
       margin-bottom: 6px;
@@ -682,10 +740,9 @@
       border-radius: 999px;
       border: none;
       cursor: pointer;
-      background: var(--color-acento);
-      color: #000;
+      background: #111111;
+      color: #ffffff;
       font-weight: 600;
-      box-shadow: 0 0 14px rgba(0, 230, 118, 0.7);
     }
 
     /* SCROLLBAR */
@@ -694,21 +751,21 @@
       width: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #000;
+      background: #f4f4f4;
     }
     ::-webkit-scrollbar-thumb {
-      background: #333;
+      background: #cccccc;
       border-radius: 999px;
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
   <header>
     <div class="header-inner">
       <div class="logo">
-        <img src="img/logo-huequita.png" alt="La Huequita Quiteña" />
+        <!-- Si luego subes un logo, cambia el div por <img src="RUTA" ...> -->
+        <div class="logo-placeholder">LOGO<br/>LA HUEQUITA</div>
         <div class="logo-text">
           <span>LA HUEQUITA QUITEÑA</span>
           <span>Licorería & delivery nocturno</span>
@@ -719,7 +776,7 @@
         <ul>
           <li><a href="#inicio">Inicio</a></li>
           <li><a href="#combos">Combos</a></li>
-          <li><a href="#info">Información</a></li>
+          <li><a href="#categorias">Categorías</a></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
       </nav>
@@ -731,8 +788,8 @@
     </div>
   </header>
 
-  <!-- HERO -->
-  <main id="inicio">
+  <main class="container" id="inicio">
+    <!-- HERO -->
     <section class="hero">
       <div class="hero-left">
         <div class="hero-highlight">Licorería nocturna · Quito</div>
@@ -741,8 +798,8 @@
           <span>Combos, tragos y buen servicio</span>
         </h1>
         <p class="hero-subtitle">
-          Tu punto fijo para el pre, la farra y el remate. Combos armados para que no te compliques:
-          solo eliges, escribes al WhatsApp y lo llevamos a tu mesa o te lo tenemos listo en local.
+          Combos listos para que no te compliques: eliges, escribes al WhatsApp y te lo tenemos
+          listo en local o te ayudamos con tu pedido.
         </p>
 
         <div class="hero-ctas">
@@ -772,21 +829,19 @@
           <div class="hero-card-body">
             <div class="hero-bottle">
               <div class="bottle-shape"></div>
-              <span>Imagen referencial · Puedes cambiarla por una foto real</span>
+              <span>Luego podemos cambiar esto por una foto real del combo estrella.</span>
             </div>
             <div class="hero-combo-info">
               <h3>Combo Aguardiente + Snack + Tabacos</h3>
               <p>
                 Aguardiente amarillo + papas + 1/2 Marlboro mentolado.
-                Ideal para empezar la noche tranquilo, pero decidido.
+                Ideal para arrancar la noche tranquilo pero decidido.
               </p>
               <div class="hero-price">
-                $XX,XX
-                <span>(ajusta el precio real)</span>
+                $XX,XX <span>(aquí va el precio real)</span>
               </div>
               <div class="hero-meta">
-                <div><span class="hero-dot"></span>Stock sujeto a disponibilidad</div>
-                <div>Escríbenos por WhatsApp para reservar</div>
+                Stock sujeto a disponibilidad · Escríbenos para reservar tu combo.
               </div>
             </div>
           </div>
@@ -794,10 +849,10 @@
       </div>
     </section>
 
-    <!-- COMBOS -->
+    <!-- COMBOS DESTACADOS -->
     <section id="combos">
-      <h2>Combos</h2>
-      <p class="section-sub">Estos son algunos ejemplos, puedes cambiar nombres, detalle y precios.</p>
+      <h2>Combos destacados</h2>
+      <p class="section-sub">Algunos combos listos. Luego ajustamos precios y agregamos fotos reales.</p>
 
       <div class="combos-grid">
         <!-- COMBO 1 -->
@@ -806,8 +861,8 @@
           <div class="combo-label">Combo A</div>
           <div class="combo-name">Aguardiente + snack + tabacos</div>
           <div class="combo-items">
-            • 1 Aguardiente amarillo<br />
-            • Papas (marca libre)<br />
+            • 1 Aguardiente amarillo<br/>
+            • Papas (marca libre)<br/>
             • ½ Marlboro mentolado
           </div>
           <div class="combo-meta">
@@ -819,7 +874,7 @@
               data-combo="Combo Aguardiente + snack + tabacos">
               Pedir este combo
             </button>
-            <span>Ideal para compartir entre 2-3 personas.</span>
+            <span>Para 2–3 personas.</span>
           </div>
         </article>
 
@@ -828,13 +883,13 @@
           <div class="combo-label">Combo Whisky</div>
           <div class="combo-name">Whisky + gaseosa + hielo</div>
           <div class="combo-items">
-            • 1 Whisky (marca a elección)<br />
-            • 2 Gaseosas 1.5L<br />
+            • 1 Whisky (marca a elección)<br/>
+            • 2 Gaseosas 1.5L<br/>
             • Hielo en funda
           </div>
           <div class="combo-meta">
             <div class="combo-price">$XX,XX</div>
-            <div class="combo-note">Ajusta según marca</div>
+            <div class="combo-note">Depende de la marca</div>
           </div>
           <div class="combo-bottom">
             <button class="btn btn-acento combo-btn"
@@ -850,20 +905,20 @@
           <div class="combo-label">Combo Ron</div>
           <div class="combo-name">Ron + colas + mezcla</div>
           <div class="combo-items">
-            • 1 Ron (Botella 750ml)<br />
-            • 2 Colas personales<br />
+            • 1 Ron 750ml<br/>
+            • 2 Colas personales<br/>
             • Limón / hielo
           </div>
           <div class="combo-meta">
             <div class="combo-price">$XX,XX</div>
-            <div class="combo-note">Puedes poner promo 2x algo</div>
+            <div class="combo-note">Puedes poner promo aquí</div>
           </div>
           <div class="combo-bottom">
             <button class="btn btn-acento combo-btn"
               data-combo="Combo Ron + colas + mezcla">
               Pedir este combo
             </button>
-            <span>Para pre de viernes o sábado.</span>
+            <span>Buenísimo para viernes o sábado.</span>
           </div>
         </article>
 
@@ -872,9 +927,9 @@
           <div class="combo-label">Combo Shots</div>
           <div class="combo-name">Shots power</div>
           <div class="combo-items">
-            • Base de licor fuerte<br />
-            • Energética<br />
-            • Vasos shots (descartables)
+            • Base de licor fuerte<br/>
+            • Energética<br/>
+            • Vasos shots descartables
           </div>
           <div class="combo-meta">
             <div class="combo-price">$XX,XX</div>
@@ -891,63 +946,151 @@
       </div>
     </section>
 
-    <!-- INFO -->
-    <section id="info">
-      <h2>Información</h2>
-      <p class="section-sub">Lo básico para que tus clientes entiendan cómo funciona La Huequita Quiteña.</p>
+    <!-- CATEGORÍAS Y PRECIOS -->
+    <section id="categorias">
+      <h2>Categorías y precios</h2>
+      <p class="section-sub">Aquí vamos armando la carta por categoría. Solo cambias nombres y valores.</p>
+
+      <div class="categorias-grid">
+        <!-- AGUARDIENTE -->
+        <div class="categoria-card">
+          <div class="categoria-title">Aguardiente</div>
+          <p>Botellas y combos relacionados con aguardiente.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Producto / combo</th>
+                <th class="precio">Precio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Aguardiente amarillo botella</td>
+                <td class="precio">$X,XX</td>
+              </tr>
+              <tr>
+                <td>Combo Aguardiente + papas</td>
+                <td class="precio">$X,XX</td>
+              </tr>
+              <tr>
+                <td>Combo Aguardiente + snack + tabacos</td>
+                <td class="precio">$X,XX</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- WHISKY -->
+        <div class="categoria-card">
+          <div class="categoria-title">Whisky</div>
+          <p>Según marcas que manejes en la licorería.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Producto / combo</th>
+                <th class="precio">Precio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Whisky etiqueta roja 750ml</td>
+                <td class="precio">$X,XX</td>
+              </tr>
+              <tr>
+                <td>Whisky etiqueta negra 750ml</td>
+                <td class="precio">$X,XX</td>
+              </tr>
+              <tr>
+                <td>Combo Whisky + gaseosa + hielo</td>
+                <td class="precio">$X,XX</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- RON -->
+        <div class="categoria-card">
+          <div class="categoria-title">Ron</div>
+          <p>Rones solos o en combo.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Producto / combo</th>
+                <th class="precio">Precio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Ron 750ml</td>
+                <td class="precio">$X,XX</td>
+              </tr>
+              <tr>
+                <td>Ron 1L</td>
+                <td class="precio">$X,XX</td>
+              </tr>
+              <tr>
+                <td>Combo Ron + colas</td>
+                <td class="precio">$X,XX</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- SHOTS -->
+        <div class="categoria-card">
+          <div class="categoria-title">Shots</div>
+          <p>Opciones para algo rápido y fuerte.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Producto / combo</th>
+                <th class="precio">Precio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Shot simple</td>
+                <td class="precio">$X,XX</td>
+              </tr>
+              <tr>
+                <td>Combo 6 shots</td>
+                <td class="precio">$X,XX</td>
+              </tr>
+              <tr>
+                <td>Combo Shots power</td>
+                <td class="precio">$X,XX</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO / INFO -->
+    <section id="contacto">
+      <h2>Información y contacto</h2>
+      <p class="section-sub">Datos básicos para que el cliente sepa cómo pedir.</p>
 
       <div class="info-grid">
         <div class="info-card">
           <div class="info-title">Horarios de atención</div>
           <p>
-            🕔 De lunes a domingo: 17h00 a 05h00<br />
+            🕔 De lunes a domingo: 17h00 a 05h00<br/>
             📍 Atención en local y pedidos por WhatsApp.
           </p>
         </div>
         <div class="info-card">
-          <div class="info-title">Formas de pedido</div>
+          <div class="info-title">WhatsApp pedidos</div>
           <p>
-            1. Entras a esta página<br />
-            2. Revisas los combos<br />
-            3. Das clic en “Pedir este combo”<br />
-            4. Te abre WhatsApp con el mensaje listo<br />
-            Solo confirmas y listo.
+            📲 <strong>0980000000</strong> (ejemplo)<br/>
+            Luego aquí ponemos tu número real para que coincida con los botones.
           </p>
         </div>
         <div class="info-card">
-          <div class="info-title">Formas de pago</div>
+          <div class="info-title">Ubicación / redes</div>
           <p>
-            Efectivo / Transferencia / (agrega lo que aceptes).
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACTO -->
-    <section id="contacto">
-      <h2>Contacto</h2>
-      <p class="section-sub">Datos de la licorería para que siempre te puedan ubicar.</p>
-
-      <div class="info-grid">
-        <div class="info-card">
-          <div class="info-title">Dirección</div>
-          <p>
-            📍 Quito, Ecuador<br />
-            Escribe aquí la dirección o referencias del local.
-          </p>
-        </div>
-        <div class="info-card">
-          <div class="info-title">WhatsApp</div>
-          <p>
-            📲 <strong>0980000000</strong><br />
-            (Luego aquí ponemos tu número real).
-          </p>
-        </div>
-        <div class="info-card">
-          <div class="info-title">Redes sociales</div>
-          <p>
-            Instagram: @lahuequita<br />
-            Facebook: La Huequita Quiteña
+            Quito, Ecuador. Agregamos dirección exacta y redes cuando quieras:<br/>
+            Instagram, Facebook, TikTok, etc.
           </p>
         </div>
       </div>
@@ -976,7 +1119,7 @@
     <div class="chatbot-messages" id="chatbotMessages">
       <div class="msg msg-bot">
         <div class="msg-bubble">
-          ¡Hola! Soy el chatbot de La Huequita Quiteña 🍻<br />
+          ¡Hola! Soy el chatbot de La Huequita Quiteña 🍻<br/>
           ¿Te ayudo a elegir un combo?
         </div>
       </div>
@@ -1019,7 +1162,7 @@
     </form>
   </div>
 
-  <!-- FABs -->
+  <!-- BOTONES FLOTANTES -->
   <div class="fab-container">
     <div class="fab" id="chatbotFab">
       <span>🤖</span>
@@ -1033,7 +1176,8 @@
   </div>
 
   <script>
-    const NUM_WHATSAPP = "0980000000"; // luego lo cambiamos por tu número
+    // 👉 CAMBIA ESTE NÚMERO CUANDO TENGAS EL REAL (mismo que pondremos en la sección de contacto)
+    const NUM_WHATSAPP = "0980000000";
 
     const frases = [
       "Sin filas, solo tragos",
@@ -1090,8 +1234,8 @@
         const text = chip.getAttribute("data-chip");
         agregarMensajeUsuario(text);
         setTimeout(() => {
-          agregarMensajeBot("Perfecto, revisa los combos de la página o llena el formulario de abajo y te escribimos.");
-        }, 800);
+          agregarMensajeBot("Perfecto, revisa los combos o llena el formulario de abajo y te escribimos.");
+        }, 700);
       });
     });
 
