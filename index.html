@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>La Huequita Quiteña - Licorería</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --color-fondo: #000000;
+      --color-texto: #ffffff;
+      --color-acento: #00e676; /* Puedes cambiar o poner gris si no quieres color */
+      --color-gris: #2b2b2b;
+      --radio: 18px;
+      --sombra: 0 10px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #222 0, #000 55%);
+      color: var(--color-texto);
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #222;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      border-radius: 50%;
+      border: 2px solid var(--color-texto);
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo-text span:first-child {
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    .logo-text span:last-child {
+      font-size: 11px;
+      opacity: 0.7;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 18px;
+      font-size: 14px;
+    }
+
+    nav li a {
+      position: relative;
+      padding-bottom: 4px;
+      opacity: 0.8;
+    }
+
+    nav li a:hover {
+      opacity: 1;
+    }
+
+    nav li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: var(--color-acento);
+      transition: width 0.2s ease;
+    }
+
+    nav li a:hover::after {
+      width: 100%;
+    }
+
+    .header-cta {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .header-cta {
+        display: inline-flex;
+      }
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid var(--color-texto);
+      padding: 7px 16px;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      background: #000;
+      color: var(--color-texto);
+      transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    .btn-acento {
+      background: var(--color-acento);
+      color: #000;
+      border-color: var(--color-acento);
+      box-shadow: 0 0 18px rgba(0, 230, 118, 0.7);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--sombra);
+    }
+
+    .btn-icon {
+      font-size: 16px;
+    }
+
+    /* HERO */
+
+    .hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 16px 40px;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    @media (max-width: 820px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 24px;
+      }
+    }
+
+    .hero-left h1 {
+      font-size: 34px;
+      line-height: 1.05;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .hero-left h1 span {
+      display: block;
+      font-weight: 300;
+      font-size: 20px;
+      letter-spacing: 0.16em;
+      opacity: 0.8;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      opacity: 0.8;
+      max-width: 440px;
+      margin-bottom: 16px;
+    }
+
+    .hero-highlight {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--color-acento);
+      margin-bottom: 8px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 11px;
+      opacity: 0.7;
+    }
+
+    .hero-tag {
+      border-radius: 999px;
+      border: 1px solid #333;
+      padding: 4px 10px;
+    }
+
+    .hero-right {
+      justify-self: stretch;
+    }
+
+    .hero-card {
+      background: linear-gradient(145deg, #101010, #000000);
+      border-radius: 22px;
+      padding: 16px 16px 14px;
+      border: 1px solid #333;
+      box-shadow: var(--sombra);
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .hero-card-body {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 12px;
+      align-items: center;
+    }
+
+    @media (max-width: 600px) {
+      .hero-card-body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero-bottle {
+      border-radius: 20px;
+      border: 1px solid #444;
+      padding: 12px;
+      text-align: center;
+      background: radial-gradient(circle at top, #242424 0, #050505 60%);
+    }
+
+    .hero-bottle span {
+      display: block;
+      font-size: 11px;
+      opacity: 0.7;
+      margin-top: 8px;
+    }
+
+    .bottle-shape {
+      width: 65px;
+      height: 145px;
+      border-radius: 14px 14px 6px 6px;
+      border: 2px solid #f5f5f5;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .bottle-shape::before {
+      content: "";
+      position: absolute;
+      width: 24px;
+      height: 18px;
+      border-radius: 8px 8px 4px 4px;
+      border: 2px solid #f5f5f5;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .hero-combo-info h3 {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .hero-combo-info p {
+      font-size: 12px;
+      opacity: 0.8;
+      margin-bottom: 8px;
+    }
+
+    .hero-price {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .hero-price span {
+      font-size: 11px;
+      opacity: 0.7;
+      font-weight: 400;
+      margin-left: 4px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 10px;
+      opacity: 0.7;
+    }
+
+    .hero-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--color-acento);
+      margin-right: 4px;
+    }
+
+    /* SECCIÓN COMBOS */
+
+    section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 8px 16px 32px;
+    }
+
+    section h2 {
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      font-size: 13px;
+      opacity: 0.7;
+      margin-bottom: 18px;
+    }
+
+    .combos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+    }
+
+    .combo-card {
+      background: #050505;
+      border-radius: var(--radio);
+      border: 1px solid #222;
+      padding: 14px;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .combo-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      opacity: 0.6;
+    }
+
+    .combo-name {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .combo-items {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .combo-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 4px;
+    }
+
+    .combo-price {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .combo-note {
+      font-size: 10px;
+      opacity: 0.6;
+    }
+
+    .combo-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+      gap: 8px;
+      font-size: 11px;
+      opacity: 0.7;
+    }
+
+    .combo-btn {
+      font-size: 11px;
+      padding: 6px 10px;
+    }
+
+    .combo-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #555;
+      background: rgba(0, 0, 0, 0.9);
+    }
+
+    /* INFORMACIÓN ADICIONAL */
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .info-card {
+      background: #050505;
+      border-radius: var(--radio);
+      border: 1px solid #222;
+      padding: 14px;
+      font-size: 12px;
+      opacity: 0.85;
+    }
+
+    .info-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid #222;
+      padding: 14px 16px 18px;
+      font-size: 11px;
+      opacity: 0.7;
+      text-align: center;
+    }
+
+    footer span {
+      display: inline-block;
+      margin: 0 6px;
+    }
+
+    /* BOTONES FLOTANTES */
+
+    .fab-container {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .fab {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1px solid #333;
+      background: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--sombra);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fab span {
+      font-size: 26px;
+    }
+
+    .fab-label {
+      position: absolute;
+      right: 56px;
+      background: rgba(0, 0, 0, 0.95);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      white-space: nowrap;
+      border: 1px solid #333;
+    }
+
+    /* CHATBOT */
+
+    .chatbot-panel {
+      position: fixed;
+      right: 16px;
+      bottom: 82px;
+      width: 320px;
+      max-width: calc(100vw - 32px);
+      height: 390px;
+      border-radius: 18px;
+      background: #050505;
+      border: 1px solid #333;
+      box-shadow: var(--sombra);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      z-index: 90;
+    }
+
+    .chatbot-panel.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .chatbot-header {
+      padding: 10px 12px;
+      border-bottom: 1px solid #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .chatbot-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chatbot-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid #444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      background: #111;
+    }
+
+    .chatbot-header-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chatbot-header-text strong {
+      font-size: 12px;
+    }
+
+    .chatbot-header-text span {
+      font-size: 10px;
+      opacity: 0.7;
+    }
+
+    .chatbot-close {
+      font-size: 16px;
+      cursor: pointer;
+      opacity: 0.7;
+    }
+
+    .chatbot-messages {
+      flex: 1;
+      padding: 10px 10px 6px;
+      overflow-y: auto;
+      font-size: 12px;
+    }
+
+    .msg {
+      margin-bottom: 6px;
+      max-width: 90%;
+      clear: both;
+    }
+
+    .msg-bot {
+      text-align: left;
+    }
+
+    .msg-user {
+      text-align: right;
+    }
+
+    .msg-bubble {
+      display: inline-block;
+      padding: 8px 10px;
+      border-radius: 14px;
+    }
+
+    .msg-bot .msg-bubble {
+      background: #111;
+      border: 1px solid #222;
+    }
+
+    .msg-user .msg-bubble {
+      background: #f5f5f5;
+      color: #000;
+    }
+
+    .quick-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 4px 0 6px;
+    }
+
+    .quick-chip {
+      font-size: 11px;
+      border-radius: 999px;
+      border: 1px solid #333;
+      padding: 3px 8px;
+      cursor: pointer;
+      background: #050505;
+    }
+
+    .chatbot-form {
+      padding: 8px 10px 10px;
+      border-top: 1px solid #222;
+      background: #050505;
+    }
+
+    .chatbot-form label {
+      display: block;
+      font-size: 11px;
+      margin-bottom: 2px;
+      opacity: 0.8;
+    }
+
+    .chatbot-form input,
+    .chatbot-form select {
+      width: 100%;
+      padding: 5px 8px;
+      border-radius: 10px;
+      border: 1px solid #333;
+      background: #000;
+      color: var(--color-texto);
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .chatbot-form button {
+      width: 100%;
+      font-size: 12px;
+      padding: 6px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: var(--color-acento);
+      color: #000;
+      font-weight: 600;
+      box-shadow: 0 0 14px rgba(0, 230, 118, 0.7);
+    }
+
+    /* SCROLLBAR */
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #000;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 999px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <img src="img/logo-huequita.png" alt="La Huequita Quiteña" />
+        <div class="logo-text">
+          <span>LA HUEQUITA QUITEÑA</span>
+          <span>Licorería & delivery nocturno</span>
+        </div>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#combos">Combos</a></li>
+          <li><a href="#info">Información</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <button class="btn header-cta btn-acento" id="headerWhatsApp">
+        <span class="btn-icon">📲</span>
+        Pedir ahora
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main id="inicio">
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-highlight">Licorería nocturna · Quito</div>
+        <h1>
+          La Huequita Quiteña
+          <span>Combos, tragos y buen servicio</span>
+        </h1>
+        <p class="hero-subtitle">
+          Tu punto fijo para el pre, la farra y el remate. Combos armados para que no te compliques:
+          solo eliges, escribes al WhatsApp y lo llevamos a tu mesa o te lo tenemos listo en local.
+        </p>
+
+        <div class="hero-ctas">
+          <button class="btn btn-acento" id="verCombos">
+            <span class="btn-icon">🥃</span>
+            Ver combos
+          </button>
+          <button class="btn" id="heroWhatsApp">
+            <span class="btn-icon">💬</span>
+            Pedir por WhatsApp
+          </button>
+        </div>
+
+        <div class="hero-tags">
+          <div class="hero-tag">Horario: 17:00 a 05:00</div>
+          <div class="hero-tag">Sector norte de Quito</div>
+          <div class="hero-tag">Atención personalizada</div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="hero-card-header">
+            <span>Combo destacado de la noche</span>
+            <span>Hoy · <span id="fraseRotativa">Sin filas, solo tragos</span></span>
+          </div>
+          <div class="hero-card-body">
+            <div class="hero-bottle">
+              <div class="bottle-shape"></div>
+              <span>Imagen referencial · Puedes cambiarla por una foto real</span>
+            </div>
+            <div class="hero-combo-info">
+              <h3>Combo Aguardiente + Snack + Tabacos</h3>
+              <p>
+                Aguardiente amarillo + papas + 1/2 Marlboro mentolado.
+                Ideal para empezar la noche tranquilo, pero decidido.
+              </p>
+              <div class="hero-price">
+                $XX,XX
+                <span>(ajusta el precio real)</span>
+              </div>
+              <div class="hero-meta">
+                <div><span class="hero-dot"></span>Stock sujeto a disponibilidad</div>
+                <div>Escríbenos por WhatsApp para reservar</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMBOS -->
+    <section id="combos">
+      <h2>Combos</h2>
+      <p class="section-sub">Estos son algunos ejemplos, puedes cambiar nombres, detalle y precios.</p>
+
+      <div class="combos-grid">
+        <!-- COMBO 1 -->
+        <article class="combo-card">
+          <div class="combo-badge">Más pedido</div>
+          <div class="combo-label">Combo A</div>
+          <div class="combo-name">Aguardiente + snack + tabacos</div>
+          <div class="combo-items">
+            • 1 Aguardiente amarillo<br />
+            • Papas (marca libre)<br />
+            • ½ Marlboro mentolado
+          </div>
+          <div class="combo-meta">
+            <div class="combo-price">$XX,XX</div>
+            <div class="combo-note">Precio editable</div>
+          </div>
+          <div class="combo-bottom">
+            <button class="btn btn-acento combo-btn"
+              data-combo="Combo Aguardiente + snack + tabacos">
+              Pedir este combo
+            </button>
+            <span>Ideal para compartir entre 2-3 personas.</span>
+          </div>
+        </article>
+
+        <!-- COMBO 2 -->
+        <article class="combo-card">
+          <div class="combo-label">Combo Whisky</div>
+          <div class="combo-name">Whisky + gaseosa + hielo</div>
+          <div class="combo-items">
+            • 1 Whisky (marca a elección)<br />
+            • 2 Gaseosas 1.5L<br />
+            • Hielo en funda
+          </div>
+          <div class="combo-meta">
+            <div class="combo-price">$XX,XX</div>
+            <div class="combo-note">Ajusta según marca</div>
+          </div>
+          <div class="combo-bottom">
+            <button class="btn btn-acento combo-btn"
+              data-combo="Combo Whisky + gaseosa + hielo">
+              Pedir este combo
+            </button>
+            <span>Perfecto para la mesa completa.</span>
+          </div>
+        </article>
+
+        <!-- COMBO 3 -->
+        <article class="combo-card">
+          <div class="combo-label">Combo Ron</div>
+          <div class="combo-name">Ron + colas + mezcla</div>
+          <div class="combo-items">
+            • 1 Ron (Botella 750ml)<br />
+            • 2 Colas personales<br />
+            • Limón / hielo
+          </div>
+          <div class="combo-meta">
+            <div class="combo-price">$XX,XX</div>
+            <div class="combo-note">Puedes poner promo 2x algo</div>
+          </div>
+          <div class="combo-bottom">
+            <button class="btn btn-acento combo-btn"
+              data-combo="Combo Ron + colas + mezcla">
+              Pedir este combo
+            </button>
+            <span>Para pre de viernes o sábado.</span>
+          </div>
+        </article>
+
+        <!-- COMBO 4 -->
+        <article class="combo-card">
+          <div class="combo-label">Combo Shots</div>
+          <div class="combo-name">Shots power</div>
+          <div class="combo-items">
+            • Base de licor fuerte<br />
+            • Energética<br />
+            • Vasos shots (descartables)
+          </div>
+          <div class="combo-meta">
+            <div class="combo-price">$XX,XX</div>
+            <div class="combo-note">Arma tu propio shot</div>
+          </div>
+          <div class="combo-bottom">
+            <button class="btn btn-acento combo-btn"
+              data-combo="Combo Shots power">
+              Pedir este combo
+            </button>
+            <span>Cuando la fiesta recién arranca.</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- INFO -->
+    <section id="info">
+      <h2>Información</h2>
+      <p class="section-sub">Lo básico para que tus clientes entiendan cómo funciona La Huequita Quiteña.</p>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-title">Horarios de atención</div>
+          <p>
+            🕔 De lunes a domingo: 17h00 a 05h00<br />
+            📍 Atención en local y pedidos por WhatsApp.
+          </p>
+        </div>
+        <div class="info-card">
+          <div class="info-title">Formas de pedido</div>
+          <p>
+            1. Entras a esta página<br />
+            2. Revisas los combos<br />
+            3. Das clic en “Pedir este combo”<br />
+            4. Te abre WhatsApp con el mensaje listo<br />
+            Solo confirmas y listo.
+          </p>
+        </div>
+        <div class="info-card">
+          <div class="info-title">Formas de pago</div>
+          <p>
+            Efectivo / Transferencia / (agrega lo que aceptes).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+      <h2>Contacto</h2>
+      <p class="section-sub">Datos de la licorería para que siempre te puedan ubicar.</p>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-title">Dirección</div>
+          <p>
+            📍 Quito, Ecuador<br />
+            Escribe aquí la dirección o referencias del local.
+          </p>
+        </div>
+        <div class="info-card">
+          <div class="info-title">WhatsApp</div>
+          <p>
+            📲 <strong>0980000000</strong><br />
+            (Luego aquí ponemos tu número real).
+          </p>
+        </div>
+        <div class="info-card">
+          <div class="info-title">Redes sociales</div>
+          <p>
+            Instagram: @lahuequita<br />
+            Facebook: La Huequita Quiteña
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> La Huequita Quiteña</span> ·
+    <span>Licorería y combos nocturnos</span> ·
+    <span>Hecho para Quito, Ecuador</span>
+  </footer>
+
+  <!-- CHATBOT -->
+  <div class="chatbot-panel" id="chatbotPanel">
+    <div class="chatbot-header">
+      <div class="chatbot-header-left">
+        <div class="chatbot-avatar">🤖</div>
+        <div class="chatbot-header-text">
+          <strong>Chat Huequita</strong>
+          <span>Respuestas rápidas sobre combos</span>
+        </div>
+      </div>
+      <div class="chatbot-close" id="chatbotClose">✕</div>
+    </div>
+
+    <div class="chatbot-messages" id="chatbotMessages">
+      <div class="msg msg-bot">
+        <div class="msg-bubble">
+          ¡Hola! Soy el chatbot de La Huequita Quiteña 🍻<br />
+          ¿Te ayudo a elegir un combo?
+        </div>
+      </div>
+      <div class="msg msg-bot">
+        <div class="msg-bubble">
+          Puedes marcar una opción o llenar tus datos abajo y te escribimos por WhatsApp.
+          <div class="quick-options">
+            <div class="quick-chip" data-chip="Quiero ver combos de aguardiente">
+              Aguardiente
+            </div>
+            <div class="quick-chip" data-chip="Quiero ver combos de whisky">
+              Whisky
+            </div>
+            <div class="quick-chip" data-chip="Quiero algo económico para 2 personas">
+              Para 2 personas
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form class="chatbot-form" id="chatbotForm">
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" placeholder="Tu nombre" required />
+
+      <label for="telefono">Número de WhatsApp</label>
+      <input type="tel" id="telefono" placeholder="Ej: 0980000000" required />
+
+      <label for="comboInteres">Combo de interés</label>
+      <select id="comboInteres">
+        <option value="">Selecciona una opción</option>
+        <option value="Aguardiente + snack + tabacos">Aguardiente + snack + tabacos</option>
+        <option value="Whisky + gaseosa + hielo">Whisky + gaseosa + hielo</option>
+        <option value="Ron + colas + mezcla">Ron + colas + mezcla</option>
+        <option value="Shots power">Shots power</option>
+        <option value="Otro / No sé aún">Otro / No sé aún</option>
+      </select>
+
+      <button type="submit">Enviar y abrir WhatsApp</button>
+    </form>
+  </div>
+
+  <!-- FABs -->
+  <div class="fab-container">
+    <div class="fab" id="chatbotFab">
+      <span>🤖</span>
+      <div class="fab-label">Chat Huequita</div>
+    </div>
+
+    <div class="fab" id="whatsFab">
+      <span>💬</span>
+      <div class="fab-label">Pedir por WhatsApp</div>
+    </div>
+  </div>
+
+  <script>
+    const NUM_WHATSAPP = "0980000000"; // luego lo cambiamos por tu número
+
+    const frases = [
+      "Sin filas, solo tragos",
+      "Arma el pre sin complicarte",
+      "Combos listos, tú solo llegas",
+      "La noche empieza en La Huequita"
+    ];
+    let fraseIndex = 0;
+
+    const fraseRotativaSpan = document.getElementById("fraseRotativa");
+    setInterval(() => {
+      fraseIndex = (fraseIndex + 1) % frases.length;
+      fraseRotativaSpan.textContent = frases[fraseIndex];
+    }, 3500);
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    document.getElementById("verCombos").addEventListener("click", () => {
+      document.getElementById("combos").scrollIntoView({ behavior: "smooth" });
+    });
+
+    function abrirWhatsApp(mensaje = "Hola, quiero información de los combos de La Huequita Quiteña") {
+      const texto = encodeURIComponent(mensaje);
+      const link = `https://wa.me/593${NUM_WHATSAPP.slice(1)}?text=${texto}`;
+      window.open(link, "_blank");
+    }
+
+    document.getElementById("headerWhatsApp").addEventListener("click", () => abrirWhatsApp());
+    document.getElementById("heroWhatsApp").addEventListener("click", () => abrirWhatsApp());
+    document.getElementById("whatsFab").addEventListener("click", () => abrirWhatsApp());
+
+    document.querySelectorAll(".combo-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const combo = btn.getAttribute("data-combo");
+        const mensaje = `Hola, vengo de la página web y quiero el ${combo}. ¿Me ayudas con el precio y disponibilidad?`;
+        abrirWhatsApp(mensaje);
+      });
+    });
+
+    const chatbotFab = document.getElementById("chatbotFab");
+    const chatbotPanel = document.getElementById("chatbotPanel");
+    const chatbotClose = document.getElementById("chatbotClose");
+    const chatbotMessages = document.getElementById("chatbotMessages");
+
+    function toggleChatbot() {
+      chatbotPanel.classList.toggle("open");
+    }
+
+    chatbotFab.addEventListener("click", toggleChatbot);
+    chatbotClose.addEventListener("click", toggleChatbot);
+
+    document.querySelectorAll(".quick-chip").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const text = chip.getAttribute("data-chip");
+        agregarMensajeUsuario(text);
+        setTimeout(() => {
+          agregarMensajeBot("Perfecto, revisa los combos de la página o llena el formulario de abajo y te escribimos.");
+        }, 800);
+      });
+    });
+
+    function agregarMensajeUsuario(texto) {
+      const msg = document.createElement("div");
+      msg.className = "msg msg-user";
+      msg.innerHTML = `<div class="msg-bubble">${texto}</div>`;
+      chatbotMessages.appendChild(msg);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    function agregarMensajeBot(texto) {
+      const msg = document.createElement("div");
+      msg.className = "msg msg-bot";
+      msg.innerHTML = `<div class="msg-bubble">${texto}</div>`;
+      chatbotMessages.appendChild(msg);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    const chatbotForm = document.getElementById("chatbotForm");
+    chatbotForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const nombre = document.getElementById("nombre").value.trim();
+      const telefono = document.getElementById("telefono").value.trim();
+      const combo = document.getElementById("comboInteres").value;
+
+      if (!nombre || !telefono) {
+        alert("Por favor llena tu nombre y número de WhatsApp.");
+        return;
+      }
+
+      const registro = {
+        nombre,
+        telefono,
+        combo,
+        fecha: new Date().toISOString()
+      };
+
+      const registrosPrevios = JSON.parse(localStorage.getItem("clientesHuequita") || "[]");
+      registrosPrevios.push(registro);
+      localStorage.setItem("clientesHuequita", JSON.stringify(registrosPrevios));
+
+      agregarMensajeUsuario(`Mis datos: ${nombre}, ${telefono}, combo: ${combo || "no definido aún"}`);
+      agregarMensajeBot("¡Gracias! Te redirigimos a WhatsApp para continuar la atención. 🍻");
+
+      const mensaje = `Hola, soy ${nombre}. Mi número es ${telefono}. Estoy interesado en: ${
+        combo || "algún combo, necesito recomendación"
+      }. Vengo del chatbot de la página.`;
+      abrirWhatsApp(mensaje);
+
+      chatbotForm.reset();
+    });
+  </script>
+</body>
+</html>
