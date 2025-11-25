@@ -745,94 +745,63 @@
   // DATA DE PRODUCTOS
   // ==========================
   // 👉 AQUÍ PEGAS TUS PRODUCTOS, ya con precios por local
-  const products = [
-    {
-      id: 1,
-      nombre: "Aguardiente Amarillo 750ml",
-      descripcion: "Clásico para compartir con los panas.",
-      categoria: "Aguardiente",
-      // precios por local:
-      precios: {
-        PUSUQUI: 7.50,
-        POMASQUI: 7.80,
-        CARCELEN: 8.00
-      },
-      // en qué locales se vende:
-      locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
-      imagen: "https://via.placeholder.com/200x260?text=Aguardiente",
-      tag: "destacado"
-    },
-    {
-      id: 2,
-      nombre: "Combo Aguardiente + Papa + 1/2 Marlboro Mentolado",
-      descripcion: "Combo A: full ahorro para la previa.",
-      categoria: "Combos",
-      precios: {
-        PUSUQUI: 11.99,
-        POMASQUI: 10.99,
-        CARCELEN: 12.50
-      },
-      locales: ["PUSUQUI", "POMASQUI"],
-      imagen: "https://via.placeholder.com/200x260?text=Combo+A",
-      tag: "masvendido"
-    },
-    {
-      id: 3,
-      nombre: "Ron Abuelo Añejo 750ml",
-      descripcion: "Ron para cocktails o puro, tú decides.",
-      categoria: "Ron",
-      precios: {
-        PUSUQUI: 18.90,
-        POMASQUI: 19.50,
-        CARCELEN: 20.00
-      },
-      locales: ["PUSUQUI", "CARCELEN"],
-      imagen: "https://via.placeholder.com/200x260?text=Ron",
-      tag: "destacado"
-    },
-    {
-      id: 4,
-      nombre: "Whisky Johnnie Walker Red Label 750ml",
-      descripcion: "Ideal para mezclas y shots.",
-      categoria: "Whisky",
-      precios: {
-        PUSUQUI: 27.50,
-        POMASQUI: 27.90,
-        CARCELEN: 28.50
-      },
-      locales: ["POMASQUI", "CARCELEN"],
-      imagen: "https://via.placeholder.com/200x260?text=Whisky",
-      tag: "nuevos"
-    },
-    {
-      id: 5,
-      nombre: "Vodka Smirnoff 700ml",
-      descripcion: "Perfecto para tragos largos y cócteles.",
-      categoria: "Vodka",
-      precios: {
-        PUSUQUI: 16.20,
-        POMASQUI: 16.20,
-        CARCELEN: 16.20
-      },
-      locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
-      imagen: "https://via.placeholder.com/200x260?text=Vodka",
-      tag: "masvendido"
-    },
-    {
-      id: 6,
-      nombre: "Snacks surtidos (papas, maní, chifles)",
-      descripcion: "Para acompañar cualquier botella.",
-      categoria: "Snacks & Complementos",
-      precios: {
-        PUSUQUI: 3.50,
-        POMASQUI: 3.50,
-        CARCELEN: 3.50
-      },
-      locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
-      imagen: "https://via.placeholder.com/200x260?text=Snacks",
-      tag: "destacado"
-    }
-  ];
+  // 👉 ESTE BLOQUE VA EN TU <script>
+
+// LOCALES
+const LOCALES = [
+  { id: "PUSUQUI", label: "La Huequita – Pusuqui" },
+  { id: "POMASQUI", label: "La Huequita – Pomasqui" },
+  { id: "CARCELEN", label: "La Huequita – Carcelen" },
+];
+
+// LOCAL ACTIVO POR DEFECTO
+let activeLocal = localStorage.getItem("huequita_local") || "PUSUQUI";
+
+// 🟩 AQUÍ VA EL ARRAY COMPLETO (173 productos)
+const products = [
+  {
+    id: 1,
+    nombre: "100 FUEGOS 375ML",
+    descripcion: "",
+    categoria: "RON",
+    precios: { PUSUQUI: 9.25, POMASQUI: 9.25, CARCELEN: 9.25 },
+    locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
+    imagen: "https://via.placeholder.com/200x260?text=100+FUEGOS+375ML",
+    tag: "destacado",
+  },
+  {
+    id: 2,
+    nombre: "100 FUEGOS 750ML",
+    descripcion: "",
+    categoria: "RON",
+    precios: { PUSUQUI: 16.5, POMASQUI: 16.5, CARCELEN: 16.5 },
+    locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
+    imagen: "https://via.placeholder.com/200x260?text=100+FUEGOS+750ML",
+    tag: "destacado",
+  },
+  {
+    id: 3,
+    nombre: "100 FUEGOS LATA 350ML",
+    descripcion: "",
+    categoria: "RON",
+    precios: { PUSUQUI: 2.5, POMASQUI: 2.5, CARCELEN: 2.5 },
+    locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
+    imagen: "https://via.placeholder.com/200x260?text=100+FUEGOS+LATA+350ML",
+    tag: "destacado",
+  },
+  {
+    id: 4,
+    nombre: "ABUELO 375ML",
+    descripcion: "",
+    categoria: "RON",
+    precios: { PUSUQUI: 8.25, POMASQUI: 8.25, CARCELEN: 8.25 },
+    locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
+    imagen: "https://via.placeholder.com/200x260?text=ABUELO+375ML",
+    tag: "destacado",
+  },
+  // ... AQUÍ SIGUEN TODOS LOS DEMÁS PRODUCTOS HASTA EL id: 173
+];
+
 
   // ==========================
   // REFERENCIAS DOM
