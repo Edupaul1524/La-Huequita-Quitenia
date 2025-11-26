@@ -15,16 +15,16 @@ let activeLocal = localStorage.getItem("huequita_local") || "PUSUQUI";
 // DATA DE PRODUCTOS (AUTOGENERADO DESDE TUS EXCEL)
 // ===============================
 const products = [
-{
-  id: 1,
-  nombre: "AGUA CIELO 1LT",
-  categoria: "AGUA",
-  precios: { PUSUQUI: 1.00, POMASQUI: 1.00, CARCELEN: 1.00 },
-  locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
-  imagen: "upload/Agua Cielo 1lt.png",
-  descripcion: "Refrescante, ideal para acompañar cualquier plan.",
-  tag: "destacado"
-},
+  {
+    id: 1,
+    nombre: "AGUA CIELO 1LT",
+    categoria: "AGUA",
+    precios: { PUSUQUI: 1.00, POMASQUI: 1.00, CARCELEN: 1.00 },
+    locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
+    imagen: "upload/Agua Cielo 1lt.png",
+    descripcion: "Refrescante, ideal para acompañar cualquier plan.",
+    tag: "destacado"
+  },
     "locales": [
       "PUSUQUI",
       "POMASQUI",
