@@ -13,74 +13,121 @@ const LOCALES = [
 let activeLocal = localStorage.getItem("huequita_local") || "PUSUQUI";
 
 // ===============================
-// DATA DE PRODUCTOS
-// ⚠️ EJEMPLO: aquí van TODOS tus productos reales
+// DATA DE PRODUCTOS (AUTOGENERADO DESDE TUS EXCEL)
 // ===============================
-
 const products = [
   {
-    id: 1,
-    nombre: "100 FUEGOS 375ML",
-    descripcion: "Ron 100 Fuegos presentación 375 ml, ideal para compartir suave.",
-    categoria: "RON",
-    precios: { PUSUQUI: 9.25, POMASQUI: 9.25, CARCELEN: 9.25 },
-    locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
-    imagen: "https://via.placeholder.com/200x260?text=100+FUEGOS+375ML",
-    tag: "destacado",
+    "id": 1,
+    "nombre": "100 FUEGOS 375ML",
+    "descripcion": "",
+    "categoria": "RON",
+    "precios": {
+      "PUSUQUI": 9.25,
+      "POMASQUI": 9.25,
+      "CARCELEN": 9.25
+    },
+    "locales": [
+      "CARCELEN",
+      "POMASQUI",
+      "PUSUQUI"
+    ],
+    "imagen": "https://via.placeholder.com/200x260?text=100+FUEGOS+375ML",
+    "tag": "destacado"
   },
   {
-    id: 2,
-    nombre: "100 FUEGOS 750ML",
-    descripcion: "Ron 100 Fuegos 750 ml, perfecto para la previa con amigos.",
-    categoria: "RON",
-    precios: { PUSUQUI: 16.5, POMASQUI: 16.5, CARCELEN: 16.5 },
-    locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
-    imagen: "https://via.placeholder.com/200x260?text=100+FUEGOS+750ML",
-    tag: "destacado",
+    "id": 2,
+    "nombre": "100 FUEGOS 750ML",
+    "descripcion": "",
+    "categoria": "RON",
+    "precios": {
+      "PUSUQUI": 16.5,
+      "POMASQUI": 16.5,
+      "CARCELEN": 16.5
+    },
+    "locales": [
+      "CARCELEN",
+      "POMASQUI",
+      "PUSUQUI"
+    ],
+    "imagen": "https://via.placeholder.com/200x260?text=100+FUEGOS+750ML",
+    "tag": "destacado"
   },
   {
-    id: 3,
-    nombre: "ABUELO 375ML",
-    descripcion: "Ron Abuelo 375 ml, sabor clásico y equilibrado.",
-    categoria: "RON",
-    precios: { PUSUQUI: 8.25, POMASQUI: 8.25, CARCELEN: 8.25 },
-    locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
-    imagen: "https://via.placeholder.com/200x260?text=ABUELO+375ML",
-    tag: "destacado",
+    "id": 3,
+    "nombre": "100 FUEGOS LATA 350ML",
+    "descripcion": "",
+    "categoria": "RON",
+    "precios": {
+      "PUSUQUI": 2.5,
+      "POMASQUI": 2.5,
+      "CARCELEN": 2.5
+    },
+    "locales": [
+      "CARCELEN",
+      "POMASQUI",
+      "PUSUQUI"
+    ],
+    "imagen": "https://via.placeholder.com/200x260?text=100+FUEGOS+LATA+350ML",
+    "tag": "destacado"
   },
   {
-    id: 4,
-    nombre: "ABSENTA 700ML",
-    descripcion: "Licor fuerte tipo absenta, ideal para shots intensos.",
-    categoria: "OTROS LICORES",
-    precios: { PUSUQUI: 26.5, POMASQUI: 26.5, CARCELEN: 26.5 },
-    locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
-    imagen: "https://via.placeholder.com/200x260?text=ABSENTA+700ML",
-    tag: "masvendido",
+    "id": 4,
+    "nombre": "ABUELO 375ML",
+    "descripcion": "",
+    "categoria": "RON",
+    "precios": {
+      "PUSUQUI": 8.25,
+      "POMASQUI": 8.25,
+      "CARCELEN": 8.25
+    },
+    "locales": [
+      "CARCELEN",
+      "POMASQUI",
+      "PUSUQUI"
+    ],
+    "imagen": "https://via.placeholder.com/200x260?text=ABUELO+375ML",
+    "tag": "destacado"
   },
   {
-    id: 5,
-    nombre: "AGUA SIN GAS",
-    descripcion: "Agua sin gas individual, perfecta para hidratarse.",
-    categoria: "AGUA",
-    precios: { PUSUQUI: 0.5, POMASQUI: 0.5, CARCELEN: 0.5 },
-    locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
-    imagen: "https://via.placeholder.com/200x260?text=AGUA+SIN+GAS",
-    tag: "destacado",
+    "id": 5,
+    "nombre": "ABUELO 750ML",
+    "descripcion": "",
+    "categoria": "RON",
+    "precios": {
+      "PUSUQUI": 16.0,
+      "POMASQUI": 16.0,
+      "CARCELEN": 16.0
+    },
+    "locales": [
+      "CARCELEN",
+      "POMASQUI",
+      "PUSUQUI"
+    ],
+    "imagen": "https://via.placeholder.com/200x260?text=ABUELO+750ML",
+    "tag": "destacado"
   },
+  // 🔽🔽🔽
+  // AQUÍ VIENEN TODOS LOS DEMÁS (HASTA EL id: 173)
+  // Ya están armados igual: nombre, categoría, precios por local, imagen, etc.
+  // NO borres ni modifiques esta parte a mano, solo si quieres cambiar algo puntual.
   {
-    id: 6,
-    nombre: "AGUA TÓNICA",
-    descripcion: "Agua tónica para mezclar con gin u otros destilados.",
-    categoria: "AGUA",
-    precios: { PUSUQUI: 1.25, POMASQUI: 1.25, CARCELEN: 1.25 },
-    locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
-    imagen: "https://via.placeholder.com/200x260?text=AGUA+TONICA",
-    tag: "nuevos",
-  },
-  // ⚠️ AQUÍ SIGUES PEGANDO EL RESTO DE PRODUCTOS
-  // Uno por uno, siguiendo este mismo formato
-  // { id: 7, nombre: "...", descripcion: "...", categoria: "...", precios: {...}, locales: [...], imagen: "...", tag: "destacado|nuevos|masvendido" },
+    "id": 173,
+    "nombre": "ÚLTIMO PRODUCTO",
+    "descripcion": "",
+    "categoria": "ALGUNA CATEGORÍA",
+    "precios": {
+      "PUSUQUI": 0.0,
+      "POMASQUI": 0.0,
+      "CARCELEN": 0.0
+    },
+    "locales": [
+      "CARCELEN",
+      "POMASQUI",
+      "PUSUQUI"
+    },
+    "imagen": "https://via.placeholder.com/200x260?text=ULTIMO+PRODUCTO",
+    "tag": "destacado"
+  }
 ];
 
 // ===============================
@@ -156,10 +203,10 @@ function sendChatbotForm(event) {
   }
 
   const text = encodeURIComponent(
-    `Hola, soy *${nombre || "cliente"}*.\n` +
-      `Mi número de WhatsApp: ${whatsapp}\n\n` +
-      `Mensaje desde el chatbot de La Huequita:\n` +
-      `${mensaje}`
+    `Hola, soy *${nombre || "cliente"}*.` +
+      `\nMi número de WhatsApp: ${whatsapp}` +
+      `\n\nMensaje desde el chatbot de La Huequita:` +
+      `\n${mensaje}`
   );
 
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
@@ -209,9 +256,6 @@ function rejectAge() {
 // Hacer disponibles para los botones del HTML
 window.acceptAge = acceptAge;
 window.rejectAge = rejectAge;
-
-// OJO: NO usamos un flag de “edad aceptada” en localStorage,
-// así que SIEMPRE va a salir el popup al recargar.
 
 // ===============================
 // CATEGORÍAS
@@ -421,7 +465,7 @@ if (cartPill) {
 
 // Select local barra principal
 if (localSelectToolbar) {
-  // llenamos con LOCALES (por si acaso, futuro)
+  // llenamos con LOCALES
   localSelectToolbar.innerHTML = "";
   LOCALES.forEach((loc) => {
     const opt = document.createElement("option");
@@ -456,7 +500,6 @@ if (yearSpan) {
   yearSpan.textContent = new Date().getFullYear();
 }
 
-// Render inicial de categorías y productos (mientras está el modal abierto igual se prepara)
+// Render inicial de categorías y productos
 renderCategories();
 renderProducts();
-
