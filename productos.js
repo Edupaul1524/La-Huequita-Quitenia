@@ -1748,13 +1748,25 @@ const products = [
   }
 ];
 
+// ==========================
+// REFERENCIAS DOM
+// ==========================
+const categoriesContainer = document.getElementById("categories");
+const searchBox = document.getElementById("search-box");
+const productsGrid = document.getElementById("products-grid");
+const tabs = document.querySelectorAll(".section-tab");
+const yearSpan = document.getElementById("year");
+const cartPill = document.getElementById("cart-pill");
+const localSelectToolbar = document.getElementById("local-select");
+const storeSelectPopup = document.getElementById("store-select");
+const mainWhatsappBtn = document.getElementById("main-whatsapp-btn");
 
-// Utilidades
-function getLocalLabel(id) {
-  const loc = LOCALES.find(l => l.id === id);
-  return loc ? loc.label : id;
-}
+let activeCategory = "Todos";
+let activeTabFilter = "destacados";
 
+// ==========================
+// WHATSAPP
+// ==========================
 function openWhatsapp() {
   const text = encodeURIComponent(
     "Hola, vengo de la web de La Huequita Quiteña y quiero hacer un pedido 🍾"
@@ -1762,40 +1774,13 @@ function openWhatsapp() {
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
 }
 
-// Chatbot
-function toggleChatbot() {
-  const win = document.getElementById("chatbot-window");
-  if (!win) return;
-  win.style.display = (win.style.display === "flex") ? "none" : "flex";
-}
-
-function sendChatbotForm(event) {
-  event.preventDefault();
-  const nombre = document.getElementById("cb-nombre")?.value.trim() || "";
-  const tel    = document.getElementById("cb-whatsapp")?.value.trim() || "";
-  const msg    = document.getElementById("cb-mensaje")?.value.trim() || "";
-
-  if (!tel || !msg) {
-    alert("Por favor ingresa al menos tu número de WhatsApp y tu mensaje 🙏");
-    return false;
-  }
-
-  const texto = encodeURIComponent(
-    `Hola, soy ${nombre || "cliente"} y te escribo desde el chat de la web de La Huequita:
-` +
-    `Whatsapp: ${tel}
-` +
-    `Mensaje: ${msg}`
-  );
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${texto}`, "_blank");
-  return false;
-}
-
-// Locales
+// ==========================
+// LOCALES – llenar selects por JS
+// ==========================
 function populateLocalesSelect(selectEl) {
   if (!selectEl) return;
   selectEl.innerHTML = "";
-  LOCALES.forEach(loc => {
+  LOCALES.forEach((loc) => {
     const opt = document.createElement("option");
     opt.value = loc.id;
     opt.textContent = loc.label;
@@ -1804,53 +1789,73 @@ function populateLocalesSelect(selectEl) {
   selectEl.value = activeLocal;
 }
 
-// Categorías
+function getLocalLabel(id) {
+  const loc = LOCALES.find((l) => l.id === id);
+  return loc ? loc.label : id;
+}
+
+// ==========================
+// CATEGORÍAS
+// ==========================
 function getCategories() {
-  const set = new Set(products.map(p => p.categoria));
+  const set = new Set(products.map((p) => p.categoria));
   return ["Todos", ...Array.from(set)];
 }
 
 function renderCategories() {
+  if (!categoriesContainer) return;
   categoriesContainer.innerHTML = "";
-  getCategories().forEach(cat => {
+  getCategories().forEach((cat) => {
     const btn = document.createElement("button");
-    btn.className = "category-chip" + (cat === activeCategory ? " active" : "");
+    btn.className =
+      "category-chip" + (cat === activeCategory ? " active" : "");
     btn.textContent = cat;
     btn.dataset.category = cat;
 
+    // 👉 FILTRA EN LA MISMA PÁGINA
     btn.addEventListener("click", () => {
-      // 👉 Al hacer click en una categoría, navegamos a "otra página"
-      const newUrl = `${window.location.pathname}?categoria=${encodeURIComponent(cat)}`;
-      window.location.href = newUrl; // recarga desde arriba, parece otro módulo
+      activeCategory = cat;
+      document
+        .querySelectorAll(".category-chip")
+        .forEach((c) => c.classList.remove("active"));
+      btn.classList.add("active");
+      renderProducts();
     });
 
     categoriesContainer.appendChild(btn);
   });
 }
 
-
-// Render de productos
+// ==========================
+// RENDER DE PRODUCTOS
+// ==========================
 function renderProducts() {
-  const productsGrid = document.getElementById("products-grid");
-  const searchBox = document.getElementById("search-box");
   if (!productsGrid) return;
-
   const search = (searchBox?.value || "").trim().toLowerCase();
   productsGrid.innerHTML = "";
 
-  const filtered = products.filter(p => {
+  const filtered = products.filter((p) => {
+    // 1) Local
     const matchesLocal = !p.locales || p.locales.includes(activeLocal);
-    const matchesCategory = activeCategory === "Todos" || p.categoria === activeCategory;
+
+    // 2) Categoría
+    const matchesCategory =
+      activeCategory === "Todos" || p.categoria === activeCategory;
+
+    // 3) Pestañas
     const matchesTab =
       !activeTabFilter ||
       (activeTabFilter === "destacados" && p.tag === "destacado") ||
       (activeTabFilter === "nuevos" && p.tag === "nuevos") ||
       (activeTabFilter === "masvendidos" && p.tag === "masvendido");
+
+    // 4) Buscador
     const matchesSearch =
       !search ||
       p.nombre.toLowerCase().includes(search) ||
       p.categoria.toLowerCase().includes(search) ||
       (p.descripcion && p.descripcion.toLowerCase().includes(search));
+
     return matchesLocal && matchesCategory && matchesTab && matchesSearch;
   });
 
@@ -1860,13 +1865,14 @@ function renderProducts() {
     return;
   }
 
-  filtered.forEach(p => {
+  filtered.forEach((p) => {
     const card = document.createElement("article");
     card.className = "product-card";
 
     const badge = document.createElement("div");
     badge.className = "product-badge";
     if (p.tag === "masvendido") badge.classList.add("product-badge--hot");
+
     let badgeText = "";
     if (p.tag === "destacado") badgeText = "DESTACADO";
     if (p.tag === "nuevos") badgeText = "NUEVO";
@@ -1878,7 +1884,8 @@ function renderProducts() {
 
     const img = document.createElement("img");
     img.className = "product-image";
-    img.src = p.imagen;
+    // si tienes imágenes en el objeto, se usan; si no, no rompe
+    img.src = p.imagen || "img/bottle-generic.png";
     img.alt = p.nombre;
     imgWrap.appendChild(img);
 
@@ -1897,7 +1904,9 @@ function renderProducts() {
     price.className = "product-price";
 
     const priceForLocal = p.precios?.[activeLocal];
-    let priceText = priceForLocal ? `$ ${priceForLocal.toFixed(2)}` : "No disponible";
+    let priceText = priceForLocal
+      ? `$ ${priceForLocal.toFixed(2)}`
+      : "No disponible";
 
     price.innerHTML = `
       ${priceText}
@@ -1906,10 +1915,8 @@ function renderProducts() {
 
     const note = document.createElement("div");
     note.className = "product-note";
-    note.innerHTML = `
-      Delivery vía app / taxi no está incluido.<br>
-      Pago con tarjeta + recargo % en el local.
-    `;
+    note.innerHTML =
+      "Delivery vía app / taxi no está incluido.<br>Pago con tarjeta + recargo % en el local.";
 
     meta.appendChild(price);
     meta.appendChild(note);
@@ -1922,12 +1929,17 @@ function renderProducts() {
     btnWp.innerHTML = `<span>💬</span> Pedir por WhatsApp`;
     btnWp.addEventListener("click", () => {
       const text = encodeURIComponent(
-        `Hola, quiero hacer un pedido en *La Huequita Quiteña* (${getLocalLabel(activeLocal)}):\n` +
-        `• Producto: ${p.nombre}\n` +
-        `• Precio en tienda: ${priceText}\n` +
-        `¿Me ayudas con disponibilidad y delivery?`
+        `Hola, quiero hacer un pedido en *La Huequita Quiteña* (${getLocalLabel(
+          activeLocal
+        )}):\n` +
+          `• Producto: ${p.nombre}\n` +
+          `• Precio en tienda: ${priceText}\n` +
+          `¿Me ayudas con disponibilidad y delivery?`
       );
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
+      window.open(
+        `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`,
+        "_blank"
+      );
     });
 
     const btnInfo = document.createElement("button");
@@ -1936,9 +1948,9 @@ function renderProducts() {
     btnInfo.addEventListener("click", () => {
       alert(
         `Producto: ${p.nombre}\n` +
-        `Sucursal: ${getLocalLabel(activeLocal)}\n` +
-        `Categoría: ${p.categoria}\n` +
-        `Precio en tienda: ${priceText}`
+          `Sucursal: ${getLocalLabel(activeLocal)}\n` +
+          `Categoría: ${p.categoria}\n` +
+          `Precio en tienda: ${priceText}`
       );
     });
 
@@ -1956,11 +1968,11 @@ function renderProducts() {
   });
 }
 
-// Popup edad
+// ==========================
+// POPUP EDAD
+// ==========================
 function acceptAge() {
   const modal = document.getElementById("age-modal");
-  const storeSelectPopup = document.getElementById("store-select");
-  const localSelectToolbar = document.getElementById("local-select");
   if (storeSelectPopup) {
     activeLocal = storeSelectPopup.value;
     localStorage.setItem("huequita_local", activeLocal);
@@ -1975,69 +1987,93 @@ function rejectAge() {
   window.location.href = "https://google.com";
 }
 
-// Exponer funciones globales para el HTML
+// ==========================
+// CHATBOT
+// ==========================
+function toggleChatbot() {
+  const box = document.getElementById("chatbot-window");
+  if (!box) return;
+  box.style.display = box.style.display === "flex" ? "none" : "flex";
+}
+
+function sendChatbotForm(e) {
+  e.preventDefault();
+  const nombre = document.getElementById("cb-nombre")?.value || "";
+  const telefono = document.getElementById("cb-whatsapp")?.value || "";
+  const mensaje = document.getElementById("cb-mensaje")?.value || "";
+
+  const texto = encodeURIComponent(
+    `Hola, soy ${nombre || "cliente"}.\n` +
+      `Mi WhatsApp: ${telefono || "no indicado"}\n\n` +
+      `Quiero consultar/pedir:\n${mensaje}`
+  );
+
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${texto}`, "_blank");
+  return false;
+}
+
+// ==========================
+// EVENTOS INICIO
+// ==========================
+
+// Tabs (destacados, nuevos, más vendidos)
+tabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    tabs.forEach((t) => t.classList.remove("active"));
+    tab.classList.add("active");
+    activeTabFilter = tab.dataset.filterTab;
+    renderProducts();
+  });
+});
+
+// Buscador
+if (searchBox) {
+  searchBox.addEventListener("input", () => {
+    renderProducts();
+  });
+}
+
+// Carrito
+if (cartPill) {
+  cartPill.addEventListener("click", () => {
+    alert("Por ahora los pedidos se gestionan por WhatsApp 💚");
+  });
+}
+
+// Botón principal de WhatsApp en el header
+if (mainWhatsappBtn) {
+  mainWhatsappBtn.addEventListener("click", openWhatsapp);
+}
+
+// Select de sucursal en la barra principal
+if (localSelectToolbar) {
+  populateLocalesSelect(localSelectToolbar);
+  localSelectToolbar.addEventListener("change", () => {
+    activeLocal = localSelectToolbar.value;
+    localStorage.setItem("huequita_local", activeLocal);
+    if (storeSelectPopup) storeSelectPopup.value = activeLocal;
+    renderProducts();
+  });
+}
+
+// Select de sucursal en el popup
+if (storeSelectPopup) {
+  populateLocalesSelect(storeSelectPopup);
+}
+
+// Año en footer
+if (yearSpan) {
+  yearSpan.textContent = new Date().getFullYear();
+}
+
+// Exponer funciones al HTML
 window.acceptAge = acceptAge;
 window.rejectAge = rejectAge;
 window.toggleChatbot = toggleChatbot;
 window.sendChatbotForm = sendChatbotForm;
 window.openWhatsapp = openWhatsapp;
 
-// Init
-function initHuequita() {
-  const localSelectToolbar = document.getElementById("local-select");
-  const storeSelectPopup = document.getElementById("store-select");
-  const searchBox = document.getElementById("search-box");
-  const tabs = document.querySelectorAll(".section-tab");
-  const yearSpan = document.getElementById("year");
-  const cartPill = document.getElementById("cart-pill");
-  const mainWhatsappBtn = document.getElementById("main-whatsapp-btn");
-
-  if (yearSpan) {
-    yearSpan.textContent = new Date().getFullYear();
-  }
-
-  if (localSelectToolbar) {
-    populateLocalesSelect(localSelectToolbar);
-    localSelectToolbar.addEventListener("change", () => {
-      activeLocal = localSelectToolbar.value;
-      localStorage.setItem("huequita_local", activeLocal);
-      if (storeSelectPopup) storeSelectPopup.value = activeLocal;
-      renderProducts();
-    });
-  }
-
-  if (storeSelectPopup) {
-    populateLocalesSelect(storeSelectPopup);
-  }
-
-  if (searchBox) {
-    searchBox.addEventListener("input", () => {
-      renderProducts();
-    });
-  }
-
-  if (cartPill) {
-    cartPill.addEventListener("click", () => {
-      alert("Por ahora los pedidos se gestionan por WhatsApp 💚");
-    });
-  }
-
-  if (mainWhatsappBtn) {
-    mainWhatsappBtn.addEventListener("click", openWhatsapp);
-  }
-
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      tabs.forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
-      activeTabFilter = tab.dataset.filterTab;
-      renderProducts();
-    });
-  });
-
-  renderCategories();
-  renderProducts();
-}
-
-document.addEventListener("DOMContentLoaded", initHuequita);
+// Init catálogo
+renderCategories();
+renderProducts();
 
