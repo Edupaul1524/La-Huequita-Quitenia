@@ -3297,9 +3297,24 @@ function renderProducts() {
     imgWrap.className = "product-image-wrap";
 
     const img = document.createElement("img");
-    img.className = "product-image";
-    img.src = p.imagen;
-    img.alt = p.nombre;
+img.className = "product-image";
+
+// Si el producto tiene una imagen definida en el array, úsala.
+// Si no, intenta cargar una imagen local con el mismo nombre del producto.
+// Si ninguna existe, cae al placeholder con el nombre del producto.
+let srcPrincipal = p.imagen && !p.imagen.includes("via.placeholder.com")
+  ? p.imagen
+  : `img/${encodeURIComponent(p.nombre)}.png`;
+
+img.src = srcPrincipal;
+img.alt = p.nombre;
+
+// Fallback: si la imagen local no existe, usamos un placeholder bonito
+img.onerror = () => {
+  img.onerror = null;
+  img.src = `https://via.placeholder.com/200x260?text=${encodeURIComponent(p.nombre)}`;
+};
+
 
     imgWrap.appendChild(img);
 
@@ -3308,8 +3323,51 @@ function renderProducts() {
     title.textContent = p.nombre;
 
     const desc = document.createElement("p");
-    desc.className = "product-desc";
-    desc.textContent = p.descripcion || "";
+desc.className = "product-desc";
+
+function getDefaultDescription(prod) {
+  const cat = (prod.categoria || "").toUpperCase();
+
+  if (cat.includes("WHISKY")) {
+    return "Whisky ideal para compartir en shots o en las rocas.";
+  }
+  if (cat.includes("RON")) {
+    return "Ron perfecto para mezclar en cócteles o tomar puro.";
+  }
+  if (cat.includes("AGUARDIENTE")) {
+    return "Aguardiente frío, perfecto para la previa con amigos.";
+  }
+  if (cat.includes("VINO")) {
+    return "Vino para acompañar comidas o brindar en la noche.";
+  }
+  if (cat.includes("ESPUMANTE") || cat.includes("CHAMPAGNE")) {
+    return "Espumante ideal para celebrar y hacer brindis especiales.";
+  }
+  if (cat.includes("ENERG")) {
+    return "Bebida energética para mantener la fiesta encendida.";
+  }
+  if (cat.includes("AGUA")) {
+    return "Agua perfecta para mezclar tragos o hidratarse.";
+  }
+  if (cat.includes("JUGO") || cat.includes("GASEOSA") || cat.includes("REFRESCO")) {
+    return "Refresco frío para acompañar tus tragos o tomar solo.";
+  }
+  if (cat.includes("CIGARR") || cat.includes("TABACO")) {
+    return "Cigarrillos y tabacos para complementar tu compra.";
+  }
+  if (cat.includes("SNACK") || cat.includes("PAPA") || cat.includes("BOCADITO")) {
+    return "Snack ideal para picar mientras disfrutas con tus panas.";
+  }
+
+  // genérico
+  return "Producto ideal para complementar tu noche en La Huequita.";
+}
+
+desc.textContent = p.descripcion && p.descripcion.trim().length > 0
+  ? p.descripcion
+  : getDefaultDescription(p);
+
+    
 
     const meta = document.createElement("div");
     meta.className = "product-meta";
