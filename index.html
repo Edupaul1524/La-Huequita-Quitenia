@@ -341,38 +341,40 @@
     }
 
     /* CATEGORÍAS */
-    .categories-bar {
-      margin-top: 6px;
-      margin-bottom: 18px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-    }
+.categories-bar {
+  margin-top: 4px;
+  margin-bottom: 24px;
+  /* antes tenía overflow-x: auto y por eso salía la barra gris */
+  overflow: visible;
+  padding-bottom: 0;
+}
+.categories-list {
+  display: flex;
+  flex-wrap: wrap;             /* ahora se van a varias filas */
+  gap: 10px 8px;               /* espacio entre filas y columnas */
+  row-gap: 10px;
+  white-space: normal;         /* permite que el texto haga salto */
+  justify-content: flex-start; /* o "center" si quieres centrado */
+}
+.category-chip {
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--color-border);
+  background: rgba(3, 3, 10, 0.9);
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
 
-    .categories-list {
-      display: inline-flex;
-      gap: 8px;
-      white-space: nowrap;
-    }
-
-    .category-chip {
-      padding: 7px 12px;
-      border-radius: var(--radius-pill);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      border: 1px solid var(--color-border);
-      background: rgba(3, 3, 10, 0.7);
-      color: var(--color-muted);
-      cursor: pointer;
-      transition: var(--transition-fast);
-    }
-
-    .category-chip.active {
-      background: var(--color-primary-soft);
-      color: var(--color-primary);
-      border-color: rgba(0, 255, 127, 0.8);
-      box-shadow: 0 0 12px rgba(0, 255, 127, 0.35);
-    }
+.category-chip.active {
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  border-color: rgba(0, 255, 127, 0.9);
+  box-shadow: 0 0 12px rgba(0, 255, 127, 0.35);
+}
 
     /* SECCIÓN MEJORES PRODUCTOS */
     .section-header {
