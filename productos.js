@@ -8,7 +8,10 @@ const LOCALES = [
 ];
 
 let activeLocal = localStorage.getItem("huequita_local") || "PUSUQUI";
-let activeCategory = "Todos";
+// Leer categoría desde la URL (?categoria=RON, ?categoria=CERVEZA, etc.)
+const params = new URLSearchParams(window.location.search);
+let activeCategory = params.get("categoria") || "Todos";
+
 let activeTabFilter = "destacados";
 
 
@@ -1808,23 +1811,23 @@ function getCategories() {
 }
 
 function renderCategories() {
-  const categoriesContainer = document.getElementById("categories");
-  if (!categoriesContainer) return;
   categoriesContainer.innerHTML = "";
   getCategories().forEach(cat => {
     const btn = document.createElement("button");
     btn.className = "category-chip" + (cat === activeCategory ? " active" : "");
     btn.textContent = cat;
     btn.dataset.category = cat;
+
     btn.addEventListener("click", () => {
-      activeCategory = cat;
-      document.querySelectorAll(".category-chip").forEach(c => c.classList.remove("active"));
-      btn.classList.add("active");
-      renderProducts();
+      // 👉 Al hacer click en una categoría, navegamos a "otra página"
+      const newUrl = `${window.location.pathname}?categoria=${encodeURIComponent(cat)}`;
+      window.location.href = newUrl; // recarga desde arriba, parece otro módulo
     });
+
     categoriesContainer.appendChild(btn);
   });
 }
+
 
 // Render de productos
 function renderProducts() {
