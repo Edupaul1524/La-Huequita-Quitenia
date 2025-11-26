@@ -15,16 +15,16 @@ let activeLocal = localStorage.getItem("huequita_local") || "PUSUQUI";
 // DATA DE PRODUCTOS (AUTOGENERADO DESDE TUS EXCEL)
 // ===============================
 const products = [
-  {
-    "id": 1,
-    "nombre": "100 FUEGOS 375ML",
-    "descripcion": "100 Fuegos 375Ml de la categoría Ron, disponible en La Huequita.",
-    "categoria": "RON",
-    "precios": {
-      "PUSUQUI": 9.25,
-      "POMASQUI": 9.25,
-      "CARCELEN": 9.25
-    },
+{
+  id: 1,
+  nombre: "AGUA CIELO 1LT",
+  categoria: "AGUA",
+  precios: { PUSUQUI: 1.00, POMASQUI: 1.00, CARCELEN: 1.00 },
+  locales: ["PUSUQUI", "POMASQUI", "CARCELEN"],
+  imagen: "upload/Agua Cielo 1lt.png",
+  descripcion: "Refrescante, ideal para acompañar cualquier plan.",
+  tag: "destacado"
+},
     "locales": [
       "PUSUQUI",
       "POMASQUI",
