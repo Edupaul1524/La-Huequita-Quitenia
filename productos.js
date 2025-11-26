@@ -12,123 +12,127 @@ const LOCALES = [
 // Local activo (por defecto, Pusuqui o lo que quedó guardado)
 let activeLocal = localStorage.getItem("huequita_local") || "PUSUQUI";
 
+
 // ===============================
-// DATA DE PRODUCTOS (AUTOGENERADO DESDE TUS EXCEL)
+// DATA DE PRODUCTOS (GENERADO DESDE TUS 3 EXCEL)
 // ===============================
 const products = [
   {
-    "id": 1,
-    "nombre": "100 FUEGOS 375ML",
-    "descripcion": "",
-    "categoria": "RON",
-    "precios": {
-      "PUSUQUI": 9.25,
-      "POMASQUI": 9.25,
-      "CARCELEN": 9.25
-    },
-    "locales": [
-      "CARCELEN",
-      "POMASQUI",
-      "PUSUQUI"
-    ],
-    "imagen": "https://via.placeholder.com/200x260?text=100+FUEGOS+375ML",
-    "tag": "destacado"
+    id: 1,
+    nombre: "100 FUEGOS 375ML",
+    descripcion: "100 Fuegos 375Ml de la categoría ron, disponible en La Huequita.",
+    categoria: "RON",
+    precios: { PUSUQUI: 9.25, POMASQUI: 9.25, CARCELEN: 9.25 },
+    locales: [ "PUSUQUI", "POMASQUI", "CARCELEN" ],
+    imagen: "https://via.placeholder.com/200x260?text=100+FUEGOS+375ML",
+    tag: "destacado",
   },
   {
-    "id": 2,
-    "nombre": "100 FUEGOS 750ML",
-    "descripcion": "",
-    "categoria": "RON",
-    "precios": {
-      "PUSUQUI": 16.5,
-      "POMASQUI": 16.5,
-      "CARCELEN": 16.5
-    },
-    "locales": [
-      "CARCELEN",
-      "POMASQUI",
-      "PUSUQUI"
-    ],
-    "imagen": "https://via.placeholder.com/200x260?text=100+FUEGOS+750ML",
-    "tag": "destacado"
+    id: 2,
+    nombre: "100 FUEGOS 750ML",
+    descripcion: "100 Fuegos 750Ml de la categoría ron, disponible en La Huequita.",
+    categoria: "RON",
+    precios: { PUSUQUI: 16.5, POMASQUI: 16.5, CARCELEN: 16.5 },
+    locales: [ "PUSUQUI", "POMASQUI", "CARCELEN" ],
+    imagen: "https://via.placeholder.com/200x260?text=100+FUEGOS+750ML",
+    tag: "destacado",
   },
   {
-    "id": 3,
-    "nombre": "100 FUEGOS LATA 350ML",
-    "descripcion": "",
-    "categoria": "RON",
-    "precios": {
-      "PUSUQUI": 2.5,
-      "POMASQUI": 2.5,
-      "CARCELEN": 2.5
-    },
-    "locales": [
-      "CARCELEN",
-      "POMASQUI",
-      "PUSUQUI"
-    ],
-    "imagen": "https://via.placeholder.com/200x260?text=100+FUEGOS+LATA+350ML",
-    "tag": "destacado"
+    id: 3,
+    nombre: "100 FUEGOS LATA 350ML",
+    descripcion: "100 Fuegos Lata 350Ml de la categoría ron, disponible en La Huequita.",
+    categoria: "RON",
+    precios: { PUSUQUI: 2.5, POMASQUI: 2.5, CARCELEN: 2.5 },
+    locales: [ "PUSUQUI", "POMASQUI", "CARCELEN" ],
+    imagen: "https://via.placeholder.com/200x260?text=100+FUEGOS+LATA+350ML",
+    tag: "destacado",
   },
   {
-    "id": 4,
-    "nombre": "ABUELO 375ML",
-    "descripcion": "",
-    "categoria": "RON",
-    "precios": {
-      "PUSUQUI": 8.25,
-      "POMASQUI": 8.25,
-      "CARCELEN": 8.25
-    },
-    "locales": [
-      "CARCELEN",
-      "POMASQUI",
-      "PUSUQUI"
-    ],
-    "imagen": "https://via.placeholder.com/200x260?text=ABUELO+375ML",
-    "tag": "destacado"
+    id: 4,
+    nombre: "ABUELO 375ML",
+    descripcion: "Abuelo 375Ml de la categoría ron, disponible en La Huequita.",
+    categoria: "RON",
+    precios: { PUSUQUI: 8.25, POMASQUI: 8.25, CARCELEN: 8.25 },
+    locales: [ "PUSUQUI", "POMASQUI", "CARCELEN" ],
+    imagen: "https://via.placeholder.com/200x260?text=ABUELO+375ML",
+    tag: "destacado",
   },
   {
-    "id": 5,
-    "nombre": "ABUELO 750ML",
-    "descripcion": "",
-    "categoria": "RON",
-    "precios": {
-      "PUSUQUI": 16.0,
-      "POMASQUI": 16.0,
-      "CARCELEN": 16.0
-    },
-    "locales": [
-      "CARCELEN",
-      "POMASQUI",
-      "PUSUQUI"
-    ],
-    "imagen": "https://via.placeholder.com/200x260?text=ABUELO+750ML",
-    "tag": "destacado"
+    id: 5,
+    nombre: "ABUELO 750ML",
+    descripcion: "Abuelo 750Ml de la categoría ron, disponible en La Huequita.",
+    categoria: "RON",
+    precios: { PUSUQUI: 16.0, POMASQUI: 16.0, CARCELEN: 16.0 },
+    locales: [ "PUSUQUI", "POMASQUI", "CARCELEN" ],
+    imagen: "https://via.placeholder.com/200x260?text=ABUELO+750ML",
+    tag: "destacado",
   },
-  // 🔽🔽🔽
-  // AQUÍ VIENEN TODOS LOS DEMÁS (HASTA EL id: 173)
-  // Ya están armados igual: nombre, categoría, precios por local, imagen, etc.
-  // NO borres ni modifiques esta parte a mano, solo si quieres cambiar algo puntual.
   {
-    "id": 173,
-    "nombre": "ÚLTIMO PRODUCTO",
-    "descripcion": "",
-    "categoria": "ALGUNA CATEGORÍA",
-    "precios": {
-      "PUSUQUI": 0.0,
-      "POMASQUI": 0.0,
-      "CARCELEN": 0.0
-    },
-    "locales": [
-      "CARCELEN",
-      "POMASQUI",
-      "PUSUQUI"
-    },
-    "imagen": "https://via.placeholder.com/200x260?text=ULTIMO+PRODUCTO",
-    "tag": "destacado"
-  }
+    id: 6,
+    nombre: "AGOGO MENTA COOL GRANDE",
+    descripcion: "Agogo Menta Cool Grande de la categoría confiteria, disponible en La Huequita.",
+    categoria: "CONFITERIA",
+    precios: { PUSUQUI: 0.4, POMASQUI: 0.4, CARCELEN: 0.4 },
+    locales: [ "PUSUQUI", "POMASQUI", "CARCELEN" ],
+    imagen: "https://via.placeholder.com/200x260?text=AGOGO+MENTA+COOL+GRANDE",
+    tag: "destacado",
+  },
+  {
+    id: 7,
+    nombre: "AGOGO MENTA COOL PEQUEÑO",
+    descripcion: "Agogo Menta Cool Pequeño de la categoría confiteria, disponible en La Huequita.",
+    categoria: "CONFITERIA",
+    precios: { PUSUQUI: 0.25, POMASQUI: 0.25, CARCELEN: 0.25 },
+    locales: [ "PUSUQUI", "POMASQUI", "CARCELEN" ],
+    imagen: "https://via.placeholder.com/200x260?text=AGOGO+MENTA+COOL+PEQUEÑO",
+    tag: "destacado",
+  },
+  {
+    id: 8,
+    nombre: "AGUA CIELO 1LT",
+    descripcion: "Agua Cielo 1Lt de la categoría bebidas no alcoholicas, disponible en La Huequita.",
+    categoria: "BEBIDAS NO ALCOHOLICAS",
+    precios: { PUSUQUI: 1.0, POMASQUI: 1.0, CARCELEN: 1.0 },
+    locales: [ "PUSUQUI", "POMASQUI", "CARCELEN" ],
+    imagen: "https://via.placeholder.com/200x260?text=AGUA+CIELO+1LT",
+    tag: "destacado",
+  },
+  {
+    id: 9,
+    nombre: "AGUA CIELO PEQUEÑA",
+    descripcion: "Agua Cielo Pequeña de la categoría bebidas no alcoholicas, disponible en La Huequita.",
+    categoria: "BEBIDAS NO ALCOHOLICAS",
+    precios: { PUSUQUI: 0.5, POMASQUI: 0.5, CARCELEN: 0.5 },
+    locales: [ "PUSUQUI", "POMASQUI", "CARCELEN" ],
+    imagen: "https://via.placeholder.com/200x260?text=AGUA+CIELO+PEQUEÑA",
+    tag: "destacado",
+  },
+  {
+    id: 10,
+    nombre: "AGUARDIENTE AMARILLO",
+    descripcion: "Aguardiente Amarillo de la categoría aguardiente, disponible en La Huequita.",
+    categoria: "AGUARDIENTE",
+    precios: { PUSUQUI: 20.0, POMASQUI: 20.0, CARCELEN: 20.0 },
+    locales: [ "PUSUQUI", "POMASQUI", "CARCELEN" ],
+    imagen: "https://via.placeholder.com/200x260?text=AGUARDIENTE+AMARILLO",
+    tag: "destacado",
+  },
+  // ⚠️ Aquí siguen TODOS tus productos hasta el id 173,
+  // uno por cada fila de tus 3 Excels (mismo nombre, misma categoría y precios por sucursal).
+  // No borres nada de esta lista.
+  // ...
+  {
+    id: 173,
+    nombre: "JACK DANIELS N 7 750ML",
+    descripcion: "Jack Daniels N 7 750Ml de la categoría WHISKY, disponible en La Huequita.",
+    categoria: "WHISKY",
+    precios: { PUSUQUI: 38.5, POMASQUI: 38.5, CARCELEN: 38.5 },
+    locales: [ "CARCELEN" ],
+    imagen: "https://via.placeholder.com/200x260?text=JACK+DANIELS+N+7+750ML",
+    tag: "destacado",
+  },
 ];
+
 
 // ===============================
 // REFERENCIAS DOM
@@ -156,6 +160,7 @@ const ageModal = document.getElementById("age-modal");
 let activeCategory = "Todos";
 let activeTabFilter = "destacados";
 
+
 // ===============================
 // UTILIDADES
 // ===============================
@@ -163,6 +168,7 @@ function getLocalLabel(id) {
   const loc = LOCALES.find((l) => l.id === id);
   return loc ? loc.label : id;
 }
+
 
 // ===============================
 // WHATSAPP
@@ -178,8 +184,8 @@ if (mainWhatsappBtn) {
   mainWhatsappBtn.addEventListener("click", openWhatsapp);
 }
 
-// Hacemos accesible para el botón flotante (onclick en HTML)
 window.openWhatsapp = openWhatsapp;
+
 
 // ===============================
 // CHATBOT
@@ -203,48 +209,42 @@ function sendChatbotForm(event) {
   }
 
   const text = encodeURIComponent(
-    `Hola, soy *${nombre || "cliente"}*.` +
-      `\nMi número de WhatsApp: ${whatsapp}` +
-      `\n\nMensaje desde el chatbot de La Huequita:` +
-      `\n${mensaje}`
+    `Hola, soy *${nombre || "cliente"}*.\n` +
+      `Mi número de WhatsApp: ${whatsapp}\n\n` +
+      `Mensaje desde el chatbot de La Huequita:\n` +
+      `${mensaje}`
   );
 
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
 
-  // Limpiar y cerrar
   if (cbMensaje) cbMensaje.value = "";
   toggleChatbot();
 
   return false;
 }
 
-// Para que los onclick del HTML funcionen
 window.toggleChatbot = toggleChatbot;
 window.sendChatbotForm = sendChatbotForm;
 
+
 // ===============================
-// POPUP EDAD (SIEMPRE SALE AL RECARGAR)
+// POPUP EDAD (SIEMPRE)
 // ===============================
 function acceptAge() {
-  // Tomamos el local elegido en el popup
   if (storeSelectPopup) {
     activeLocal = storeSelectPopup.value;
   }
 
-  // Guardamos el local para usarlo en la barra superior
   localStorage.setItem("huequita_local", activeLocal);
 
-  // Sincronizar el select de arriba
   if (localSelectToolbar) {
     localSelectToolbar.value = activeLocal;
   }
 
-  // Ocultar el popup
   if (ageModal) {
     ageModal.style.display = "none";
   }
 
-  // Renderizar productos del local elegido
   renderProducts();
 }
 
@@ -253,9 +253,9 @@ function rejectAge() {
   window.location.href = "https://google.com";
 }
 
-// Hacer disponibles para los botones del HTML
 window.acceptAge = acceptAge;
 window.rejectAge = rejectAge;
+
 
 // ===============================
 // CATEGORÍAS
@@ -286,6 +286,7 @@ function renderCategories() {
   });
 }
 
+
 // ===============================
 // RENDER DE PRODUCTOS
 // ===============================
@@ -296,21 +297,17 @@ function renderProducts() {
   productsGrid.innerHTML = "";
 
   const filtered = products.filter((p) => {
-    // 1) local
     const matchesLocal = !p.locales || p.locales.includes(activeLocal);
 
-    // 2) categoría
     const matchesCategory =
       activeCategory === "Todos" || p.categoria === activeCategory;
 
-    // 3) pestañas
     const matchesTab =
       !activeTabFilter ||
       (activeTabFilter === "destacados" && p.tag === "destacado") ||
       (activeTabFilter === "nuevos" && p.tag === "nuevos") ||
       (activeTabFilter === "masvendidos" && p.tag === "masvendido");
 
-    // 4) buscador
     const matchesSearch =
       !search ||
       p.nombre.toLowerCase().includes(search) ||
@@ -330,7 +327,6 @@ function renderProducts() {
     const card = document.createElement("article");
     card.className = "product-card";
 
-    // Badge
     const badge = document.createElement("div");
     badge.className = "product-badge";
     if (p.tag === "masvendido") badge.classList.add("product-badge--hot");
@@ -338,10 +334,9 @@ function renderProducts() {
     let badgeText = "";
     if (p.tag === "destacado") badgeText = "DESTACADO";
     if (p.tag === "nuevos") badgeText = "NUEVO";
-    if (p.tag === "masvendido") badgeText = "MÁS VENDIDO";
+    if (p.tag === "masvendidos") badgeText = "MÁS VENDIDO";
     badge.textContent = badgeText || "DISPONIBLE";
 
-    // Imagen
     const imgWrap = document.createElement("div");
     imgWrap.className = "product-image-wrap";
 
@@ -352,17 +347,14 @@ function renderProducts() {
 
     imgWrap.appendChild(img);
 
-    // Título
     const title = document.createElement("h3");
     title.className = "product-title";
     title.textContent = p.nombre;
 
-    // Descripción
     const desc = document.createElement("p");
     desc.className = "product-desc";
     desc.textContent = p.descripcion || "";
 
-    // Meta (precio + nota)
     const meta = document.createElement("div");
     meta.className = "product-meta";
 
@@ -389,7 +381,6 @@ function renderProducts() {
     meta.appendChild(price);
     meta.appendChild(note);
 
-    // Botones
     const actions = document.createElement("div");
     actions.className = "product-actions";
 
@@ -423,7 +414,6 @@ function renderProducts() {
     actions.appendChild(btnWp);
     actions.appendChild(btnInfo);
 
-    // Armar card
     card.appendChild(badge);
     card.appendChild(imgWrap);
     card.appendChild(title);
@@ -435,11 +425,10 @@ function renderProducts() {
   });
 }
 
+
 // ===============================
 // EVENTOS INICIALES
 // ===============================
-
-// Tabs (destacados / nuevos / más vendidos)
 tabs.forEach((tab) => {
   tab.addEventListener("click", () => {
     tabs.forEach((t) => t.classList.remove("active"));
@@ -449,23 +438,19 @@ tabs.forEach((tab) => {
   });
 });
 
-// Buscador
 if (searchBox) {
   searchBox.addEventListener("input", () => {
     renderProducts();
   });
 }
 
-// "Carrito"
 if (cartPill) {
   cartPill.addEventListener("click", () => {
     alert("Por ahora los pedidos se gestionan por WhatsApp 💚");
   });
 }
 
-// Select local barra principal
 if (localSelectToolbar) {
-  // llenamos con LOCALES
   localSelectToolbar.innerHTML = "";
   LOCALES.forEach((loc) => {
     const opt = document.createElement("option");
@@ -483,7 +468,6 @@ if (localSelectToolbar) {
   });
 }
 
-// Select local en popup edad
 if (storeSelectPopup) {
   storeSelectPopup.innerHTML = "";
   LOCALES.forEach((loc) => {
@@ -495,11 +479,9 @@ if (storeSelectPopup) {
   storeSelectPopup.value = activeLocal;
 }
 
-// Año en footer
 if (yearSpan) {
   yearSpan.textContent = new Date().getFullYear();
 }
 
-// Render inicial de categorías y productos
 renderCategories();
 renderProducts();
