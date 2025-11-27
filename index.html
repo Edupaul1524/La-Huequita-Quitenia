@@ -227,38 +227,38 @@
     }
 
     /* CATEGORÍAS */
+    /* CATEGORÍAS */
     .categories-bar {
-      margin-top: 6px;
+      margin-top: 8px;
       margin-bottom: 18px;
-      overflow-x: auto;
       padding-bottom: 4px;
+      overflow: visible;      /* sin scroll horizontal */
     }
 
     .categories-list {
-      display: inline-flex;
+      display: flex;
+      flex-wrap: wrap;        /* permite varias filas */
       gap: 8px;
-      white-space: nowrap;
+      justify-content: flex-start;  /* se alinean a la izquierda */
     }
 
     .category-chip {
       padding: 7px 12px;
-      border-radius: var(--radius-pill);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      border: 1px solid var(--color-border);
-      background: rgba(3, 3, 10, 0.7);
-      color: var(--color-muted);
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(18, 18, 18, 0.9);
+      font-size: 12px;
       cursor: pointer;
-      transition: var(--transition-fast);
+      transition: all 0.2s ease;
     }
 
     .category-chip.active {
-      background: var(--color-primary-soft);
-      color: var(--color-primary);
-      border-color: rgba(0, 255, 127, 0.8);
-      box-shadow: 0 0 12px rgba(0, 255, 127, 0.35);
+      background: #00ff99;
+      color: #000;
+      border-color: #00ff99;
+      font-weight: 600;
     }
+
 
     /* SECCIÓN MEJORES PRODUCTOS */
     .section-header {
