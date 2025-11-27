@@ -3454,5 +3454,3 @@ if (yearSpan) {
 // Render inicial
 renderCategories();
 renderProducts();
-
-
