@@ -226,39 +226,52 @@
       color: var(--color-muted);
     }
 
-    /* CATEGORÍAS */
-    /* CATEGORÍAS */
-    .categories-bar {
-      margin-top: 8px;
-      margin-bottom: 18px;
-      padding-bottom: 4px;
-      overflow: visible;      /* sin scroll horizontal */
-    }
+      /* CATEGORÍAS – ESTILO PRO */
+.categories-bar {
+  margin-top: 18px;
+  margin-bottom: 22px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: radial-gradient(circle at top left, rgba(0, 255, 153, 0.12), rgba(0, 0, 0, 0.8));
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.65);
+}
 
-    .categories-list {
-      display: flex;
-      flex-wrap: wrap;        /* permite varias filas */
-      gap: 8px;
-      justify-content: flex-start;  /* se alinean a la izquierda */
-    }
+.categories-list {
+  display: flex;
+  flex-wrap: wrap;          /* varias filas */
+  gap: 10px;
+  justify-content: center;  /* centrado, se ve más grande */
+}
 
-    .category-chip {
-      padding: 7px 12px;
-      border-radius: 50px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(18, 18, 18, 0.9);
-      font-size: 12px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
+.category-chip {
+  padding: 9px 18px;        /* más grande */
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06); /* más claro que el fondo */
+  color: #f5f5f5;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
 
-    .category-chip.active {
-      background: #00ff99;
-      color: #000;
-      border-color: #00ff99;
-      font-weight: 600;
-    }
+.category-chip:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
+  border-color: rgba(0, 255, 153, 0.55);
+}
 
+.category-chip.active {
+  background: linear-gradient(120deg, #00ff99, #00d4ff);
+  color: #000;
+  border-color: transparent;
+  box-shadow: 0 0 18px rgba(0, 255, 153, 0.55);
+  font-weight: 600;
+}
+
+
+    
 
     /* SECCIÓN MEJORES PRODUCTOS */
     .section-header {
