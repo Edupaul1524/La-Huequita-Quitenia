@@ -917,16 +917,63 @@
     <!-- Se rellena por JS -->
   </div>
 </div>
-    <!-- SECCIÓN MEJORES PRODUCTOS -->
-        <section id="productos">
-        <div class="section-header">
-        <h2 class="section-title">Mejores productos</h2>
-        <div class="section-tabs">
-          <button class="section-tab active" data-filter-tab="destacados">Destacados</button>
-          <button class="section-tab" data-filter-tab="nuevos">Recién llegados</button>
-          <button class="section-tab" data-filter-tab="masvendidos">Más vendidos</button>
-        </div>
-      </div>
+
+/* ===== BANNER GRANDE – MEJORES PRODUCTOS ===== */
+
+#productos {
+  margin-top: 40px;
+  padding: 30px 20px;
+  border-radius: 22px;
+  background: radial-gradient(circle at top left, #0c0f16, #050509);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0px 18px 40px rgba(0, 0, 0, 0.55);
+}
+
+/* Título */
+#productos .section-title {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 20px 0;
+  color: #ffffff;
+}
+
+/* Contenedor de pestañas */
+#productos .section-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+/* Botones de filtros */
+.section-tab {
+  padding: 10px 18px;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: 0.18s ease;
+}
+
+/* Hover */
+.section-tab:hover {
+  background: rgba(0, 255, 127, 0.25);
+  border-color: rgba(0, 255, 127, 0.6);
+}
+
+/* Activo */
+.section-tab.active {
+  background: #00ff7f;
+  color: #000;
+  border-color: #00ff7f;
+  font-weight: 700;
+}
 
       <div class="products-grid" id="products-grid">
         <!-- Productos generados por JS -->
