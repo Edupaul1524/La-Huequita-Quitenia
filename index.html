@@ -848,6 +848,61 @@
         grid-template-columns: 1fr;
       }
     }
+
+     /* ===== BANNER MEJORES PRODUCTOS (VERSIÓN SIMPLE) ===== */
+    #productos {
+      margin-top: 32px;
+      padding: 24px 18px 26px 18px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #05070d, #0b0f1a);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    #productos .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    #productos .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    #productos .section-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .section-tab {
+      padding: 9px 18px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .section-tab:hover {
+      background: rgba(0, 255, 140, 0.18);
+      border-color: rgba(0, 255, 140, 0.7);
+    }
+
+    .section-tab.active {
+      background: #00ff7f;
+      color: #000;
+      border-color: #00ff7f;
+    }
+
   </style>
 </head>
 
