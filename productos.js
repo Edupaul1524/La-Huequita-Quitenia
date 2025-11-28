@@ -1871,8 +1871,9 @@ function renderCategories() {
     categoriesContainer.appendChild(btn);
   });
 }
+
 // ==========================
-// BANNERS GRANDES DE CATEGORÍAS
+// BANNERS GRANDES DE CATEGORÍAS (SIN RECARGAR PÁGINA)
 // ==========================
 function renderCategoryBanners() {
   if (!categoryBannersContainer) return;
@@ -1883,20 +1884,40 @@ function renderCategoryBanners() {
   const cats = getCategories().filter((cat) => cat !== "Todos");
 
   cats.forEach((cat) => {
-    const card = document.createElement("a");
+    const card = document.createElement("button");
+    card.type = "button";
     card.className = "category-banner";
-
-    // "Otra página" = misma página pero con ?categoria=...
-    card.href = `?categoria=${encodeURIComponent(cat)}`;
 
     card.innerHTML = `
       <div class="category-banner-title">${cat}</div>
       <div class="category-banner-meta">Ver productos de ${cat.toLowerCase()}</div>
     `;
 
+    card.addEventListener("click", () => {
+      // Cambiar categoría activa
+      activeCategory = cat;
+
+      // Si tienes chips ocultos, igual mantenemos coherencia
+      const chips = document.querySelectorAll(".category-chip");
+      chips.forEach((c) => {
+        if (c.dataset.category === cat) c.classList.add("active");
+        else c.classList.remove("active");
+      });
+
+      // Renderizar productos filtrados
+      renderProducts();
+
+      // Hacer scroll suave hasta la sección de productos
+      const productsSection = document.getElementById("productos");
+      if (productsSection) {
+        productsSection.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+
     categoryBannersContainer.appendChild(card);
   });
 }
+
 
 // ==========================
 // RENDER DE PRODUCTOS
