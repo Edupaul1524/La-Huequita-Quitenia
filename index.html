@@ -225,6 +225,68 @@
       font-size: 14px;
       color: var(--color-muted);
     }
+/* BLOQUE NUESTROS PRODUCTOS (BANNERS) */
+.categories-hero {
+  margin-top: 10px;
+  margin-bottom: 24px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(0, 255, 127, 0.08));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.7);
+}
+
+.categories-hero-title {
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 4px;
+}
+
+.categories-hero-sub {
+  font-size: 12px;
+  color: var(--color-muted);
+  margin-bottom: 12px;
+}
+
+.category-banners {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.category-banner {
+  display: block;
+  padding: 12px 10px;
+  border-radius: 14px;
+  background: radial-gradient(circle at top left, #141420, #050509);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-decoration: none;
+  color: #f5f5f5;
+  cursor: pointer;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+
+.category-banner-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.category-banner-meta {
+  font-size: 11px;
+  color: var(--color-muted);
+}
+
+.category-banner:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.8);
+  border-color: rgba(0, 255, 127, 0.7);
+  background: radial-gradient(circle at top left, #00ff7f, #020208);
+}
+
+    
 /* CATEGORÍAS – LOOK ECOMMERCE */
 .categories-bar {
   margin-top: 18px;
@@ -275,8 +337,11 @@
   box-shadow: 0 0 16px rgba(0, 255, 127, 0.55);
 }
 
-     
-
+    /* CATEGORÍAS ANTIGUAS (OCULTAS) */
+.categories-bar {
+  display: none; /* ya no usamos el scroll de chips */
+}
+  
     /* SECCIÓN MEJORES PRODUCTOS */
     .section-header {
       display: flex;
@@ -783,6 +848,18 @@
         <input id="search-box" type="text" placeholder="Buscar por nombre, marca o categoría..." />
       </div>
     </div>
+
+    <!-- NUESTROS PRODUCTOS (BANNERS DE CATEGORÍAS) -->
+<section class="categories-hero">
+  <h2 class="categories-hero-title">Nuestros productos</h2>
+  <p class="categories-hero-sub">
+    Elige una categoría para ver los productos disponibles en tu sucursal.
+  </p>
+  <div id="category-banners" class="category-banners">
+    <!-- Se llena por JS -->
+  </div>
+</section>
+
 
     <!-- CATEGORÍAS -->
   <div class="categories-bar">
