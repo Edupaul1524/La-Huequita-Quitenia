@@ -225,53 +225,57 @@
       font-size: 14px;
       color: var(--color-muted);
     }
-
-      /* CATEGORÍAS – ESTILO PRO */
+/* CATEGORÍAS – LOOK ECOMMERCE */
 .categories-bar {
   margin-top: 18px;
-  margin-bottom: 22px;
-  padding: 12px 14px;
-  border-radius: 16px;
-  background: radial-gradient(circle at top left, rgba(0, 255, 153, 0.12), rgba(0, 0, 0, 0.8));
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.65);
+  margin-bottom: 18px;
+  padding: 8px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.categories-heading {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-muted);
+  margin-bottom: 6px;
 }
 
 .categories-list {
   display: flex;
   flex-wrap: wrap;          /* varias filas */
-  gap: 10px;
-  justify-content: center;  /* centrado, se ve más grande */
+  gap: 8px;
+  justify-content: flex-start;  /* alineado a la izquierda, más tipo tienda */
 }
 
 .category-chip {
-  padding: 9px 18px;        /* más grande */
+  padding: 8px 14px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.06); /* más claro que el fondo */
+  border: 1px solid var(--color-border);
+  background: #141420;          /* un poco más claro que el fondo */
   color: #f5f5f5;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.02em;
   cursor: pointer;
-  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+  transition: transform 0.16s ease, box-shadow 0.16s ease,
+              background 0.16s ease, border-color 0.16s ease;
 }
 
 .category-chip:hover {
-  transform: translateY(-1px) scale(1.02);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
-  border-color: rgba(0, 255, 153, 0.55);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+  border-color: rgba(0, 255, 127, 0.6);
 }
 
 .category-chip.active {
-  background: linear-gradient(120deg, #00ff99, #00d4ff);
+  background: var(--color-primary);
   color: #000;
-  border-color: transparent;
-  box-shadow: 0 0 18px rgba(0, 255, 153, 0.55);
-  font-weight: 600;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 16px rgba(0, 255, 127, 0.55);
 }
 
-
-    
+     
 
     /* SECCIÓN MEJORES PRODUCTOS */
     .section-header {
@@ -781,12 +785,12 @@
     </div>
 
     <!-- CATEGORÍAS -->
-    <div class="categories-bar">
-      <div class="categories-list" id="categories">
-        <!-- Se rellena por JS -->
-      </div>
-    </div>
-
+  <div class="categories-bar">
+  <div class="categories-heading">Explora por categoría</div>
+  <div class="categories-list" id="categories">
+    <!-- Se rellena por JS -->
+  </div>
+</div>
     <!-- SECCIÓN MEJORES PRODUCTOS -->
     <section>
       <div class="section-header">
