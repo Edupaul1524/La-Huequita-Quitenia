@@ -4,6 +4,30 @@
   <meta charset="UTF-8" />
   <title>La Huequita Quiteña - Catálogo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+/* Botón para volver a la pantalla de categorías */
+.btn-back-home {
+  margin-bottom: 12px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--color-text);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-back-home:hover {
+  border-color: rgba(0, 255, 127, 0.7);
+  background: rgba(0, 255, 127, 0.14);
+}
+
+  
 
   <style>
     :root {
@@ -966,19 +990,29 @@
 </section>
 
     <!-- CATEGORÍAS -->
-  <div class="categories-bar">
-  <div class="categories-heading">Explora por categoría</div>
-  <div class="categories-list" id="categories">
-    <!-- Se rellena por JS -->
+<section id="productos">
+  <!-- BOTÓN PARA VOLVER A LAS CATEGORÍAS -->
+  <button id="back-home" class="btn-back-home">
+    ⬅ Volver a categorías
+  </button>
+
+  <div class="section-header">
+    <!-- TÍTULO QUE CAMBIA SEGÚN LA CATEGORÍA -->
+    <h2 class="section-title" id="productos-title">Productos</h2>
+
+    <div class="section-tabs">
+      <button class="section-tab active" data-filter-tab="destacados">Destacados</button>
+      <button class="section-tab" data-filter-tab="nuevos">Recién llegados</button>
+      <button class="section-tab" data-filter-tab="masvendidos">Más vendidos</button>
+    </div>
   </div>
-</div>
 
-      <div class="products-grid" id="products-grid">
-        <!-- Productos generados por JS -->
-      </div>
-    </section>
+  <div class="products-grid" id="products-grid">
+    <!-- Productos generados por JS -->
+  </div>
+</section>
 
-    <!-- FOOTER -->
+      <!-- FOOTER -->
     <footer>
       <div>
         <div class="footer-title">Información de la tienda</div>
@@ -1063,6 +1097,60 @@
 
   <!-- AQUÍ SOLO CARGAMOS EL JS DE LOS PRODUCTOS -->
   <script src="productos.js"></script>
+
+    // ==========================
+// CAMBIO DE VISTA: CATEGORÍAS <-> PRODUCTOS
+// ==========================
+const homeHero = document.querySelector(".categories-hero");  // sección "Nuestros productos"
+const categoriesBar = document.querySelector(".categories-bar"); // barrita de chips (si la quieres usar)
+const productosSection = document.getElementById("productos");
+const backHomeBtn = document.getElementById("back-home");
+const productosTitleEl = document.getElementById("productos-title");
+
+// Muestra solo las categorías (pantalla principal)
+function showHome() {
+  if (homeHero) homeHero.style.display = "none";
+  if (categoriesBar) categoriesBar.style.display = "block";
+  if (productosSection) productosSection.style.display = "none";
+}
+
+// Muestra los productos de una categoría (pantalla de productos)
+function goToCategory(cat) {
+  activeCategory = cat;
+
+  // poner el título arriba con la categoría
+  if (productosTitleEl) {
+    productosTitleEl.textContent = cat;
+  }
+
+  // marcar chip activo si existen los chips
+  document.querySelectorAll(".category-chip").forEach((c) => {
+    c.classList.toggle("active", c.dataset.category === cat);
+  });
+
+  // renderizar productos filtrados
+  renderProducts();
+
+  // ocultar inicio y mostrar productos
+  if (homeHero) homeHero.style.display = "block"; // si quieres que desaparezca, cambia a "none"
+  if (categoriesBar) categoriesBar.style.display = "none";
+  if (productosSection) productosSection.style.display = "block";
+}
+
+// Botón volver a categorías
+if (backHomeBtn) {
+  backHomeBtn.addEventListener("click", () => {
+    showHome();
+  });
+}
+
+// ==========================
+// INIT CATÁLOGO
+// ==========================
+renderCategories();       // llena la barrita de chips
+renderProducts();         // prepara productos (aunque se oculten)
+showHome();               // al inicio se ve solo la parte de categorías
+
 </body>
 </html>
 
