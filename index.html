@@ -802,7 +802,8 @@
     }
   </style>
 </head>
-<body>
+
+  <body>
 
   <div class="page">
 
@@ -850,6 +851,7 @@
     </div>
 
     <!-- NUESTROS PRODUCTOS (BANNERS DE CATEGORÍAS) -->
+    
 <section class="categories-hero">
   <h2 class="categories-hero-title">Nuestros productos</h2>
   <p class="categories-hero-sub">
@@ -860,6 +862,113 @@
   </div>
 </section>
 
+/* ===== BANNER MEJORES PRODUCTOS ===== */
+    
+.banner-mejores-productos {
+  margin: 3rem auto 2rem auto;
+  max-width: 1100px;
+  padding: 1.75rem 2.25rem;
+  border-radius: 18px;
+  background: radial-gradient(circle at top left, #00ff88 0%, #00c16a 12%, #05060f 55%, #02030a 100%);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.banner-mejores-contenido {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.banner-mejores-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0.3rem;
+}
+
+.banner-mejores-titulo {
+  font-size: 1.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0 0 0.3rem 0;
+}
+
+.banner-mejores-subtitulo {
+  font-size: 0.9rem;
+  color: rgba(240, 240, 240, 0.75);
+  max-width: 380px;
+}
+
+/* Tabs del banner */
+.banner-mejores-tabs {
+  display: flex;
+  gap: 0.75rem;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 0.35rem;
+  border-radius: 999px;
+  backdrop-filter: blur(18px);
+}
+
+.banner-tab {
+  border: none;
+  cursor: pointer;
+  padding: 0.55rem 1.3rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  transition: all 0.18s ease;
+}
+
+.banner-tab:hover {
+  transform: translateY(-1px);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.banner-tab.active {
+  background: #00ff88;
+  color: #02030a;
+  font-weight: 600;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.45);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .banner-mejores-contenido {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .banner-mejores-productos {
+    padding: 1.4rem 1.6rem;
+    margin: 2rem 1rem;
+  }
+
+  .banner-mejores-titulo {
+    font-size: 1.3rem;
+  }
+
+  .banner-mejores-subtitulo {
+    max-width: 100%;
+  }
+
+  .banner-mejores-tabs {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .banner-tab {
+    flex: 1;
+    text-align: center;
+    padding-inline: 0.4rem;
+  }
+}
 
     <!-- CATEGORÍAS -->
   <div class="categories-bar">
