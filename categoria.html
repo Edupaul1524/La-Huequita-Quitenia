@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categoría - La Huequita Quiteña</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="productos.js"></script>
+
+  <style>
+    .categoria-title {
+      font-size: 32px;
+      font-weight: bold;
+      margin: 20px 0 10px;
+      text-align: center;
+      color: rgb(230,230,230);
+    }
+
+    .btn-back {
+      display: block;
+      width: 250px;
+      margin: 0 auto 25px;
+      padding: 12px 20px;
+      background: #08c957;
+      border-radius: 30px;
+      font-weight: bold;
+      text-align: center;
+      color: black;
+      cursor: pointer;
+      transition: 0.2s;
+      border: none;
+      font-size: 16px;
+    }
+    .btn-back:hover {
+      background: #0ae066;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- BOTÓN REGRESAR -->
+    <button class="btn-back" onclick="location.href='index.html'">
+      ⬅️ Regresar a Categorías
+    </button>
+
+    <!-- TITULO DE LA CATEGORÍA -->
+    <h2 class="categoria-title" id="categoria-title"></h2>
+
+    <!-- GRID DE PRODUCTOS -->
+    <div class="products-grid" id="categoria-grid"></div>
+
+  </div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const cat = params.get("cat"); // ejemplo: "RON"
+
+  document.getElementById("categoria-title").textContent = cat;
+
+  const grid = document.getElementById("categoria-grid");
+
+  // productos viene desde productos.js
+  const filtrados = products.filter(p => p.categoria === cat);
+
+  filtrados.forEach(p => {
+    const div = document.createElement("div");
+    div.className = "product-card";
+
+    div.innerHTML = `
+      <img class="product-img" src="${p.imagen}">
+      <div class="product-info">
+        <h3>${p.nombre}</h3>
+        <p>${p.descripcion}</p>
+        <strong>$ ${p.precios.PUSUQUI}</strong>
+      </div>
+      <button class="product-btn" onclick="openWhatsapp('${p.nombre}')">
+        Pedir por WhatsApp
+      </button>
+    `;
+    grid.appendChild(div);
+  });
+</script>
+
+</body>
+</html>
