@@ -1835,9 +1835,19 @@ const yearSpan = document.getElementById("year");
 const cartPill = document.getElementById("cart-pill");
 const localSelectToolbar = document.getElementById("local-select");
 const storeSelectPopup = document.getElementById("store-select");
+const categoryBannersContainer = document.getElementById("category-banners");
+
 
 let activeCategory = "Todos";
 let activeTabFilter = "destacados";
+
+// Si viene ?categoria=RON en la URL, arrancamos con esa categoría
+const urlParams = new URLSearchParams(window.location.search);
+const initialCategoryParam = urlParams.get("categoria");
+if (initialCategoryParam) {
+  activeCategory = initialCategoryParam;
+}
+
 
 function getCategories() {
   const set = new Set(products.map((p) => p.categoria));
@@ -1859,6 +1869,32 @@ function renderCategories() {
       renderProducts();
     });
     categoriesContainer.appendChild(btn);
+  });
+}
+// ==========================
+// BANNERS GRANDES DE CATEGORÍAS
+// ==========================
+function renderCategoryBanners() {
+  if (!categoryBannersContainer) return;
+
+  categoryBannersContainer.innerHTML = "";
+
+  // Usamos las categorías existentes, menos "Todos"
+  const cats = getCategories().filter((cat) => cat !== "Todos");
+
+  cats.forEach((cat) => {
+    const card = document.createElement("a");
+    card.className = "category-banner";
+
+    // "Otra página" = misma página pero con ?categoria=...
+    card.href = `?categoria=${encodeURIComponent(cat)}`;
+
+    card.innerHTML = `
+      <div class="category-banner-title">${cat}</div>
+      <div class="category-banner-meta">Ver productos de ${cat.toLowerCase()}</div>
+    `;
+
+    categoryBannersContainer.appendChild(card);
   });
 }
 
@@ -2035,5 +2071,8 @@ if (yearSpan) {
 }
 
 // Render inicial
-renderCategories();
+renderCategoryBanners(); // 👉 nuevo
+renderCategories();      // sigue existiendo aunque el scroll esté oculto
 renderProducts();
+
+
