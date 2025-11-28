@@ -225,19 +225,17 @@
       font-size: 14px;
       color: var(--color-muted);
     }
-/* BLOQUE NUESTROS PRODUCTOS (BANNERS) */
+
+/* ===== NUESTROS PRODUCTOS – BANNERS GRANDES ===== */
+
 .categories-hero {
-  margin-top: 10px;
-  margin-bottom: 24px;
-  padding: 14px 16px;
-  border-radius: 18px;
-  background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(0, 255, 127, 0.08));
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.7);
+  margin-top: 24px;
+  margin-bottom: 10px;
+  padding: 18px 16px 8px;
 }
 
 .categories-hero-title {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -247,46 +245,96 @@
 .categories-hero-sub {
   font-size: 12px;
   color: var(--color-muted);
-  margin-bottom: 12px;
+  margin-bottom: 18px;
 }
 
+/* GRID DE BANNERS */
 .category-banners {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
 }
 
+/* TARJETA DE CATEGORÍA */
 .category-banner {
-  display: block;
-  padding: 12px 10px;
-  border-radius: 14px;
-  background: radial-gradient(circle at top left, #141420, #050509);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  text-decoration: none;
-  color: #f5f5f5;
+  position: relative;
+  border-radius: 18px;
+  padding: 14px 14px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: radial-gradient(circle at top left, #171726, #050509);
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.8);
   cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background 0.16s ease;
 }
 
+/* FONDO TIPO BANNER CON BRILLO */
+.category-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right,
+              rgba(0, 255, 127, 0.22),
+              transparent 55%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
 .category-banner-title {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 4px;
+  position: relative;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
 }
 
 .category-banner-meta {
+  position: relative;
   font-size: 11px;
   color: var(--color-muted);
 }
 
+/* EFECTO HOVER VENDEDOR */
 .category-banner:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.8);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 32px rgba(0, 0, 0, 0.95);
   border-color: rgba(0, 255, 127, 0.7);
   background: radial-gradient(circle at top left, #00ff7f, #020208);
 }
 
-    
+/* En hover el texto se vuelve más brillante */
+.category-banner:hover .category-banner-title {
+  color: #000;
+}
+
+.category-banner:hover .category-banner-meta {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .categories-hero {
+    padding-inline: 10px;
+  }
+
+  .category-banners {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .category-banner {
+    padding: 12px 10px;
+  }
+
+  .category-banner-title {
+    font-size: 14px;
+  }
+}
+ 
 /* CATEGORÍAS – LOOK ECOMMERCE */
 .categories-bar {
   margin-top: 18px;
