@@ -473,8 +473,8 @@
         card.className="card";
         card.innerHTML = `
           <div class="imgwrap">
-            <img src="${encodeSrc(p.imagen||"")}" alt="${p.nombre}" loading="lazy"
-              onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=Producto';">
+              <img src="${encodeURI(p.imagen)}" alt="${p.nombre}" loading="lazy"
+               onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=Sin+imagen';">
           </div>
           <div class="body">
             <div class="name">${p.nombre}</div>
