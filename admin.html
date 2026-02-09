@@ -197,7 +197,32 @@
 
     const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // UI refs
+    async function cargarCategoriasEnSelect() {
+  const select = document.getElementById("categoria");
+  if (!select) return;
+
+  select.innerHTML = `<option value="">Cargando...</option>`;
+
+  const { data, error } = await supabase
+    .from("categorias")
+    .select("nombre")
+    .eq("activo", true)
+    .order("nombre", { ascending: true });
+
+  if (error) {
+    console.error("Error cargando categorias:", error);
+    select.innerHTML = `<option value="">Error cargando categorías</option>`;
+    return;
+  }
+
+  select.innerHTML =
+    `<option value="">Selecciona categoría</option>` +
+    (data || [])
+      .map(c => `<option value="${c.nombre}">${c.nombre}</option>`)
+      .join("");
+}
+
+        // UI refs
     const loginCard = document.getElementById("loginCard");
     const app = document.getElementById("app");
     const sessionInfo = document.getElementById("sessionInfo");
