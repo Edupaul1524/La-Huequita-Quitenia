@@ -2,233 +2,302 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Admin · La Huequita Quiteña</title>
   <style>
-    :root{
-      --bg:#07090f; --text:#eaf0ff; --muted:#a9b2c7; --line:rgba(255,255,255,.08);
-      --card:rgba(255,255,255,.03); --accent:#00ff7a; --accent2:#00c8ff; --danger:#ff4d6d;
-      --shadow: 0 18px 60px rgba(0,0,0,.55); --r:18px; --r2:24px;
+    :root{--bg:#07070c;--card:#0f0f18;--text:#f5f5f5;--muted:#a0a0b5;--b:#262637;--p:#00ff7f}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:system-ui;background:radial-gradient(circle at top,#141427 0,#030308 55%,#000 100%);color:var(--text);min-height:100vh}
+    .wrap{max-width:980px;margin:0 auto;padding:18px}
+    .box{background:linear-gradient(145deg,#0f0f18,#141427);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px;box-shadow:0 18px 40px rgba(0,0,0,.75)}
+    h1{letter-spacing:.10em;text-transform:uppercase;font-size:16px;margin-bottom:10px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media(max-width:720px){.row{grid-template-columns:1fr}}
+    label{font-size:12px;color:var(--muted);font-weight:800;letter-spacing:.08em;text-transform:uppercase;display:block;margin:10px 0 6px}
+    input,select,textarea{
+      width:100%;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.10);
+      background:#0b0b12;color:var(--text);outline:none
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background: radial-gradient(1200px 800px at 20% -10%, rgba(0,255,122,.18), transparent 50%),
-                  radial-gradient(900px 700px at 90% 0%, rgba(0,200,255,.16), transparent 45%),
-                  var(--bg);
-      color:var(--text);
+    textarea{min-height:90px;resize:vertical}
+    .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    button{
+      border:none;cursor:pointer;border-radius:999px;padding:12px 14px;
+      font-weight:1000;letter-spacing:.10em;text-transform:uppercase;font-size:11px
     }
-    .wrap{max-width:1200px; margin:0 auto; padding:18px}
-    .top{
-      display:flex; justify-content:space-between; gap:10px; align-items:center;
-      padding:14px 16px; border:1px solid var(--line); border-radius:var(--r2);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      box-shadow:var(--shadow);
-    }
-    .brand{display:flex; gap:12px; align-items:center}
-    .logo{width:40px; height:40px; border-radius:999px; display:grid; place-items:center;
-      background: radial-gradient(circle at 30% 20%, rgba(0,255,122,.9), rgba(0,200,255,.55));
-      color:#00140a; font-weight:900;
-    }
-    .btn{
-      border:1px solid rgba(0,200,255,.30); background: rgba(0,200,255,.10);
-      padding:10px 12px; border-radius:14px; cursor:pointer; color:var(--text); font-weight:800;
-    }
-    .btn.danger{border-color:rgba(255,77,109,.35); background: rgba(255,77,109,.10)}
-    .grid{margin-top:16px; display:grid; grid-template-columns: 380px 1fr; gap:16px}
-    @media (max-width: 980px){.grid{grid-template-columns:1fr}}
-    .card{
-      border:1px solid var(--line); border-radius:var(--r2);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      box-shadow:var(--shadow);
-      overflow:hidden;
-    }
-    .cardH{
-      padding:14px 16px; border-bottom:1px solid var(--line);
-      display:flex; justify-content:space-between; align-items:center; gap:10px;
-    }
-    .cardH h2{margin:0; font-size:13px; letter-spacing:.12em; text-transform:uppercase}
-    .cardB{padding:14px 16px}
-    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px}
-    input, textarea, select{
-      width:100%;
-      background: rgba(255,255,255,.04);
-      border:1px solid var(--line);
-      color:var(--text);
-      padding:10px 12px;
-      border-radius:14px;
-      outline:none;
-    }
-    textarea{min-height:90px; resize:vertical}
-    .row2{display:grid; grid-template-columns:1fr 1fr; gap:10px}
-    .row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px}
-    .hint{font-size:12px; color:rgba(234,240,255,.45); margin-top:8px}
-    .actions{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap}
-    .actions .btn{flex:1}
-    .listTop{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
-    .table{
-      width:100%; border-collapse:separate; border-spacing:0 10px;
-    }
-    .table th{font-size:12px; color:var(--muted); text-align:left; padding:0 8px}
-    .table td{
-      background: rgba(255,255,255,.03);
-      border:1px solid var(--line);
-      padding:10px 8px;
-    }
-    .table tr td:first-child{border-radius:14px 0 0 14px}
-    .table tr td:last-child{border-radius:0 14px 14px 0}
-    .tag{
-      display:inline-block; padding:6px 10px; border-radius:999px;
-      border:1px solid rgba(0,255,122,.30); background: rgba(0,255,122,.10);
-      font-size:12px; font-weight:800;
-    }
-    .miniBtn{
-      padding:8px 10px; border-radius:12px; cursor:pointer; border:1px solid var(--line);
-      background: rgba(255,255,255,.04); color:var(--text); font-weight:800;
-    }
-    .miniBtn.danger{border-color:rgba(255,77,109,.35); background: rgba(255,77,109,.10)}
-    .hidden{display:none !important}
-    .status{margin-top:10px; font-size:12px}
-    .status.ok{color:rgba(0,255,122,.9)}
-    .status.err{color:rgba(255,77,109,.9)}
-    .loginWrap{max-width:520px; margin:60px auto; padding:18px}
+    .primary{background:var(--p);color:#041006;box-shadow:0 0 16px rgba(0,255,127,.35)}
+    .ghost{background:transparent;border:1px dashed rgba(255,255,255,.18);color:var(--muted)}
+    .msg{margin-top:10px;color:var(--muted);font-weight:700;font-size:13px}
+    .list{margin-top:14px;display:grid;gap:10px}
+    .item{border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:10px;background:rgba(255,255,255,.03)}
+    .item b{font-size:13px}
+    .item small{color:var(--muted)}
   </style>
 </head>
 <body>
-
-  <!-- LOGIN -->
-  <div id="loginView" class="loginWrap hidden">
-    <div class="card">
-      <div class="cardH">
-        <h2>Ingresar Admin</h2>
-        <span class="tag">HQ</span>
+  <div class="wrap">
+    <div class="box" id="authBox">
+      <h1>Admin · Login</h1>
+      <label>Email</label>
+      <input id="email" type="email" placeholder="tu correo admin" />
+      <label>Contraseña</label>
+      <input id="pass" type="password" placeholder="••••••••" />
+      <div class="btns">
+        <button class="primary" id="btnLogin">Entrar</button>
+        <button class="ghost" id="btnLogout" style="display:none">Salir</button>
       </div>
-      <div class="cardB">
-        <label>Email</label>
-        <input id="loginEmail" type="email" placeholder="tu correo" />
-        <label>Contraseña</label>
-        <input id="loginPass" type="password" placeholder="••••••••" />
-        <div class="actions">
-          <button class="btn" id="btnLogin">Iniciar sesión</button>
-        </div>
-        <div id="loginStatus" class="status"></div>
-      </div>
+      <div class="msg" id="authMsg"></div>
     </div>
-  </div>
 
-  <!-- APP -->
-  <div id="appView" class="wrap hidden">
-    <div class="top">
-      <div class="brand">
-        <div class="logo">HQ</div>
+    <div style="height:14px"></div>
+
+    <div class="box" id="panelBox" style="display:none">
+      <h1>Panel de productos</h1>
+
+      <div class="row">
         <div>
-          <div style="font-weight:900">ADMIN · LA HUEQUITA QUITEÑA</div>
-          <div style="font-size:12px;color:var(--muted)">Sesión activa: <span id="userEmail">-</span></div>
-        </div>
-      </div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap">
-        <button class="btn" id="btnGoCatalog">Ver catálogo</button>
-        <button class="btn danger" id="btnLogout">Cerrar sesión</button>
-      </div>
-    </div>
+          <label>Categoría (existente)</label>
+          <select id="categorySelect"></select>
 
-    <div class="grid">
-
-      <!-- FORM -->
-      <div class="card">
-        <div class="cardH">
-          <h2 id="formTitle">Nuevo producto</h2>
-          <span class="tag">Sucursales: Pusuqui · Pomasqui · Carcelén</span>
-        </div>
-        <div class="cardB">
-          <input type="hidden" id="prodId" />
-
-          <label>Nombre</label>
-          <input id="nombre" placeholder="Ej: Cristal 750ml" />
-
-          <label>Categoría</label>
-          <select id="categoriaSelect"></select>
-
-          <label>Descripción (corta y vendible)</label>
-          <textarea id="descripcion" placeholder="Ej: Bien fría, ideal para tus reuniones."></textarea>
-
-          <div class="row3">
-            <div>
-              <label>Precio Pusuqui</label>
-              <input id="precio_pusuqui" type="number" step="0.01" />
-            </div>
-            <div>
-              <label>Precio Pomasqui</label>
-              <input id="precio_pomasqui" type="number" step="0.01" />
-            </div>
-            <div>
-              <label>Precio Carcelén</label>
-              <input id="precio_carcelen" type="number" step="0.01" />
-            </div>
+          <label>o crear nueva categoría</label>
+          <input id="newCategory" placeholder="Ej: RON" />
+          <div class="btns">
+            <button class="ghost" id="btnCreateCategory">Crear categoría</button>
           </div>
+        </div>
 
-          <label>Imagen (subir desde tu PC)</label>
-          <input id="imagenFile" type="file" accept="image/*" />
-          <div class="hint">Se sube al bucket <b>products</b> y se guarda la URL en el producto.</div>
+        <div>
+          <label>Imagen (se sube a Storage)</label>
+          <input id="imgFile" type="file" accept="image/*" />
+          <div class="msg">Bucket: <b>product-images</b> (public)</div>
+        </div>
+      </div>
 
-          <label>Activo (visible al público)</label>
-          <select id="activo">
-            <option value="true">Sí (visible)</option>
-            <option value="false">No (oculto)</option>
+      <label>Nombre del producto</label>
+      <input id="name" placeholder="Ej: 100 FUEGOS 750ML" />
+
+      <label>Descripción (comercial, corta)</label>
+      <textarea id="desc" placeholder="Ej: Ron intenso, ideal para reuniones."></textarea>
+
+      <div class="row">
+        <div>
+          <label>Precio Pusuquí</label>
+          <input id="pusuqui" type="number" step="0.01" placeholder="0.00" />
+        </div>
+        <div>
+          <label>Precio Pomasquí</label>
+          <input id="pomasqui" type="number" step="0.01" placeholder="0.00" />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label>Precio Carcelén</label>
+          <input id="carcelen" type="number" step="0.01" placeholder="0.00" />
+        </div>
+        <div>
+          <label>Activo</label>
+          <select id="active">
+            <option value="true">Sí</option>
+            <option value="false">No</option>
           </select>
-
-          <div class="actions">
-            <button class="btn" id="btnSave">Guardar</button>
-            <button class="btn" id="btnClear">Limpiar</button>
-          </div>
-          <div id="formStatus" class="status"></div>
         </div>
       </div>
 
-      <!-- LIST -->
-      <div class="card">
-        <div class="cardH">
-          <h2>Productos</h2>
-          <span id="countLabel" style="color:var(--muted);font-size:12px">0</span>
-        </div>
-        <div class="cardB">
-          <div class="listTop">
-            <input id="search" placeholder="Buscar nombre o categoría..." />
-            <select id="filterCategoria">
-              <option value="TODOS">TODOS</option>
-            </select>
-          </div>
-
-          <div style="margin-top:12px; overflow:auto">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Categoría</th>
-                  <th>Activo</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody id="tbody"></tbody>
-            </table>
-          </div>
-
-          <div id="listStatus" class="status"></div>
-        </div>
+      <div class="btns">
+        <button class="primary" id="btnSave">Guardar producto</button>
+        <button class="ghost" id="btnReload">Recargar listas</button>
       </div>
+      <div class="msg" id="msg"></div>
 
+      <div class="list" id="list"></div>
     </div>
   </div>
 
-  <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    const supabase = window.supabase.createClient(
-      "https://ekngesaavlonwdpiqlwq.supabase.co",
-      "sb_publishable_zRYZjGHaGfWZuvedoJQyCw_LuEgk7r0"
-    );
+  <script type="module">
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+    const SUPABASE_URL = "https://ekngesaavlonwdpiqlwq.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_zRYZjGHaGfWZuvedoJQyCw_LuEgk7r0";
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Auth
+    const authBox = document.getElementById("authBox");
+    const panelBox = document.getElementById("panelBox");
+    const email = document.getElementById("email");
+    const pass = document.getElementById("pass");
+    const btnLogin = document.getElementById("btnLogin");
+    const btnLogout = document.getElementById("btnLogout");
+    const authMsg = document.getElementById("authMsg");
+
+    // Panel
+    const categorySelect = document.getElementById("categorySelect");
+    const newCategory = document.getElementById("newCategory");
+    const btnCreateCategory = document.getElementById("btnCreateCategory");
+
+    const imgFile = document.getElementById("imgFile");
+    const name = document.getElementById("name");
+    const desc = document.getElementById("desc");
+    const pusuqui = document.getElementById("pusuqui");
+    const pomasqui = document.getElementById("pomasqui");
+    const carcelen = document.getElementById("carcelen");
+    const active = document.getElementById("active");
+    const btnSave = document.getElementById("btnSave");
+    const btnReload = document.getElementById("btnReload");
+    const msg = document.getElementById("msg");
+    const list = document.getElementById("list");
+
+    function setAuthUI(isAuthed){
+      panelBox.style.display = isAuthed ? "block" : "none";
+      btnLogout.style.display = isAuthed ? "inline-flex" : "none";
+      btnLogin.style.display = isAuthed ? "none" : "inline-flex";
+      authMsg.textContent = isAuthed ? "Sesión activa ✅" : "";
+    }
+
+    btnLogin.onclick = async () => {
+      authMsg.textContent = "Entrando…";
+      const { error } = await supabase.auth.signInWithPassword({
+        email: email.value.trim(),
+        password: pass.value
+      });
+      if (error){ authMsg.textContent = error.message; return; }
+      setAuthUI(true);
+      await reloadAll();
+    };
+
+    btnLogout.onclick = async () => {
+      await supabase.auth.signOut();
+      setAuthUI(false);
+      authMsg.textContent = "Sesión cerrada.";
+    };
+
+    async function loadCategories(){
+      const { data, error } = await supabase.from("categories").select("id,name").order("name");
+      if (error) throw error;
+      categorySelect.innerHTML = "";
+      (data||[]).forEach(c=>{
+        const opt = document.createElement("option");
+        opt.value = c.id;
+        opt.textContent = c.name;
+        categorySelect.appendChild(opt);
+      });
+    }
+
+    btnCreateCategory.onclick = async () => {
+      const n = newCategory.value.trim();
+      if (!n) return alert("Escribe el nombre de la categoría.");
+      msg.textContent = "Creando categoría…";
+      const { error } = await supabase.from("categories").insert({ name: n.toUpperCase() });
+      if (error){ msg.textContent = error.message; return; }
+      newCategory.value = "";
+      msg.textContent = "Categoría creada ✅";
+      await loadCategories();
+    };
+
+    async function uploadImage(file){
+      if (!file) return null;
+
+      const ext = file.name.split(".").pop();
+      const safeBase = file.name
+        .replace(/\.[^/.]+$/, "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g,"-")
+        .replace(/[^a-z0-9\-]/g,"");
+
+      const path = `general/${safeBase}-${Date.now()}.${ext}`;
+
+      const { error } = await supabase.storage
+        .from("product-images")
+        .upload(path, file, { upsert: true });
+
+      if (error) throw error;
+      return path;
+    }
+
+    async function upsertPrices(product_id, prices){
+      // prices: {PUSUQUI:1, POMASQUI:2, CARCELEN:3}
+      const rows = Object.entries(prices).map(([branch, price]) => ({
+        product_id, branch, price
+      }));
+
+      const { error } = await supabase.from("product_prices").upsert(rows);
+      if (error) throw error;
+    }
+
+    btnSave.onclick = async () => {
+      msg.textContent = "Guardando…";
+      try{
+        const n = name.value.trim();
+        if (!n) return alert("Falta nombre del producto.");
+
+        const category_id = categorySelect.value;
+        if (!category_id) return alert("Falta categoría.");
+
+        const file = imgFile.files?.[0] || null;
+        const image_path = await uploadImage(file);
+
+        const { data, error } = await supabase
+          .from("products")
+          .insert({
+            name: n,
+            description: desc.value.trim(),
+            category_id,
+            image_path,
+            is_active: active.value === "true"
+          })
+          .select("id")
+          .single();
+
+        if (error) throw error;
+
+        await upsertPrices(data.id, {
+          PUSUQUI: Number(pusuqui.value || 0),
+          POMASQUI: Number(pomasqui.value || 0),
+          CARCELEN: Number(carcelen.value || 0),
+        });
+
+        msg.textContent = "Producto creado ✅";
+        // limpiar
+        name.value=""; desc.value=""; pusuqui.value=""; pomasqui.value=""; carcelen.value="";
+        imgFile.value = "";
+        await loadRecent();
+      }catch(e){
+        console.error(e);
+        msg.textContent = e.message || "Error guardando";
+        alert(msg.textContent);
+      }
+    };
+
+    async function loadRecent(){
+      const { data, error } = await supabase
+        .from("products")
+        .select("id,name,created_at,categories:category_id(name)")
+        .order("created_at", { ascending:false })
+        .limit(15);
+
+      if (error) throw error;
+      list.innerHTML = "";
+      (data||[]).forEach(p=>{
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `<b>${p.name}</b><br><small>${p.categories?.name || ""} · ${new Date(p.created_at).toLocaleString()}</small>`;
+        list.appendChild(div);
+      });
+    }
+
+    async function reloadAll(){
+      msg.textContent = "Cargando panel…";
+      await loadCategories();
+      await loadRecent();
+      msg.textContent = "Listo ✅";
+    }
+
+    btnReload.onclick = reloadAll;
+
+    // Init: si ya hay sesión
+    const { data: { session } } = await supabase.auth.getSession();
+    setAuthUI(!!session);
+    if (session) await reloadAll();
   </script>
-  <script src="admin.js"></script>
 </body>
 </html>
 
