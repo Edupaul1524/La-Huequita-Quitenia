@@ -1,1 +1,486 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin · La Huequita Quiteña</title>
+
+  <style>
+    :root{
+      --bg:#050509; --card:#111119; --card2:#181824;
+      --text:#f5f5f5; --muted:#a0a0b5; --border:#262637;
+      --primary:#00ff7f; --primarySoft:rgba(0,255,127,.12);
+      --danger:#ff4b5c; --shadow:0 12px 34px rgba(0,0,0,.7);
+      --r:14px; --pill:999px;
+      --max:1200px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:radial-gradient(circle at top,#131321 0,#020208 45%,#000 100%);color:var(--text)}
+    a{color:inherit}
+    .wrap{max-width:var(--max);margin:0 auto;padding:18px}
+    .top{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:12px 14px;border:1px solid rgba(255,255,255,.06);
+      background:linear-gradient(135deg,#101018,#141426);border-radius:var(--r);
+      box-shadow:var(--shadow);position:sticky;top:10px;backdrop-filter:blur(14px);z-index:9;
+    }
+    .brand{display:flex;align-items:center;gap:10px}
+    .logo{
+      width:40px;height:40px;border-radius:50%;
+      background:radial-gradient(circle at 30% 0,var(--primary),#007a3e 50%,#020208 100%);
+      display:grid;place-items:center;font-weight:900;text-shadow:0 0 10px rgba(0,255,127,.8)
+    }
+    .title{display:flex;flex-direction:column;gap:2px}
+    .title b{letter-spacing:.12em;text-transform:uppercase;font-size:12px}
+    .title span{color:var(--muted);font-size:12px}
+    .btn{
+      border:none;cursor:pointer;border-radius:var(--pill);padding:10px 14px;
+      font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:11px;
+      background:rgba(0,0,0,.35);color:var(--text);border:1px solid rgba(255,255,255,.08);
+    }
+    .btn.primary{background:radial-gradient(circle at 0 0,var(--primary),#01874a 55%,#020208 100%);color:#030307;box-shadow:0 0 18px rgba(0,255,127,.35);border-color:rgba(0,255,127,.45)}
+    .btn.danger{background:rgba(255,75,92,.12);border-color:rgba(255,75,92,.5)}
+    .grid{display:grid;grid-template-columns:380px 1fr;gap:14px;margin-top:14px}
+    .card{background:linear-gradient(145deg,var(--card),#16162a);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);box-shadow:var(--shadow)}
+    .card h2{margin:0;padding:14px 14px 0;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+    .card .body{padding:14px}
+    label{display:block;font-size:11px;color:var(--muted);margin:10px 0 6px}
+    input,textarea,select{
+      width:100%;padding:10px 10px;border-radius:12px;border:1px solid var(--border);
+      background:#0b0b12;color:var(--text);outline:none;
+    }
+    textarea{min-height:88px;resize:vertical}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .hint{font-size:11px;color:var(--muted);line-height:1.35;margin-top:8px}
+    .muted{color:var(--muted)}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--pill);
+      background:var(--primarySoft);border:1px solid rgba(0,255,127,.35);color:var(--primary);
+      font-size:12px
+    }
+    .list{
+      display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+      gap:12px;margin-top:10px
+    }
+    .item{border:1px solid rgba(255,255,255,.06);border-radius:16px;background:rgba(0,0,0,.25);overflow:hidden}
+    .item img{width:100%;height:160px;object-fit:contain;background:#07070e}
+    .item .p{padding:10px}
+    .item .p b{display:block;font-size:13px;margin-bottom:6px}
+    .item .p small{color:var(--muted);display:block;margin-top:4px}
+    .item .actions{display:flex;gap:8px;padding:10px}
+    .actions .btn{flex:1;padding:9px 10px}
+    .sep{height:1px;background:rgba(255,255,255,.06);margin:10px 0}
+    .hidden{display:none !important}
+    @media(max-width:980px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="logo">HQ</div>
+        <div class="title">
+          <b>Admin · La Huequita Quiteña</b>
+          <span id="sessionInfo">No has iniciado sesión</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <a class="btn" href="/" target="_blank" rel="noopener">Ver catálogo</a>
+        <button class="btn danger" id="logoutBtn">Cerrar sesión</button>
+      </div>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="loginCard" class="card" style="margin-top:14px">
+      <h2>Acceso administrador</h2>
+      <div class="body">
+        <label>Correo</label>
+        <input id="email" type="email" placeholder="tu-correo@..." autocomplete="username" />
+        <label>Contraseña</label>
+        <input id="password" type="password" placeholder="********" autocomplete="current-password" />
+        <div style="display:flex;gap:10px;margin-top:12px">
+          <button class="btn primary" id="loginBtn">Ingresar</button>
+        </div>
+        <div class="hint">
+          Este panel es privado. Solo usuarios creados en Supabase Auth pueden entrar.
+        </div>
+        <div id="loginMsg" class="hint" style="color:#ff939e"></div>
+      </div>
+    </div>
+
+    <!-- APP -->
+    <div id="app" class="grid hidden">
+      <!-- FORM -->
+      <div class="card">
+        <h2 id="formTitle">Nuevo producto</h2>
+        <div class="body">
+          <div class="pill">📍 Sucursales: Pusuqui · Pomasqui · Carcelén</div>
+
+          <label>Nombre</label>
+          <input id="name" placeholder="Ej: 100 FUEGOS 750ML" />
+
+          <label>Categoría</label>
+          <input id="category" placeholder="Ej: RON / WHISKY / CERVEZA / BEBIDAS..." />
+
+          <label>Descripción (corta y vendible)</label>
+          <textarea id="description" placeholder="Ej: Ron intenso, ideal para compartir."></textarea>
+
+          <div class="row">
+            <div>
+              <label>Precio Pusuqui</label>
+              <input id="pusuqui" type="number" step="0.01" placeholder="0.00" />
+            </div>
+            <div>
+              <label>Precio Pomasqui</label>
+              <input id="pomasqui" type="number" step="0.01" placeholder="0.00" />
+            </div>
+          </div>
+
+          <label>Precio Carcelén</label>
+          <input id="carcelen" type="number" step="0.01" placeholder="0.00" />
+
+          <div class="sep"></div>
+
+          <label>Imagen (subir desde tu PC)</label>
+          <input id="imageFile" type="file" accept="image/*" />
+
+          <div class="hint">
+            La imagen se sube al bucket <b>products</b> y se guarda la URL en el producto.
+          </div>
+
+          <label>Activo (visible al público)</label>
+          <select id="active">
+            <option value="true" selected>SI (visible)</option>
+            <option value="false">NO (oculto)</option>
+          </select>
+
+          <div style="display:flex;gap:10px;margin-top:12px">
+            <button class="btn primary" id="saveBtn">Guardar</button>
+            <button class="btn" id="resetBtn">Limpiar</button>
+          </div>
+
+          <div id="formMsg" class="hint"></div>
+        </div>
+      </div>
+
+      <!-- LIST -->
+      <div class="card">
+        <h2>Productos</h2>
+        <div class="body">
+          <div class="row">
+            <div>
+              <label>Buscar</label>
+              <input id="search" placeholder="Nombre o categoría..." />
+            </div>
+            <div>
+              <label>Filtro categoría</label>
+              <select id="catFilter"></select>
+            </div>
+          </div>
+
+          <div class="hint muted" id="countInfo"></div>
+
+          <div class="list" id="list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supabase JS (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    // ✅ Tus credenciales (ya puestas)
+    const SUPABASE_URL = "https://ekngesaavlonwdpiqlwq.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_zRYZjGHaGfWZuvedoJQyCw_LuEgk7r0";
+
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // UI refs
+    const loginCard = document.getElementById("loginCard");
+    const app = document.getElementById("app");
+    const sessionInfo = document.getElementById("sessionInfo");
+    const loginMsg = document.getElementById("loginMsg");
+    const formMsg = document.getElementById("formMsg");
+
+    const emailEl = document.getElementById("email");
+    const passEl = document.getElementById("password");
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    const nameEl = document.getElementById("name");
+    const categoryEl = document.getElementById("category");
+    const descEl = document.getElementById("description");
+    const pusuquiEl = document.getElementById("pusuqui");
+    const pomasquiEl = document.getElementById("pomasqui");
+    const carcelenEl = document.getElementById("carcelen");
+    const activeEl = document.getElementById("active");
+    const imageFileEl = document.getElementById("imageFile");
+    const saveBtn = document.getElementById("saveBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const formTitle = document.getElementById("formTitle");
+
+    const searchEl = document.getElementById("search");
+    const catFilterEl = document.getElementById("catFilter");
+    const listEl = document.getElementById("list");
+    const countInfo = document.getElementById("countInfo");
+
+    let editingId = null;
+    let allRows = [];
+
+    function money(v){
+      const n = Number(v);
+      return Number.isFinite(n) ? n : null;
+    }
+
+    function safeText(s){ return (s ?? "").toString().trim(); }
+
+    function setMode(logged){
+      if(logged){
+        loginCard.classList.add("hidden");
+        app.classList.remove("hidden");
+      }else{
+        loginCard.classList.remove("hidden");
+        app.classList.add("hidden");
+      }
+    }
+
+    async function refreshSession(){
+      const { data } = await sb.auth.getSession();
+      const user = data?.session?.user;
+      if(user){
+        sessionInfo.textContent = "Sesión activa: " + (user.email || "admin");
+        setMode(true);
+        await loadProducts();
+      }else{
+        sessionInfo.textContent = "No has iniciado sesión";
+        setMode(false);
+      }
+    }
+
+    // LOGIN
+    loginBtn.addEventListener("click", async () => {
+      loginMsg.textContent = "";
+      const email = safeText(emailEl.value);
+      const password = safeText(passEl.value);
+      const { error } = await sb.auth.signInWithPassword({ email, password });
+      if(error){
+        loginMsg.textContent = "Error: " + error.message;
+        return;
+      }
+      await refreshSession();
+    });
+
+    // LOGOUT
+    logoutBtn.addEventListener("click", async () => {
+      await sb.auth.signOut();
+      await refreshSession();
+    });
+
+    // Reset form
+    resetBtn.addEventListener("click", () => {
+      editingId = null;
+      formTitle.textContent = "Nuevo producto";
+      formMsg.textContent = "";
+      nameEl.value = "";
+      categoryEl.value = "";
+      descEl.value = "";
+      pusuquiEl.value = "";
+      pomasquiEl.value = "";
+      carcelenEl.value = "";
+      activeEl.value = "true";
+      imageFileEl.value = "";
+    });
+
+    // Upload image to Storage bucket 'products'
+    async function uploadImageIfAny(){
+      const file = imageFileEl.files?.[0];
+      if(!file) return null;
+
+      // Nombre único
+      const ext = file.name.split(".").pop();
+      const fileName = `${Date.now()}-${Math.random().toString(16).slice(2)}.${ext}`;
+
+      const { data, error } = await sb.storage
+        .from("products")
+        .upload(fileName, file, { upsert: true });
+
+      if(error) throw error;
+
+      // URL pública
+      const { data: pub } = sb.storage.from("products").getPublicUrl(data.path);
+      return pub.publicUrl;
+    }
+
+    // Save (insert/update)
+    saveBtn.addEventListener("click", async () => {
+      formMsg.textContent = "Guardando...";
+      try{
+        const name = safeText(nameEl.value);
+        const category = safeText(categoryEl.value);
+        if(!name || !category){
+          formMsg.textContent = "⚠️ Nombre y categoría son obligatorios.";
+          return;
+        }
+
+        let image_url = null;
+        try{
+          image_url = await uploadImageIfAny();
+        }catch(e){
+          formMsg.textContent = "⚠️ No se pudo subir la imagen: " + e.message;
+          return;
+        }
+
+        const payload = {
+          name,
+          category,
+          description: safeText(descEl.value),
+          price_pusuqui: money(pusuquiEl.value),
+          price_pomasqui: money(pomasquiEl.value),
+          price_carcelen: money(carcelenEl.value),
+          active: (activeEl.value === "true")
+        };
+
+        // Si no subiste imagen, no la sobreescribimos en edición
+        if(image_url) payload.image_url = image_url;
+
+        let res;
+        if(editingId){
+          res = await sb.from("products").update(payload).eq("id", editingId);
+        }else{
+          // En nuevo producto, si no subes imagen queda null (puedes editar luego)
+          if(!payload.image_url) payload.image_url = null;
+          res = await sb.from("products").insert(payload);
+        }
+
+        if(res.error){
+          formMsg.textContent = "❌ Error: " + res.error.message;
+          return;
+        }
+
+        formMsg.textContent = "✅ Guardado correctamente.";
+        resetBtn.click();
+        await loadProducts();
+      }catch(err){
+        formMsg.textContent = "❌ Error: " + (err?.message || err);
+      }
+    });
+
+    // Load products
+    async function loadProducts(){
+      const { data, error } = await sb
+        .from("products")
+        .select("*")
+        .order("id", { ascending: false });
+
+      if(error){
+        countInfo.textContent = "Error cargando productos: " + error.message;
+        return;
+      }
+
+      allRows = data || [];
+      buildCategoryFilter();
+      renderList();
+    }
+
+    function buildCategoryFilter(){
+      const cats = ["TODOS", ...Array.from(new Set(allRows.map(r => r.category).filter(Boolean)))].sort();
+      catFilterEl.innerHTML = "";
+      for(const c of cats){
+        const opt = document.createElement("option");
+        opt.value = c;
+        opt.textContent = c;
+        catFilterEl.appendChild(opt);
+      }
+      catFilterEl.value = "TODOS";
+    }
+
+    function renderList(){
+      const q = safeText(searchEl.value).toLowerCase();
+      const cat = catFilterEl.value;
+
+      const rows = allRows.filter(r => {
+        const matchCat = (cat === "TODOS") || (r.category === cat);
+        const matchQ = !q || (r.name||"").toLowerCase().includes(q) || (r.category||"").toLowerCase().includes(q);
+        return matchCat && matchQ;
+      });
+
+      countInfo.textContent = `Mostrando ${rows.length} de ${allRows.length} productos`;
+
+      listEl.innerHTML = "";
+      for(const r of rows){
+        const div = document.createElement("div");
+        div.className = "item";
+
+        const img = document.createElement("img");
+        img.src = r.image_url || "https://via.placeholder.com/600x400?text=Sin+imagen";
+        img.alt = r.name || "Producto";
+        img.loading = "lazy";
+
+        const p = document.createElement("div");
+        p.className = "p";
+        p.innerHTML = `
+          <b>${r.name || ""}</b>
+          <div class="muted">${r.category || ""} · ${r.active ? "VISIBLE" : "OCULTO"}</div>
+          <small>Pusuqui: ${r.price_pusuqui ?? "—"} · Pomasqui: ${r.price_pomasqui ?? "—"} · Carcelén: ${r.price_carcelen ?? "—"}</small>
+        `;
+
+        const actions = document.createElement("div");
+        actions.className = "actions";
+
+        const edit = document.createElement("button");
+        edit.className = "btn";
+        edit.textContent = "Editar";
+        edit.onclick = () => loadToForm(r);
+
+        const del = document.createElement("button");
+        del.className = "btn danger";
+        del.textContent = "Eliminar";
+        del.onclick = () => removeProduct(r.id);
+
+        actions.appendChild(edit);
+        actions.appendChild(del);
+
+        div.appendChild(img);
+        div.appendChild(p);
+        div.appendChild(actions);
+
+        listEl.appendChild(div);
+      }
+    }
+
+    function loadToForm(r){
+      editingId = r.id;
+      formTitle.textContent = "Editar producto #" + r.id;
+      formMsg.textContent = "Editando. Si no subes nueva imagen, se mantiene la actual.";
+      nameEl.value = r.name || "";
+      categoryEl.value = r.category || "";
+      descEl.value = r.description || "";
+      pusuquiEl.value = r.price_pusuqui ?? "";
+      pomasquiEl.value = r.price_pomasqui ?? "";
+      carcelenEl.value = r.price_carcelen ?? "";
+      activeEl.value = r.active ? "true" : "false";
+      imageFileEl.value = "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    async function removeProduct(id){
+      if(!confirm("¿Eliminar este producto?")) return;
+      const { error } = await sb.from("products").delete().eq("id", id);
+      if(error){
+        alert("Error: " + error.message);
+        return;
+      }
+      await loadProducts();
+    }
+
+    searchEl.addEventListener("input", renderList);
+    catFilterEl.addEventListener("change", renderList);
+
+    // Init
+    refreshSession();
+  </script>
+</body>
+</html>
 
