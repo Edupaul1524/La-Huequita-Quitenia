@@ -1,553 +1,290 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>La Huequita Quiteña · Catálogo</title>
   <style>
     :root{
-      --bg:#050509;
-      --card:#111119;
-      --card2:#181824;
-      --text:#f5f5f5;
-      --muted:#a0a0b5;
-      --border:#262637;
-      --primary:#00ff7f;
-      --primarySoft:rgba(0,255,127,.12);
-      --shadow:0 18px 50px rgba(0,0,0,.55);
-      --radius:18px;
-      --pill:999px;
+      --bg:#07090f;
+      --card:#0c1020;
+      --card2:#0b0f1a;
+      --text:#eaf0ff;
+      --muted:#a9b2c7;
+      --line:rgba(255,255,255,.08);
+      --accent:#00ff7a;
+      --accent2:#00c8ff;
+      --danger:#ff4d6d;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius:16px;
+      --radius2:22px;
     }
-    *{box-sizing:border-box;margin:0;padding:0}
+    *{box-sizing:border-box}
     body{
-      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;
-      background: radial-gradient(circle at top, #141428 0, #07070f 55%, #000 100%);
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: radial-gradient(1200px 800px at 20% -10%, rgba(0,255,122,.18), transparent 50%),
+                  radial-gradient(900px 700px at 90% 0%, rgba(0,200,255,.16), transparent 45%),
+                  var(--bg);
       color:var(--text);
-      min-height:100vh;
     }
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:1250px;margin:0 auto;padding:14px}
+    a{color:inherit}
+    .wrap{max-width:1300px; margin:0 auto; padding:18px}
     .topbar{
-      position:sticky;top:10px;z-index:50;
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
-      padding:10px 14px;border-radius:var(--pill);
-      background:rgba(15,15,25,.75);
-      border:1px solid rgba(255,255,255,.08);
-      backdrop-filter: blur(12px);
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius2);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
       box-shadow: var(--shadow);
+      position:sticky; top:10px; z-index:50;
+      backdrop-filter: blur(10px);
     }
-    .brand{display:flex;align-items:center;gap:10px;min-width:0}
+    .brand{display:flex; align-items:center; gap:12px}
     .logo{
-      width:40px;height:40px;border-radius:50%;
-      background:radial-gradient(circle at 30% 0, #00ff7f, #007a3e 50%, #020208 100%);
-      display:flex;align-items:center;justify-content:center;
-      font-weight:900;letter-spacing:.04em;
-      box-shadow:0 0 18px rgba(0,255,127,.18);
-      flex-shrink:0;
+      width:42px; height:42px; border-radius:999px;
+      display:grid; place-items:center;
+      background: radial-gradient(circle at 30% 20%, rgba(0,255,122,.9), rgba(0,200,255,.55));
+      color:#00140a; font-weight:900;
     }
-    .titles{display:flex;flex-direction:column;gap:2px;min-width:0}
-    .titles .t1{
-      font-size:13px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
-      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-    }
-    .titles .t2{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+    .brand h1{font-size:16px; margin:0}
+    .brand p{font-size:12px; margin:2px 0 0; color:var(--muted)}
+    .actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
     .pill{
-      border:none;cursor:pointer;
-      padding:8px 12px;border-radius:var(--pill);
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.12);
-      color:#fff;font-weight:900;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
-      display:inline-flex;align-items:center;gap:8px;
+      border:1px solid var(--line); background: rgba(255,255,255,.04);
+      color:var(--text); padding:10px 12px; border-radius:999px;
+      display:flex; gap:8px; align-items:center; cursor:pointer;
     }
     .pill.primary{
-      background: radial-gradient(circle at 0 0, #00ff7f, #01874a 55%, #050509 100%);
-      color:#06140c;
-      border:1px solid rgba(0,255,127,.35);
-      box-shadow:0 0 16px rgba(0,255,127,.22);
+      border-color: rgba(0,255,122,.35);
+      background: rgba(0,255,122,.08);
     }
-    .pill.cart{position:relative}
-    .badge{
-      position:absolute;top:-6px;right:-5px;
-      background:#ff4b5c;color:#fff;
-      border-radius:var(--pill);
-      font-size:10px;padding:2px 6px;
-      box-shadow:0 0 12px rgba(255,75,92,.45);
+    select, input{
+      background: rgba(255,255,255,.04);
+      border:1px solid var(--line);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      outline:none;
     }
-
+    input::placeholder{color:rgba(234,240,255,.45)}
     .toolbar{
       margin-top:14px;
-      display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+      display:flex; gap:12px; align-items:center; flex-wrap:wrap;
     }
-    .local-chip{
-      display:flex;align-items:center;gap:8px;
-      padding:10px 12px;border-radius:var(--pill);
-      background:rgba(0,255,127,.08);
-      border:1px solid rgba(0,255,127,.25);
-      color:var(--primary);
-      font-weight:900;font-size:12px;
+    .layout{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:16px;
     }
-    .local-chip select{
-      background:transparent;border:none;outline:none;color:var(--text);
-      font-weight:800;font-size:12px;
+    @media (max-width: 900px){
+      .layout{grid-template-columns: 1fr}
     }
-    .search{
-      flex:1;min-width:220px;
-      position:relative;
+    .panel{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
     }
-    .search input{
+    .panelHeader{
+      padding:14px 16px;
+      border-bottom:1px solid var(--line);
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    .panelHeader h2{margin:0; font-size:14px; letter-spacing:.12em; text-transform:uppercase}
+    .panelHeader span{color:var(--muted); font-size:12px}
+    .catList{padding:10px}
+    .catBtn{
       width:100%;
-      padding:11px 12px 11px 34px;
-      border-radius:var(--pill);
-      background:rgba(0,0,0,.25);
-      border:1px solid rgba(255,255,255,.10);
-      color:var(--text);outline:none;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 12px;
+      margin:8px 0;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      cursor:pointer;
     }
-    .search span{
-      position:absolute;left:12px;top:50%;transform:translateY(-50%);
+    .catBtn.active{
+      border-color: rgba(0,255,122,.45);
+      background: rgba(0,255,122,.10);
+      box-shadow: 0 0 0 1px rgba(0,255,122,.12) inset;
+    }
+    .main{
+      padding:0;
+    }
+    .banner{
+      padding:18px 16px;
+      border-bottom:1px solid var(--line);
+      background: radial-gradient(800px 260px at 0% 0%, rgba(0,255,122,.12), transparent 55%),
+                  radial-gradient(600px 220px at 95% 0%, rgba(0,200,255,.10), transparent 50%),
+                  rgba(255,255,255,.02);
+    }
+    .bannerTitle{margin:0; font-size:18px}
+    .bannerSub{margin:6px 0 0; color:var(--muted); font-size:13px}
+    .products{
+      padding:16px;
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap:14px;
+    }
+    @media (max-width: 1200px){ .products{grid-template-columns: repeat(3, 1fr);} }
+    @media (max-width: 900px){ .products{grid-template-columns: repeat(2, 1fr);} }
+    @media (max-width: 520px){ .products{grid-template-columns: 1fr;} }
+
+    .card{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: 18px;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height: 340px;
+    }
+    .imgBox{
+      height:180px;
+      background: rgba(0,0,0,.25);
+      display:grid; place-items:center;
+      border-bottom:1px solid var(--line);
+    }
+    .imgBox img{
+      max-height:160px;
+      max-width:85%;
+      object-fit:contain;
+      filter: drop-shadow(0 14px 18px rgba(0,0,0,.55));
+    }
+    .cardBody{padding:12px 12px 14px; display:flex; flex-direction:column; gap:8px; flex:1}
+    .name{font-weight:800; font-size:14px; letter-spacing:.02em}
+    .desc{color:var(--muted); font-size:12.5px; line-height:1.35}
+    .priceRow{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:auto}
+    .price{
+      font-size:16px; font-weight:900;
+      background: rgba(0,255,122,.12);
+      border:1px solid rgba(0,255,122,.28);
+      padding:7px 10px;
+      border-radius:12px;
+    }
+    .btn{
+      border:1px solid rgba(0,200,255,.30);
+      background: rgba(0,200,255,.10);
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:700;
+      color:var(--text);
+      display:flex; gap:8px; align-items:center; justify-content:center;
+    }
+    .btn:hover{background: rgba(0,200,255,.14)}
+    .empty{
+      padding:22px;
       color:var(--muted);
     }
 
-    /* Layout: categorías izquierda, productos centro */
-    #app{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns: 290px 1fr;
-      gap:14px;
+    /* AGE MODAL */
+    #ageModal{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.65);
+      display:none; align-items:center; justify-content:center;
+      z-index:200;
+      padding:18px;
     }
-
-    /* sidebar categorías */
-    #categories{
-      position:sticky;
-      top:92px;
-      align-self:start;
-      border-radius:var(--radius);
-      background:rgba(15,15,25,.75);
-      border:1px solid rgba(255,255,255,.08);
-      backdrop-filter: blur(10px);
-      padding:14px;
+    .ageBox{
+      width:min(520px, 100%);
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius: 24px;
       box-shadow: var(--shadow);
-      max-height: calc(100vh - 120px);
-      overflow:auto;
+      overflow:hidden;
     }
-    .cat-title{font-weight:950;letter-spacing:.16em;text-transform:uppercase;font-size:12px}
-    .cat-sub{margin-top:6px;color:var(--muted);font-size:11px}
-    .cat-list{margin-top:12px;display:flex;flex-direction:column;gap:8px}
-    .cat-btn{
-      border:none;cursor:pointer;text-align:left;
-      padding:12px;border-radius:14px;
-      background:rgba(0,0,0,.25);
-      border:1px solid rgba(255,255,255,.10);
-      color:#fff;font-weight:900;
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-      transition:.12s ease;
+    .ageTop{
+      padding:18px;
+      background: radial-gradient(700px 240px at 15% 0%, rgba(0,255,122,.18), transparent 55%),
+                  radial-gradient(700px 240px at 95% 0%, rgba(0,200,255,.14), transparent 55%);
+      border-bottom:1px solid var(--line);
     }
-    .cat-btn:hover{border-color:rgba(0,255,127,.28)}
-    .cat-btn.active{
-      background:rgba(0,255,127,.12);
-      border-color:rgba(0,255,127,.50);
-      color:var(--primary);
-      box-shadow:0 0 18px rgba(0,255,127,.14);
-    }
-    .chev{color:var(--muted);font-weight:900}
-
-    /* productos */
-    #products{
-      border-radius:var(--radius);
-      background:rgba(15,15,25,.55);
-      border:1px solid rgba(255,255,255,.08);
-      backdrop-filter: blur(10px);
-      padding:14px;
-      box-shadow: var(--shadow);
-    }
-    .prod-header{
-      display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap;
-      padding:12px;border-radius:16px;
-      background:linear-gradient(135deg, rgba(0,255,127,.14), rgba(0,0,0,.22));
-      border:1px solid rgba(0,255,127,.20);
-    }
-    .prod-title{font-weight:950;letter-spacing:.14em;text-transform:uppercase;font-size:14px}
-    .prod-sub{margin-top:6px;font-size:12px;color:var(--muted)}
-    .prod-badge{
-      font-size:11px;color:var(--primary);font-weight:950;
-      background:rgba(0,255,127,.10);
-      border:1px solid rgba(0,255,127,.22);
-      padding:8px 10px;border-radius:var(--pill);
-    }
-    .grid{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-      gap:14px;
-    }
-    .card{
-      border-radius:18px;overflow:hidden;
-      background:linear-gradient(145deg, rgba(18,18,30,1), rgba(23,23,38,1));
-      border:1px solid rgba(255,255,255,.08);
-      box-shadow:0 12px 28px rgba(0,0,0,.55);
-      display:flex;flex-direction:column;
-      transition:.12s ease;
-      min-height:340px;
-    }
-    .card:hover{transform:translateY(-2px);border-color:rgba(0,255,127,.22)}
-    .imgwrap{
-      height:170px;
-      display:flex;align-items:center;justify-content:center;
-      padding:10px;background:rgba(0,0,0,.18);
-      border-bottom:1px solid rgba(255,255,255,.06);
-    }
-    .imgwrap img{
-      max-height:150px;object-fit:contain;
-      filter: drop-shadow(0 12px 18px rgba(0,0,0,.75));
-    }
-    .body{padding:10px 10px 12px;display:flex;flex-direction:column;gap:8px}
-    .name{font-weight:950;font-size:13px;line-height:1.25;min-height:34px}
-    .desc{font-size:11px;color:var(--muted);line-height:1.35;min-height:30px}
-    .row{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
-    .price{font-weight:950;font-size:16px}
-    .note{font-size:10px;color:var(--muted);text-align:right}
-    .btn{
-      margin-top:6px;
-      display:flex;align-items:center;justify-content:center;gap:8px;
-      padding:11px 10px;border-radius:var(--pill);
-      font-weight:950;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
-      background: radial-gradient(circle at 0 0, #00ff7f, #01874a 55%, #050509 100%);
-      color:#06140c;
-      box-shadow:0 0 16px rgba(0,255,127,.22);
-      border:1px solid rgba(0,255,127,.35);
-    }
-    .footerbar{margin-top:14px;display:flex;justify-content:center}
-    .loadmore{
-      border:none;cursor:pointer;
-      padding:12px 16px;border-radius:var(--pill);
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.12);
-      color:#fff;font-weight:950;text-transform:uppercase;letter-spacing:.08em;font-size:11px;
-    }
-    .loadmore:hover{border-color:rgba(0,255,127,.28);color:var(--primary)}
-    .end{color:var(--muted);font-size:12px}
-
-    /* Modal edad */
-    #age-modal{
-      position:fixed;inset:0;
-      background:rgba(0,0,0,.78);
-      backdrop-filter: blur(8px);
-      display:flex;align-items:center;justify-content:center;
-      z-index:9999;
-    }
-    .agebox{
-      width:95%;max-width:420px;
-      border-radius:16px;overflow:hidden;
-      background:rgba(10,10,18,.75);
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow:0 0 40px rgba(0,0,0,.85);
-    }
-    .agehero{
-      padding:36px 18px 24px;
-      background: radial-gradient(circle at top left, rgba(0,255,127,.22), rgba(0,0,0,.0)),
-                  linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.85));
-    }
-    .agehero h1{
-      text-align:center;
-      font-size:30px;font-weight:950;
-      text-shadow:0 0 14px rgba(0,255,127,.55);
-      letter-spacing:.06em;
-    }
-    .agehero .sub{
-      text-align:center;
-      margin-top:6px;
-      color:var(--primary);
-      letter-spacing:.28em;
-      font-weight:900;
-      font-size:11px;
-    }
-    .ageselect{margin-top:18px;display:flex;justify-content:center}
-    .ageselect select{
-      width:85%;padding:12px;border-radius:12px;
-      border:none;outline:none;font-weight:900;
-    }
-    .agefoot{
-      padding:16px 18px 18px;
-      background:rgba(0,0,0,.45);
-      text-align:center;
-    }
-    .agefoot p{font-size:16px;font-weight:900;margin-bottom:14px}
-    .agebtns{display:flex;gap:10px}
-    .agebtn{
-      flex:1;border:none;cursor:pointer;
-      padding:12px;border-radius:12px;font-weight:950;
-    }
-    .no{background:#2c2c34;color:#fff}
-    .yes{
-      background:var(--primary);color:#000;
-      box-shadow:0 0 14px rgba(0,255,127,.28);
-    }
-
-    @media (max-width:900px){
-      #app{grid-template-columns:1fr}
-      #categories{position:relative;top:0;max-height:none}
+    .ageTop h3{margin:0; letter-spacing:.12em; text-transform:uppercase}
+    .ageTop p{margin:8px 0 0; color:var(--muted); font-size:13px}
+    .ageBottom{padding:18px}
+    .ageBtns{display:flex; gap:10px; margin-top:14px}
+    .ageNo{flex:1; border:1px solid rgba(255,77,109,.35); background: rgba(255,77,109,.08)}
+    .ageYes{flex:2; border:1px solid rgba(0,255,122,.35); background: rgba(0,255,122,.10)}
+    .ageBtns button{
+      padding:12px 12px; border-radius:14px; color:var(--text); font-weight:800;
+      cursor:pointer;
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <header class="topbar">
+
+    <div class="topbar">
       <div class="brand">
         <div class="logo">HQ</div>
-        <div class="titles">
-          <div class="t1">La Huequita Quiteña</div>
-          <div class="t2">Licores, combos y más · Quito - Ecuador</div>
+        <div>
+          <h1>La Huequita Quiteña</h1>
+          <p>Licores · Quito · 17h00 a 05h00</p>
         </div>
       </div>
+
       <div class="actions">
-        <button class="pill primary" id="main-whatsapp-btn">🟢 Pide por WhatsApp</button>
-        <button class="pill cart" id="cart-pill">🛒 Carrito <span class="badge" id="cart-count">0</span></button>
-      </div>
-    </header>
-
-    <div class="toolbar">
-      <div class="local-chip">
-        <span>📍 Estás comprando en</span>
-        <select id="local-select"></select>
-      </div>
-      <div class="search">
-        <span>🔍</span>
-        <input id="search-box" type="text" placeholder="Buscar por nombre o categoría..." />
+        <select id="storeSelect" title="Sucursal">
+          <option value="PUSUQUI">📍 Pusuqui</option>
+          <option value="POMASQUI">📍 Pomasqui</option>
+          <option value="CARCELEN">📍 Carcelén</option>
+        </select>
+        <input id="searchBox" type="text" placeholder="Buscar por nombre o categoría..." />
+        <button class="pill primary" id="btnConsiderarWhatsapp">🟢 Pedir por WhatsApp</button>
       </div>
     </div>
 
-    <main id="app">
-      <aside id="categories"></aside>
-      <section id="products"></section>
-    </main>
+    <div class="layout">
+      <!-- Categorías IZQUIERDA -->
+      <aside class="panel">
+        <div class="panelHeader">
+          <h2>Categorías</h2>
+          <span id="catCount">0</span>
+        </div>
+        <div class="catList" id="categories"></div>
+      </aside>
+
+      <!-- Productos CENTRO -->
+      <main class="panel main">
+        <div class="banner">
+          <h2 class="bannerTitle" id="bannerTitle">Todos los productos</h2>
+          <p class="bannerSub" id="bannerSub">Selecciona una categoría para ver productos. Precios según sucursal.</p>
+        </div>
+        <section class="products" id="products"></section>
+        <div class="empty" id="emptyState" style="display:none;">No hay productos para esta búsqueda/categoría.</div>
+      </main>
+    </div>
+
   </div>
 
-  <!-- MODAL EDAD -->
-  <div id="age-modal">
-    <div class="agebox">
-      <div class="agehero">
-        <h1>LA HUEQUITA</h1>
-        <div class="sub">QUITEÑA</div>
-        <div class="ageselect">
-          <select id="store-select"></select>
-        </div>
+  <!-- MODAL +18 -->
+  <div id="ageModal">
+    <div class="ageBox">
+      <div class="ageTop">
+        <h3>Consumo responsable 18+</h3>
+        <p>Este catálogo es solo para mayores de edad. Confirma para continuar.</p>
       </div>
-      <div class="agefoot">
-        <p>¿Eres mayor de edad?</p>
-        <div class="agebtns">
-          <button class="agebtn no" id="btn-no">NO</button>
-          <button class="agebtn yes" id="btn-yes">SÍ, TENGO MÁS DE 18</button>
+      <div class="ageBottom">
+        <div class="ageBtns">
+          <button class="ageNo" id="ageNoBtn">NO</button>
+          <button class="ageYes" id="ageYesBtn">SÍ, SOY MAYOR DE 18</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Carga productos (debe existir productos.js en el repo) -->
-  <script src="productos.js"></script>
-
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // Espera la data del archivo productos.js
-    const LOCALES = window.HUEQUITA_LOCALES || [
-      {id:"PUSUQUI", label:"La Huequita – Pusuqui"},
-      {id:"POMASQUI", label:"La Huequita – Pomasqui"},
-      {id:"CARCELEN", label:"La Huequita – Carcelen"}
-    ];
-    const ALL_PRODUCTS = window.HUEQUITA_PRODUCTS || [];
-    const WHATSAPP_NUMBER = "593982230393";
-
-    const categoriesEl = document.getElementById("categories");
-    const productsEl = document.getElementById("products");
-    const localSelect = document.getElementById("local-select");
-    const storeSelect = document.getElementById("store-select");
-    const ageModal = document.getElementById("age-modal");
-    const btnYes = document.getElementById("btn-yes");
-    const btnNo = document.getElementById("btn-no");
-    const searchBox = document.getElementById("search-box");
-
-    let activeLocal = localStorage.getItem("huequita_local") || "PUSUQUI";
-    let activeCategory = "TODOS";
-    let page = 1;
-    const PAGE_SIZE = 24;
-
-    function encodeSrc(src){ try{return encodeURI(src);}catch{return src;} }
-    function money(n){ return (typeof n==="number") ? `$ ${n.toFixed(2)}` : "No disponible"; }
-
-    function populateSelect(sel){
-      sel.innerHTML = "";
-      LOCALES.forEach(l=>{
-        const o=document.createElement("option");
-        o.value=l.id;o.textContent=l.label;
-        sel.appendChild(o);
-      });
-      sel.value = activeLocal;
-    }
-
-    function getLocalLabel(id){
-      const f = LOCALES.find(x=>x.id===id);
-      return f ? f.label : id;
-    }
-
-    function whatsappLink(msg){
-      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-    }
-
-    function productsForLocal(){
-      return ALL_PRODUCTS.filter(p=>{
-        if(!p.precios) return true;
-        return p.precios[activeLocal] != null;
-      });
-    }
-
-    function getCategories(){
-      const set = new Set(productsForLocal().map(p => (p.categoria||"").trim()).filter(Boolean));
-      const arr = [...set].sort((a,b)=>a.localeCompare(b,"es"));
-      return ["TODOS", ...arr];
-    }
-
-    function renderCategories(){
-      const cats = getCategories();
-      categoriesEl.innerHTML = `
-        <div class="cat-title">PRODUCTOS</div>
-        <div class="cat-sub">Elige una categoría</div>
-      `;
-      const list=document.createElement("div");
-      list.className="cat-list";
-
-      cats.forEach(cat=>{
-        const btn=document.createElement("button");
-        btn.className="cat-btn"+(cat===activeCategory?" active":"");
-        btn.innerHTML=`<span>${cat}</span><span class="chev">›</span>`;
-        btn.onclick=()=>{
-          activeCategory=cat;
-          page=1;
-          renderCategories();
-          renderProducts();
-          window.scrollTo({top:0,behavior:"smooth"});
-        };
-        list.appendChild(btn);
-      });
-
-      categoriesEl.appendChild(list);
-    }
-
-    function filtered(){
-      const q = (searchBox.value||"").trim().toLowerCase();
-      return productsForLocal().filter(p=>{
-        const matchCat = activeCategory==="TODOS" || p.categoria===activeCategory;
-        const matchSearch = !q || (p.nombre||"").toLowerCase().includes(q) || (p.categoria||"").toLowerCase().includes(q);
-        return matchCat && matchSearch;
-      });
-    }
-
-    function renderProducts(){
-      const all = filtered();
-      const total = all.length;
-      const slice = all.slice(0, page*PAGE_SIZE);
-
-      productsEl.innerHTML = `
-        <div class="prod-header">
-          <div>
-            <div class="prod-title">${activeCategory==="TODOS" ? "Nuestros productos" : activeCategory}</div>
-            <div class="prod-sub">Sucursal: ${getLocalLabel(activeLocal)} · Mostrando ${slice.length} de ${total}</div>
-          </div>
-          <div class="prod-badge">🟢 Pedido por WhatsApp · 🍻 Bien fríos</div>
-        </div>
-        <div class="grid" id="grid"></div>
-        <div class="footerbar">
-          ${slice.length < total ? `<button class="loadmore" id="loadmore">Cargar más</button>` : `<div class="end">Fin de la lista ✅</div>`}
-        </div>
-      `;
-
-      const grid=document.getElementById("grid");
-
-      slice.forEach(p=>{
-        const price = p.precios && p.precios[activeLocal] != null ? p.precios[activeLocal] : null;
-        const msg =
-`Hola, quiero hacer un pedido en La Huequita Quiteña (${getLocalLabel(activeLocal)}):
-• Producto: ${p.nombre}
-• Categoría: ${p.categoria}
-• Precio en tienda: ${money(price)}
-¿Me confirmas disponibilidad y delivery?`;
-
-        const card=document.createElement("div");
-        card.className="card";
-        card.innerHTML = `
-          <div class="imgwrap">
-              <img src="${encodeURI(p.imagen)}" alt="${p.nombre}" loading="lazy"
-               onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=Sin+imagen';">
-          </div>
-          <div class="body">
-            <div class="name">${p.nombre}</div>
-            <div class="desc">${p.descripcion || "—"}</div>
-            <div class="row">
-              <div class="price">${money(price)}</div>
-              <div class="note">Delivery no incluido</div>
-            </div>
-            <a class="btn" target="_blank" href="${whatsappLink(msg)}">🟢 Pedir por WhatsApp</a>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-
-      const lm=document.getElementById("loadmore");
-      if(lm){
-        lm.onclick=()=>{ page+=1; renderProducts(); };
-      }
-    }
-
-    // Modal edad
-    function showAge(){
-      ageModal.style.display="flex";
-      populateSelect(storeSelect);
-    }
-    function acceptAge(){
-      activeLocal = storeSelect.value;
-      localStorage.setItem("huequita_local", activeLocal);
-      populateSelect(localSelect);
-      ageModal.style.display="none";
-      activeCategory="TODOS";
-      page=1;
-      renderCategories();
-      renderProducts();
-    }
-    function rejectAge(){
-      alert("Lo sentimos, debes ser mayor de edad para ingresar 🍾");
-      window.location.href = "https://www.google.com";
-    }
-
-    // init
-    populateSelect(localSelect);
-    populateSelect(storeSelect);
-
-    // ⚠️ Para que SIEMPRE salga el filtro:
-    showAge();
-
-    btnYes.onclick=acceptAge;
-    btnNo.onclick=rejectAge;
-
-    localSelect.onchange=()=>{
-      activeLocal = localSelect.value;
-      localStorage.setItem("huequita_local", activeLocal);
-      storeSelect.value = activeLocal;
-      page=1;
-      renderCategories();
-      renderProducts();
-    };
-
-    searchBox.addEventListener("input", ()=>{
-      page=1;
-      renderProducts();
-    });
-
-    document.getElementById("main-whatsapp-btn").onclick=()=>{
-      const msg = `Hola, vengo de la web de La Huequita Quiteña (${getLocalLabel(activeLocal)}) y quiero hacer un pedido 🍾`;
-      window.open(whatsappLink(msg), "_blank");
-    };
-    document.getElementById("cart-pill").onclick=()=>{
-      alert("Por ahora el pedido se hace por WhatsApp ✅");
-    };
+    // ✅ SOLO PUBLIC KEY (bien)
+    const supabase = window.supabase.createClient(
+      "https://ekngesaavlonwdpiqlwq.supabase.co",
+      "sb_publishable_zRYZjGHaGfWZuvedoJQyCw_LuEgk7r0"
+    );
   </script>
+  <script src="catalogo.js"></script>
 </body>
 </html>
-
 
