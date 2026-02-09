@@ -2,290 +2,578 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>La Huequita Quiteña · Catálogo</title>
   <style>
     :root{
-      --bg:#07090f;
-      --card:#0c1020;
-      --card2:#0b0f1a;
-      --text:#eaf0ff;
-      --muted:#a9b2c7;
-      --line:rgba(255,255,255,.08);
-      --accent:#00ff7a;
-      --accent2:#00c8ff;
-      --danger:#ff4d6d;
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-      --radius:16px;
-      --radius2:22px;
+      --bg:#050509;
+      --panel:#0d0d15;
+      --card:#111119;
+      --card2:#151525;
+      --text:#f5f5f5;
+      --muted:#a0a0b5;
+      --border:#262637;
+      --primary:#00ff7f;
+      --primarySoft:rgba(0,255,127,.10);
+      --danger:#ff4b5c;
+      --shadow:0 14px 34px rgba(0,0,0,.75);
+      --r:16px;
+      --pill:999px;
+      --max:1280px;
     }
-    *{box-sizing:border-box}
+
+    *{box-sizing:border-box;margin:0;padding:0}
     body{
-      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background: radial-gradient(1200px 800px at 20% -10%, rgba(0,255,122,.18), transparent 50%),
-                  radial-gradient(900px 700px at 90% 0%, rgba(0,200,255,.16), transparent 45%),
-                  var(--bg);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial;
+      background:radial-gradient(circle at top,#141427 0,#030308 55%,#000 100%);
       color:var(--text);
+      min-height:100vh;
     }
-    a{color:inherit}
-    .wrap{max-width:1300px; margin:0 auto; padding:18px}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max);margin:0 auto;padding:14px 14px 40px}
     .topbar{
-      display:flex; gap:14px; align-items:center; justify-content:space-between;
-      padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius2);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      box-shadow: var(--shadow);
-      position:sticky; top:10px; z-index:50;
-      backdrop-filter: blur(10px);
+      position:sticky;top:10px;z-index:40;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:10px 14px;border-radius:var(--pill);
+      background:linear-gradient(135deg,#0f0f18,#15152a);
+      border:1px solid rgba(255,255,255,.06);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
     }
-    .brand{display:flex; align-items:center; gap:12px}
+    .brand{display:flex;align-items:center;gap:10px;min-width:0}
     .logo{
-      width:42px; height:42px; border-radius:999px;
-      display:grid; place-items:center;
-      background: radial-gradient(circle at 30% 20%, rgba(0,255,122,.9), rgba(0,200,255,.55));
-      color:#00140a; font-weight:900;
+      width:40px;height:40px;border-radius:50%;
+      background:radial-gradient(circle at 30% 0,var(--primary),#007a3e 55%,#020208 100%);
+      display:flex;align-items:center;justify-content:center;
+      font-weight:900;letter-spacing:.06em;
+      box-shadow:0 0 20px rgba(0,255,127,.35);
+      flex:0 0 auto;
     }
-    .brand h1{font-size:16px; margin:0}
-    .brand p{font-size:12px; margin:2px 0 0; color:var(--muted)}
-    .actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
-    .pill{
-      border:1px solid var(--line); background: rgba(255,255,255,.04);
-      color:var(--text); padding:10px 12px; border-radius:999px;
-      display:flex; gap:8px; align-items:center; cursor:pointer;
-    }
-    .pill.primary{
-      border-color: rgba(0,255,122,.35);
-      background: rgba(0,255,122,.08);
-    }
-    select, input{
-      background: rgba(255,255,255,.04);
-      border:1px solid var(--line);
+    .title{display:flex;flex-direction:column;gap:2px;min-width:0}
+    .title b{font-size:14px;letter-spacing:.12em;text-transform:uppercase}
+    .title span{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .actions{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+    .pillbtn{
+      border:none;cursor:pointer;
+      border-radius:var(--pill);
+      padding:8px 12px;
+      font-size:11px;font-weight:800;
+      letter-spacing:.10em;text-transform:uppercase;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.25);
       color:var(--text);
-      padding:10px 12px;
-      border-radius:12px;
-      outline:none;
+      display:inline-flex;align-items:center;gap:8px;
     }
-    input::placeholder{color:rgba(234,240,255,.45)}
+    .pillbtn.primary{
+      color:#041006;
+      background:radial-gradient(circle at 0 0,var(--primary),#01874a 60%,#020208);
+      border-color:rgba(0,255,127,.55);
+      box-shadow:0 0 18px rgba(0,255,127,.45);
+    }
+    .badge{
+      background:var(--danger);
+      color:#fff;font-size:10px;
+      padding:2px 6px;border-radius:999px;
+    }
+
     .toolbar{
-      margin-top:14px;
-      display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+      margin:14px 0 12px;
+      display:flex;gap:10px;align-items:center;flex-wrap:wrap;
     }
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 12px;border-radius:var(--pill);
+      background:rgba(0,255,127,.07);
+      border:1px solid rgba(0,255,127,.30);
+      color:var(--primary);
+      font-size:12px;font-weight:700;
+    }
+    .chip select{
+      background:transparent;border:none;outline:none;
+      color:var(--text);font-weight:700;font-size:12px;
+    }
+    .search{flex:1;min-width:210px;position:relative}
+    .search input{
+      width:100%;padding:12px 12px 12px 34px;
+      border-radius:var(--pill);
+      background:rgba(4,4,12,.9);
+      border:1px solid var(--border);
+      color:var(--text);outline:none;
+    }
+    .search .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted)}
+    .hint{font-size:12px;color:var(--muted);margin:6px 0 12px}
+
+    /* layout */
     .layout{
-      margin-top:16px;
       display:grid;
       grid-template-columns: 280px 1fr;
-      gap:16px;
-    }
-    @media (max-width: 900px){
-      .layout{grid-template-columns: 1fr}
+      gap:14px;
+      align-items:start;
     }
     .panel{
-      border:1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      border-radius: var(--radius2);
-      box-shadow: var(--shadow);
+      background:linear-gradient(180deg,#0b0b12,#07070c);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:var(--r);
+      box-shadow:var(--shadow);
       overflow:hidden;
     }
-    .panelHeader{
-      padding:14px 16px;
-      border-bottom:1px solid var(--line);
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-    }
-    .panelHeader h2{margin:0; font-size:14px; letter-spacing:.12em; text-transform:uppercase}
-    .panelHeader span{color:var(--muted); font-size:12px}
-    .catList{padding:10px}
-    .catBtn{
-      width:100%;
-      display:flex; align-items:center; justify-content:space-between;
+    .panel .ph{
       padding:12px 12px;
-      margin:8px 0;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color:var(--text);
-      cursor:pointer;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
     }
-    .catBtn.active{
-      border-color: rgba(0,255,122,.45);
-      background: rgba(0,255,122,.10);
-      box-shadow: 0 0 0 1px rgba(0,255,122,.12) inset;
+    .panel .ph b{letter-spacing:.12em;text-transform:uppercase;font-size:12px}
+    .panel .pc{padding:10px}
+    .catlist{display:flex;flex-direction:column;gap:8px}
+    .cat{
+      padding:10px 10px;border-radius:12px;cursor:pointer;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-weight:800;font-size:12px;
+      letter-spacing:.06em;text-transform:uppercase;
+      transition:.15s;
     }
-    .main{
-      padding:0;
+    .cat:hover{border-color:rgba(0,255,127,.35);color:var(--text)}
+    .cat.active{
+      background:var(--primarySoft);
+      border-color:rgba(0,255,127,.65);
+      color:var(--primary);
+      box-shadow:0 0 14px rgba(0,255,127,.25);
     }
-    .banner{
-      padding:18px 16px;
-      border-bottom:1px solid var(--line);
-      background: radial-gradient(800px 260px at 0% 0%, rgba(0,255,122,.12), transparent 55%),
-                  radial-gradient(600px 220px at 95% 0%, rgba(0,200,255,.10), transparent 50%),
-                  rgba(255,255,255,.02);
-    }
-    .bannerTitle{margin:0; font-size:18px}
-    .bannerSub{margin:6px 0 0; color:var(--muted); font-size:13px}
-    .products{
-      padding:16px;
-      display:grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap:14px;
-    }
-    @media (max-width: 1200px){ .products{grid-template-columns: repeat(3, 1fr);} }
-    @media (max-width: 900px){ .products{grid-template-columns: repeat(2, 1fr);} }
-    @media (max-width: 520px){ .products{grid-template-columns: 1fr;} }
 
+    /* products */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+      gap:14px;
+      padding:12px;
+    }
     .card{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      border-radius: 18px;
+      border-radius:16px;
+      background:linear-gradient(145deg,var(--card),var(--card2));
+      border:1px solid rgba(255,255,255,.06);
+      box-shadow:var(--shadow);
+      padding:10px;
+      display:flex;flex-direction:column;gap:8px;
+      min-height:320px;
+    }
+    .imgwrap{
+      height:160px;border-radius:14px;
+      background:rgba(0,0,0,.25);
+      display:flex;align-items:center;justify-content:center;
       overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      min-height: 340px;
     }
-    .imgBox{
-      height:180px;
-      background: rgba(0,0,0,.25);
-      display:grid; place-items:center;
-      border-bottom:1px solid var(--line);
+    .imgwrap img{
+      max-height:150px;object-fit:contain;
+      filter:drop-shadow(0 10px 18px rgba(0,0,0,.8));
     }
-    .imgBox img{
-      max-height:160px;
-      max-width:85%;
-      object-fit:contain;
-      filter: drop-shadow(0 14px 18px rgba(0,0,0,.55));
+    .name{font-weight:900;font-size:13px;letter-spacing:.02em}
+    .desc{font-size:12px;color:var(--muted);line-height:1.35;min-height:44px}
+    .meta{
+      display:flex;align-items:flex-end;justify-content:space-between;gap:8px;
+      margin-top:auto;
+      padding-top:6px;
+      border-top:1px solid rgba(255,255,255,.06);
     }
-    .cardBody{padding:12px 12px 14px; display:flex; flex-direction:column; gap:8px; flex:1}
-    .name{font-weight:800; font-size:14px; letter-spacing:.02em}
-    .desc{color:var(--muted); font-size:12.5px; line-height:1.35}
-    .priceRow{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:auto}
-    .price{
-      font-size:16px; font-weight:900;
-      background: rgba(0,255,122,.12);
-      border:1px solid rgba(0,255,122,.28);
-      padding:7px 10px;
-      border-radius:12px;
-    }
+    .price{font-size:16px;font-weight:1000}
+    .price small{display:block;font-size:11px;color:var(--muted);font-weight:700}
+    .note{font-size:10px;color:var(--muted);text-align:right;line-height:1.25}
+    .btnrow{display:flex;gap:8px;margin-top:8px}
     .btn{
-      border:1px solid rgba(0,200,255,.30);
-      background: rgba(0,200,255,.10);
-      padding:10px 12px;
-      border-radius:12px;
-      cursor:pointer;
-      font-weight:700;
-      color:var(--text);
-      display:flex; gap:8px; align-items:center; justify-content:center;
+      flex:1;border:none;cursor:pointer;border-radius:var(--pill);
+      padding:10px 10px;font-size:11px;font-weight:900;
+      letter-spacing:.10em;text-transform:uppercase;
+      transition:.15s;
     }
-    .btn:hover{background: rgba(0,200,255,.14)}
-    .empty{
-      padding:22px;
+    .btn.buy{
+      background:radial-gradient(circle at 0 0,var(--primary),#01874a 60%,#020208);
+      color:#031006;
+      box-shadow:0 0 16px rgba(0,255,127,.45);
+    }
+    .btn.buy:hover{transform:translateY(-1px);box-shadow:0 0 22px rgba(0,255,127,.75)}
+    .btn.ghost{
+      background:transparent;border:1px dashed rgba(255,255,255,.18);
       color:var(--muted);
     }
+    .btn.ghost:hover{border-style:solid;color:var(--primary);border-color:rgba(0,255,127,.45)}
 
-    /* AGE MODAL */
+    /* footer */
+    footer{
+      margin-top:14px;padding:14px 6px;
+      color:var(--muted);font-size:11px;text-align:center;
+      opacity:.9;
+    }
+
+    /* age modal */
     #ageModal{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.65);
-      display:none; align-items:center; justify-content:center;
-      z-index:200;
-      padding:18px;
+      position:fixed;inset:0;z-index:9999;
+      background:rgba(0,0,0,.78);
+      display:flex;align-items:center;justify-content:center;
+      backdrop-filter:blur(6px);
     }
     .ageBox{
-      width:min(520px, 100%);
-      border:1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border-radius: 24px;
-      box-shadow: var(--shadow);
+      width:min(520px,92vw);
+      border-radius:18px;
       overflow:hidden;
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow:0 0 40px rgba(0,0,0,.85);
+      background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.85));
     }
-    .ageTop{
-      padding:18px;
-      background: radial-gradient(700px 240px at 15% 0%, rgba(0,255,122,.18), transparent 55%),
-                  radial-gradient(700px 240px at 95% 0%, rgba(0,200,255,.14), transparent 55%);
-      border-bottom:1px solid var(--line);
+    .ageHero{
+      padding:34px 18px 28px;
+      background:
+        radial-gradient(circle at 20% 0, rgba(0,255,127,.28), transparent 55%),
+        radial-gradient(circle at 100% 0, rgba(0,255,127,.18), transparent 55%),
+        linear-gradient(135deg, rgba(0,0,0,.35), rgba(0,0,0,.85));
     }
-    .ageTop h3{margin:0; letter-spacing:.12em; text-transform:uppercase}
-    .ageTop p{margin:8px 0 0; color:var(--muted); font-size:13px}
-    .ageBottom{padding:18px}
-    .ageBtns{display:flex; gap:10px; margin-top:14px}
-    .ageNo{flex:1; border:1px solid rgba(255,77,109,.35); background: rgba(255,77,109,.08)}
-    .ageYes{flex:2; border:1px solid rgba(0,255,122,.35); background: rgba(0,255,122,.10)}
+    .ageHero h1{font-size:34px;letter-spacing:.10em;text-align:center}
+    .ageHero h1 span{color:var(--primary);text-shadow:0 0 16px rgba(0,255,127,.6)}
+    .ageHero p{margin-top:8px;text-align:center;color:var(--muted);font-weight:700}
+    .ageBody{padding:16px 18px 18px;background:#08080d}
+    .ageRow{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+    .ageRow select{
+      width:100%;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);
+      background:#0b0b12;color:var(--text);outline:none;font-weight:800
+    }
+    .ageBtns{display:flex;gap:10px;margin-top:12px}
     .ageBtns button{
-      padding:12px 12px; border-radius:14px; color:var(--text); font-weight:800;
-      cursor:pointer;
+      flex:1;padding:12px;border-radius:12px;border:none;cursor:pointer;
+      font-weight:1000;letter-spacing:.08em;text-transform:uppercase;
+    }
+    .no{background:#2a2a33;color:#fff}
+    .yes{background:var(--primary);color:#031006;box-shadow:0 0 18px rgba(0,255,127,.45)}
+    @media (max-width: 880px){
+      .layout{grid-template-columns:1fr}
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-
     <div class="topbar">
       <div class="brand">
         <div class="logo">HQ</div>
-        <div>
-          <h1>La Huequita Quiteña</h1>
-          <p>Licores · Quito · 17h00 a 05h00</p>
+        <div class="title">
+          <b>La Huequita Quiteña</b>
+          <span>Licores · Quito · 17h00 a 05h00</span>
         </div>
       </div>
-
       <div class="actions">
-        <select id="storeSelect" title="Sucursal">
-          <option value="PUSUQUI">📍 Pusuqui</option>
-          <option value="POMASQUI">📍 Pomasqui</option>
-          <option value="CARCELEN">📍 Carcelén</option>
-        </select>
-        <input id="searchBox" type="text" placeholder="Buscar por nombre o categoría..." />
-        <button class="pill primary" id="btnConsiderarWhatsapp">🟢 Pedir por WhatsApp</button>
+        <button class="pillbtn primary" id="btnWhatsapp">🟢 Pedir</button>
+        <button class="pillbtn" id="btnCart">🛒 Carrito <span class="badge" id="cartCount">0</span></button>
       </div>
     </div>
 
+    <div class="toolbar">
+      <div class="chip">📍 Sucursal
+        <select id="branchSelect">
+          <option value="PUSUQUI">Pusuquí</option>
+          <option value="POMASQUI">Pomasquí</option>
+          <option value="CARCELEN">Carcelén</option>
+        </select>
+      </div>
+      <div class="search">
+        <span class="icon">🔎</span>
+        <input id="searchInput" placeholder="Buscar por nombre o categoría..." />
+      </div>
+    </div>
+
+    <div class="hint" id="statusLine">Cargando catálogo…</div>
+
     <div class="layout">
-      <!-- Categorías IZQUIERDA -->
       <aside class="panel">
-        <div class="panelHeader">
-          <h2>Categorías</h2>
-          <span id="catCount">0</span>
+        <div class="ph">
+          <b>Categorías</b>
+          <span style="color:var(--muted);font-size:11px;font-weight:800" id="catCount"></span>
         </div>
-        <div class="catList" id="categories"></div>
+        <div class="pc">
+          <div class="catlist" id="catList"></div>
+        </div>
       </aside>
 
-      <!-- Productos CENTRO -->
-      <main class="panel main">
-        <div class="banner">
-          <h2 class="bannerTitle" id="bannerTitle">Todos los productos</h2>
-          <p class="bannerSub" id="bannerSub">Selecciona una categoría para ver productos. Precios según sucursal.</p>
+      <main class="panel">
+        <div class="ph">
+          <b id="mainTitle">Productos</b>
+          <span style="color:var(--muted);font-size:11px;font-weight:800" id="prodCount"></span>
         </div>
-        <section class="products" id="products"></section>
-        <div class="empty" id="emptyState" style="display:none;">No hay productos para esta búsqueda/categoría.</div>
+        <div class="grid" id="grid"></div>
       </main>
     </div>
 
+    <footer>© <span id="year"></span> La Huequita Quiteña · Consumo responsable 18+</footer>
   </div>
 
   <!-- MODAL +18 -->
   <div id="ageModal">
     <div class="ageBox">
-      <div class="ageTop">
-        <h3>Consumo responsable 18+</h3>
-        <p>Este catálogo es solo para mayores de edad. Confirma para continuar.</p>
+      <div class="ageHero">
+        <h1><span>LA HUEQUITA</span></h1>
+        <p>Confirma que eres mayor de edad para ver el catálogo.</p>
       </div>
-      <div class="ageBottom">
+      <div class="ageBody">
+        <div style="font-weight:1000;letter-spacing:.10em;text-transform:uppercase;font-size:12px;color:var(--muted);text-align:center">Selecciona tu sucursal</div>
+        <div class="ageRow">
+          <select id="ageBranch">
+            <option value="PUSUQUI">La Huequita – Pusuquí</option>
+            <option value="POMASQUI">La Huequita – Pomasquí</option>
+            <option value="CARCELEN">La Huequita – Carcelén</option>
+          </select>
+        </div>
+        <div style="text-align:center;margin-top:10px;font-size:16px;font-weight:1000">¿Eres mayor de edad?</div>
         <div class="ageBtns">
-          <button class="ageNo" id="ageNoBtn">NO</button>
-          <button class="ageYes" id="ageYesBtn">SÍ, SOY MAYOR DE 18</button>
+          <button class="no" id="btnNo">NO</button>
+          <button class="yes" id="btnYes">SÍ, SOY MAYOR DE 18</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    // ✅ SOLO PUBLIC KEY (bien)
-    const supabase = window.supabase.createClient(
-      "https://ekngesaavlonwdpiqlwq.supabase.co",
-      "sb_publishable_zRYZjGHaGfWZuvedoJQyCw_LuEgk7r0"
-    );
+  <script type="module">
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+    // ======= PON AQUÍ TUS DATOS =======
+    const SUPABASE_URL = "https://ekngesaavlonwdpiqlwq.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_zRYZjGHaGfWZuvedoJQyCw_LuEgk7r0";
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const WHATSAPP_NUMBER = "593982230393";
+
+    // DOM
+    const yearEl = document.getElementById("year");
+    const statusLine = document.getElementById("statusLine");
+    const branchSelect = document.getElementById("branchSelect");
+    const searchInput = document.getElementById("searchInput");
+    const catList = document.getElementById("catList");
+    const grid = document.getElementById("grid");
+    const mainTitle = document.getElementById("mainTitle");
+    const catCount = document.getElementById("catCount");
+    const prodCount = document.getElementById("prodCount");
+
+    const ageModal = document.getElementById("ageModal");
+    const ageBranch = document.getElementById("ageBranch");
+    const btnYes = document.getElementById("btnYes");
+    const btnNo = document.getElementById("btnNo");
+
+    const btnWhatsapp = document.getElementById("btnWhatsapp");
+    const btnCart = document.getElementById("btnCart");
+
+    // State
+    let activeBranch = localStorage.getItem("huequita_branch") || "PUSUQUI";
+    let activeCategoryId = "ALL";
+    let categories = [];
+    let products = []; // normalizados
+    let search = "";
+
+    yearEl.textContent = new Date().getFullYear();
+    branchSelect.value = activeBranch;
+    ageBranch.value = activeBranch;
+
+    function money(n){
+      return (n ?? 0).toFixed(2);
+    }
+    function openWhatsapp(text){
+      const msg = encodeURIComponent(text);
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank");
+    }
+    btnWhatsapp.onclick = () => openWhatsapp("Hola, vengo de la web de La Huequita Quiteña y quiero hacer un pedido 🍾");
+    btnCart.onclick = () => alert("Carrito en desarrollo. Por ahora los pedidos se gestionan por WhatsApp 💚");
+
+    // ======= Age modal (siempre en cada recarga, como pediste) =======
+    btnNo.onclick = () => {
+      alert("Lo sentimos, debes ser mayor de edad para ingresar 🍾");
+      window.location.href = "https://google.com";
+    };
+    btnYes.onclick = async () => {
+      activeBranch = ageBranch.value;
+      localStorage.setItem("huequita_branch", activeBranch);
+      branchSelect.value = activeBranch;
+      ageModal.style.display = "none";
+      await loadAll();
+    };
+
+    branchSelect.addEventListener("change", async () => {
+      activeBranch = branchSelect.value;
+      localStorage.setItem("huequita_branch", activeBranch);
+      await loadAll();
+    });
+
+    searchInput.addEventListener("input", () => {
+      search = (searchInput.value || "").trim().toLowerCase();
+      render();
+    });
+
+    // ======= DATA =======
+    async function fetchCategories(){
+      const { data, error } = await supabase
+        .from("categories")
+        .select("id,name")
+        .order("name", { ascending: true });
+
+      if (error) throw error;
+      return data || [];
+    }
+
+    async function fetchProducts(){
+      // Traemos productos activos + category + precios
+      const { data, error } = await supabase
+        .from("products")
+        .select(`
+          id,name,description,image_path,is_active,
+          categories:category_id ( id,name ),
+          product_prices ( branch, price )
+        `)
+        .eq("is_active", true)
+        .order("name", { ascending: true });
+
+      if (error) throw error;
+
+      // Normalizar: precio por sucursal
+      return (data || []).map(p => {
+        const priceRow = (p.product_prices || []).find(x => x.branch === activeBranch);
+        const price = priceRow ? Number(priceRow.price) : null;
+
+        const publicUrl = p.image_path
+          ? supabase.storage.from("product-images").getPublicUrl(p.image_path).data.publicUrl
+          : "";
+
+        return {
+          id: p.id,
+          name: p.name,
+          description: p.description || "",
+          category_id: p.categories?.id,
+          category_name: p.categories?.name || "OTROS",
+          price,
+          image_url: publicUrl
+        };
+      });
+    }
+
+    async function loadAll(){
+      try{
+        statusLine.textContent = "Cargando categorías y productos…";
+        categories = await fetchCategories();
+        products = await fetchProducts();
+
+        // default category
+        if (activeCategoryId !== "ALL" && !categories.some(c => c.id === activeCategoryId)){
+          activeCategoryId = "ALL";
+        }
+
+        statusLine.textContent = `Listo ✅ Sucursal: ${activeBranch}`;
+        renderCategories();
+        render();
+      }catch(e){
+        console.error(e);
+        statusLine.textContent = "Error cargando catálogo. Revisa consola (F12).";
+        alert("Error cargando catálogo. Abre F12 → Console para ver el detalle.");
+      }
+    }
+
+    // ======= UI =======
+    function renderCategories(){
+      catList.innerHTML = "";
+
+      const allBtn = document.createElement("div");
+      allBtn.className = "cat" + (activeCategoryId === "ALL" ? " active" : "");
+      allBtn.textContent = "TODOS";
+      allBtn.onclick = () => { activeCategoryId = "ALL"; renderCategories(); render(); };
+      catList.appendChild(allBtn);
+
+      categories.forEach(c => {
+        const btn = document.createElement("div");
+        btn.className = "cat" + (activeCategoryId === c.id ? " active" : "");
+        btn.textContent = c.name;
+        btn.onclick = () => { activeCategoryId = c.id; renderCategories(); render(); };
+        catList.appendChild(btn);
+      });
+
+      catCount.textContent = `${categories.length} categorías`;
+    }
+
+    function render(){
+      // filtrar
+      let filtered = products.filter(p => {
+        const byCat = (activeCategoryId === "ALL") || (p.category_id === activeCategoryId);
+        const bySearch = !search ||
+          p.name.toLowerCase().includes(search) ||
+          (p.category_name || "").toLowerCase().includes(search);
+        return byCat && bySearch;
+      });
+
+      mainTitle.textContent = (activeCategoryId === "ALL")
+        ? "Productos"
+        : (categories.find(c => c.id === activeCategoryId)?.name || "Productos");
+
+      prodCount.textContent = `${filtered.length} items`;
+
+      grid.innerHTML = "";
+      if (!filtered.length){
+        grid.innerHTML = `<div style="padding:14px;color:var(--muted);font-weight:800">
+          No hay productos para este filtro/búsqueda en esta sucursal.
+        </div>`;
+        return;
+      }
+
+      filtered.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const img = p.image_url
+          ? `<img src="${p.image_url}" alt="${p.name}" loading="lazy" />`
+          : `<div style="color:var(--muted);font-weight:900">SIN IMAGEN</div>`;
+
+        const priceTxt = (p.price === null) ? "No disponible" : `$ ${money(p.price)}`;
+
+        card.innerHTML = `
+          <div class="imgwrap">${img}</div>
+          <div class="name">${p.name}</div>
+          <div class="desc">${p.description || "Producto disponible en tienda. Pregunta por stock y delivery."}</div>
+
+          <div class="meta">
+            <div class="price">
+              ${priceTxt}
+              <small>Precio en ${activeBranch}</small>
+            </div>
+            <div class="note">
+              Delivery (app/taxi) no incluido.<br/>
+              Tarjeta puede tener recargo.
+            </div>
+          </div>
+
+          <div class="btnrow">
+            <button class="btn buy">Pedir</button>
+            <button class="btn ghost">Detalle</button>
+          </div>
+        `;
+
+        const [btnBuy, btnDetail] = card.querySelectorAll("button");
+        btnBuy.onclick = () => {
+          openWhatsapp(
+            `Hola, quiero hacer un pedido en *La Huequita Quiteña* (${activeBranch}):\n` +
+            `• Producto: ${p.name}\n` +
+            `• Precio: ${priceTxt}\n` +
+            `¿Me ayudas con disponibilidad y delivery?`
+          );
+        };
+        btnDetail.onclick = () => {
+          alert(
+            `Producto: ${p.name}\n` +
+            `Categoría: ${p.category_name}\n` +
+            `Sucursal: ${activeBranch}\n` +
+            `Precio: ${priceTxt}\n\n` +
+            `${p.description || ""}`
+          );
+        };
+
+        grid.appendChild(card);
+      });
+    }
+
+    // IMPORTANTE: por tu requerimiento, el modal aparece siempre
+    // así que NO llamamos loadAll() hasta que confirme.
   </script>
-  <script src="catalogo.js"></script>
 </body>
 </html>
+
 
 
